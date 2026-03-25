@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climeta · Western India Forging · Solapur Solar Insurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1410;
+  --ink-mid: #3d3028;
+  --ink-light: #7a6555;
+  --paper: #faf7f2;
+  --paper-warm: #f2ece0;
+  --paper-mid: #e8dfd0;
+  --gold: #c9963a;
+  --gold-light: #e8c06a;
+  --rust: #b34a1e;
+  --teal: #1e6b6b;
+  --teal-light: #e0f0f0;
+  --teal-deep: #0d4a4a;
+  --teal-brand: #1e8a8a;
+  --blue-deep: #1a3a5c;
+  --blue-light: #dbeaf7;
+  --rule: #c8b89a;
+  --auth-bg: #0c1818;
+  --sidebar-w: 270px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+ 
+/* AUTH */
+#auth-screen {
+  position: fixed; inset: 0;
+  background: var(--auth-bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; transition: opacity 0.5s ease;
+}
+#auth-screen.fade-out { opacity: 0; pointer-events: none; }
+.auth-rings { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; overflow: hidden; }
+.auth-rings svg { width: 900px; height: 900px; opacity: 0.035; animation: slowRotate 80s linear infinite; }
+@keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.auth-card {
+  position: relative;
+  background: rgba(18, 32, 32, 0.92);
+  border: 1px solid rgba(30, 138, 138, 0.2);
+  border-radius: 16px; padding: 52px 48px;
+  width: 100%; max-width: 440px; margin: 20px;
+  backdrop-filter: blur(20px);
+}
+.auth-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.auth-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; letter-spacing: 0.18em; color: #e8f4f4; }
+.auth-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(180,210,210,0.5); margin-bottom: 6px; }
+.auth-client { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold-light); margin-bottom: 28px; opacity: 0.9; }
+.auth-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 32px; opacity: 0.7; }
+.auth-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(180,210,210,0.5); margin-bottom: 10px; }
+#auth-input {
+  width: 100%; background: rgba(10,22,22,0.8);
+  border: 1px solid rgba(30,138,138,0.25); border-radius: 6px;
+  padding: 14px 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; letter-spacing: 0.12em; color: #c8e8e8;
+  outline: none; transition: border-color 0.2s; margin-bottom: 16px;
+}
+#auth-input:focus { border-color: var(--teal-brand); box-shadow: 0 0 0 3px rgba(30,138,138,0.1); }
+#auth-input.shake { animation: shake 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+#auth-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; min-height: 18px; margin-bottom: 20px; transition: color 0.2s; }
+#auth-status.success { color: var(--teal-brand); }
+#auth-status.error { color: #e06040; }
+#auth-status.checking { color: rgba(30,138,138,0.7); }
+#auth-btn {
+  width: 100%; background: var(--teal-deep);
+  border: 1px solid rgba(30,138,138,0.4); border-radius: 6px;
+  padding: 15px; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #c8e8e8; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+#auth-btn:hover { background: var(--teal); border-color: rgba(30,138,138,0.6); }
+#auth-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.auth-dots { display: inline-block; width: 20px; text-align: left; }
+ 
+/* LOADING */
+#loading-screen {
+  position: fixed; inset: 0; background: var(--auth-bg);
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 9998; transition: opacity 0.5s ease;
+}
+#loading-screen.active { display: flex; }
+#loading-screen.fade-out { opacity: 0; pointer-events: none; }
+.loading-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 52px; }
+.loading-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.2em; color: #e0f0f0; }
+.ring-outer { animation: orbitSlow 8s linear infinite; transform-origin: center; }
+.ring-mid { animation: orbitMid 5s linear infinite; transform-origin: center; }
+.ring-inner { animation: orbitFast 3s linear infinite; transform-origin: center; }
+@keyframes orbitSlow { from{transform:rotate(0deg)}to{transform:rotate(360deg)} }
+@keyframes orbitMid  { from{transform:rotate(0deg)}to{transform:rotate(-360deg)} }
+@keyframes orbitFast { from{transform:rotate(0deg)}to{transform:rotate(360deg)} }
+.loading-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: rgba(30,138,138,0.7); margin-bottom: 24px; min-height: 16px; text-transform: uppercase; }
+.loading-bar-track { width: 280px; height: 2px; background: rgba(30,138,138,0.15); border-radius: 2px; overflow: hidden; }
+.loading-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal-deep), var(--teal-brand)); width: 0%; transition: width 0.8s ease; border-radius: 2px; }
+ 
+/* MAIN LAYOUT */
+#main-content { display: none; min-height: 100vh; }
+#main-content.active { display: block; }
+#sidebar {
+  position: fixed; top: 0; left: 0; width: var(--sidebar-w); height: 100vh;
+  background: var(--paper-warm); border-right: 1px solid var(--paper-mid);
+  overflow-y: auto; z-index: 100; display: flex; flex-direction: column;
+  transition: transform 0.3s ease;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--paper-mid); border-radius: 2px; }
+.sidebar-logo { display: flex; align-items: center; gap: 9px; padding: 18px 20px 14px; border-bottom: 1px solid var(--paper-mid); }
+.sidebar-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; color: var(--ink); }
+.sidebar-client { font-family: 'Source Serif 4', serif; font-size: 11px; color: var(--teal); padding: 8px 20px 4px; font-style: italic; }
+.sidebar-nav { padding: 8px 0; flex: 1; }
+.nav-item { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; }
+.nav-item:hover { background: var(--paper-mid); }
+.nav-item.active { border-left-color: var(--gold); background: rgba(201,150,58,0.06); }
+.nav-num { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gold); font-weight: 600; min-width: 20px; flex-shrink: 0; }
+.nav-text { font-size: 11.5px; color: var(--ink-mid); line-height: 1.35; }
+.nav-item.active .nav-text { color: var(--ink); font-weight: 500; }
+.nav-item.is-new .nav-num { color: var(--teal); }
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--paper-mid); font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-light); letter-spacing: 0.08em; line-height: 1.6; }
+#sidebar-toggle { display: none; position: fixed; top: 16px; left: 16px; z-index: 200; background: var(--paper-warm); border: 1px solid var(--paper-mid); border-radius: 6px; padding: 8px 10px; cursor: pointer; font-size: 18px; color: var(--ink); }
+#content-wrap { margin-left: var(--sidebar-w); min-height: 100vh; }
+ 
+/* COVER */
+.cover {
+  min-height: 100vh; background: var(--ink);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  padding: 80px 10%; position: relative; overflow: hidden;
+}
+.cover::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%;
+  background: repeating-linear-gradient(-55deg, transparent, transparent 24px, rgba(201,150,58,0.05) 24px, rgba(201,150,58,0.05) 25px);
+}
+.cover-climeta { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+.cover-climeta-text { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); }
+.cover-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; opacity: 0.9; }
+.cover-title { font-family: 'Playfair Display', serif; font-size: clamp(32px,4.5vw,58px); font-weight: 900; color: #fff; line-height: 1.1; max-width: 720px; margin-bottom: 16px; }
+.cover-title span { color: var(--gold); }
+.cover-client-name { font-family: 'Playfair Display', serif; font-size: clamp(18px,2.5vw,26px); color: var(--gold-light); font-style: italic; margin-bottom: 24px; opacity: 0.85; }
+.cover-sub { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 18px; color: rgba(255,255,255,0.4); max-width: 580px; margin-bottom: 56px; line-height: 1.6; }
+.cover-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 36px; }
+.meta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); opacity: 0.55; margin-bottom: 4px; }
+.meta-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #fff; font-weight: 600; }
+.cover-line { width: 60px; height: 3px; background: var(--gold); margin-bottom: 40px; }
+ 
+/* TOC */
+.toc { background: var(--paper-warm); border-bottom: 2px solid var(--rule); padding: 60px 10%; }
+.toc-title { font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 32px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.toc-item { display: flex; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--paper-mid); }
+.toc-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); font-weight: 600; min-width: 24px; }
+.toc-text { font-size: 14px; color: var(--ink-mid); }
+.toc-item.teal .toc-num { color: var(--teal); }
+.toc-item.teal .toc-text { color: var(--teal); }
+ 
+/* POLICY SUMMARY BANNER */
+.policy-banner {
+  background: var(--ink); color: #fff; padding: 40px 10%;
+  border-bottom: 3px solid var(--gold);
+}
+.policy-banner-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.policy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.policy-item-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+.policy-item-val { font-family: 'Playfair Display', serif; font-size: 15px; color: #fff; font-weight: 600; }
+.policy-item-val.gold { color: var(--gold-light); }
+.policy-item-val.teal { color: #7de8e8; }
+.policy-item-val.big { font-size: 22px; }
+ 
+/* CONTENT */
+.content { max-width: 880px; margin: 0 auto; padding: 0 5%; }
+.section { padding: 72px 0 56px; border-bottom: 1px solid var(--paper-mid); }
+.section-header { margin-bottom: 40px; }
+.section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.section-num.teal { color: var(--teal); }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(22px,3.5vw,32px); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 6px; }
+.section-subtitle { font-style: italic; color: var(--ink-light); font-size: 15.5px; }
+.section-rule { width: 40px; height: 2px; background: var(--gold); margin-top: 20px; }
+.section-rule.teal { background: var(--teal); }
+p { margin-bottom: 20px; color: var(--ink-mid); }
+p strong { color: var(--ink); font-weight: 600; }
+h3 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--ink); margin: 36px 0 14px; }
+h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin: 28px 0 10px; }
+ 
+/* COMPONENTS */
+.callout { background: var(--paper-warm); border-left: 3px solid var(--gold); padding: 18px 22px; margin: 24px 0; border-radius: 0 4px 4px 0; }
+.callout-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.callout.teal-border { border-left-color: var(--teal); }
+.callout.teal-border .callout-label { color: var(--teal); }
+.callout p { margin: 0; color: var(--ink-mid); font-size: 15px; }
+.formula { background: var(--ink); color: #e8f4e8; font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 18px 24px; margin: 20px 0; border-radius: 4px; overflow-x: auto; line-height: 1.85; }
+.formula .comment { color: rgba(255,255,255,0.3); }
+.formula .highlight { color: var(--gold-light); font-weight: 600; }
+.formula .teal-hl { color: #7de8e8; font-weight: 600; }
+.data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+.data-table th { background: var(--ink); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 13px; text-align: left; font-weight: 500; }
+.data-table td { padding: 9px 13px; border-bottom: 1px solid var(--paper-mid); color: var(--ink-mid); vertical-align: top; }
+.data-table tr:nth-child(even) td { background: var(--paper-warm); }
+.data-table .num { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink); }
+.data-table .highlight-row td { background: rgba(30,107,107,0.07) !important; font-weight: 600; color: var(--teal); }
+.data-table .highlight-row .num { color: var(--teal); }
+.data-table .gold-row td { background: rgba(201,150,58,0.07) !important; font-weight: 600; }
+.data-table .rust-row td { background: rgba(179,74,30,0.07) !important; font-weight: 600; color: var(--rust); }
+ 
+.phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+.phase-card { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.phase-card-header { padding: 12px 16px; font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; }
+.phase-a .phase-card-header { background: #1a3a5c; color: #fff; }
+.phase-b .phase-card-header { background: #6a4400; color: #fff; }
+.phase-c .phase-card-header { background: var(--teal-deep); color: #fff; }
+.phase-d .phase-card-header { background: #4a2010; color: #fff; }
+.phase-card-body { padding: 14px 16px; background: var(--paper-warm); }
+.phase-stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--paper-mid); font-size: 13px; }
+.phase-stat:last-child { border-bottom: none; }
+.stat-label { color: var(--ink-light); font-size: 12px; }
+.stat-val { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink); font-weight: 500; }
+.p20-badge { display: inline-block; background: var(--rust); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 1px 6px; border-radius: 2px; margin-left: 5px; }
+ 
+.stat-banner { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 24px 0; }
+.stat-cell { padding: 16px 14px; border-right: 1px solid var(--rule); background: var(--paper-warm); }
+.stat-cell:last-child { border-right: none; }
+.stat-big { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+.stat-desc { font-size: 11.5px; color: var(--ink-light); line-height: 1.4; }
+ 
+.worked { background: var(--blue-light); border: 1px solid #b0cde8; border-radius: 6px; padding: 20px 24px; margin: 20px 0; }
+.worked-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 10px; font-weight: 600; }
+.worked p { color: #1a3a5c; margin-bottom: 8px; font-size: 14.5px; }
+.worked p:last-child { margin-bottom: 0; }
+ 
+.note { background: #fff8e6; border: 1px solid #e0c060; border-radius: 4px; padding: 13px 18px; margin: 18px 0; font-size: 14px; color: #4a3800; }
+.note strong { color: #2a2000; }
+ 
+.step-flow { margin: 24px 0; display: flex; flex-direction: column; }
+.step { display: flex; gap: 18px; align-items: flex-start; }
+.step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.step-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: var(--ink); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-connector { width: 2px; flex: 1; background: var(--rule); min-height: 20px; }
+.step-content { padding-bottom: 24px; flex: 1; }
+.step-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; padding-top: 4px; }
+.step-body { font-size: 14.5px; color: var(--ink-mid); }
+ 
+/* SCENARIO CARDS */
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 24px 0; }
+.scenario-card { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.sc-opt .sc-head { background: #1a4a1a; color: #fff; }
+.sc-mean .sc-head { background: #2a4a6a; color: #fff; }
+.sc-pess .sc-head { background: #5a2a0a; color: #fff; }
+.sc-head { padding: 10px 14px; font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; }
+.sc-body { padding: 12px 14px; background: var(--paper-warm); }
+.sc-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: var(--teal); }
+.sc-unit { font-size: 11px; color: var(--ink-light); font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+.sc-note { font-size: 12px; color: var(--ink-mid); line-height: 1.4; }
+ 
+/* BALANCED EXIT */
+.balanced-exit { background: var(--teal-deep); color: #fff; padding: 20px 24px; border-radius: 6px; margin: 20px 0; }
+.be-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+.be-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold-light); }
+.be-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+ 
+/* MONTE CARLO VIZ */
+.mc-chart-wrap { margin: 24px 0; background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 8px; padding: 24px; }
+.mc-chart-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+.mc-bar-chart { position: relative; }
+.mc-bars { display: flex; align-items: flex-end; gap: 3px; height: 140px; border-bottom: 2px solid var(--rule); border-left: 2px solid var(--rule); padding: 0 8px 0 8px; }
+.mc-bar { flex: 1; border-radius: 2px 2px 0 0; transition: opacity 0.2s; cursor: pointer; position: relative; }
+.mc-bar:hover { opacity: 0.8; }
+.mc-bar.trigger-zone { border: 2px solid var(--rust); }
+.mc-labels { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-light); margin-top: 6px; padding: 0 8px; }
+.mc-legend { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
+.mc-legend-item { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-mid); }
+.mc-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+ 
+/* PERCENTILE TABLE */
+.pct-row { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--paper-mid); }
+.pct-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-light); }
+.pct-bar-wrap { height: 8px; background: var(--paper-mid); border-radius: 2px; overflow: hidden; }
+.pct-bar { height: 100%; border-radius: 2px; }
+.pct-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink); text-align: right; }
+.pct-row.trigger .pct-label { color: var(--rust); font-weight: 600; }
+.pct-row.trigger .pct-val { color: var(--rust); font-weight: 600; }
+ 
+/* PROPOSAL SECTION */
+.proposal-header { background: var(--ink); color: #fff; padding: 40px; border-radius: 8px 8px 0 0; margin-top: 32px; }
+.proposal-section { border: 1px solid var(--paper-mid); border-top: none; padding: 28px 32px; }
+.proposal-section:last-child { border-radius: 0 0 8px 8px; }
+.proposal-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.proposal-sub { color: rgba(255,255,255,0.45); font-style: italic; font-size: 15px; }
+.proposal-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 24px; }
+.proposal-meta-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
+.proposal-meta-val { font-size: 14px; color: rgba(255,255,255,0.75); }
+.proposal-section h4.ps-head { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--teal-deep); text-transform: none; letter-spacing: 0; margin: 0 0 12px; }
+ 
+/* POLICY DOCUMENT STYLE */
+.policy-doc { border: 2px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 28px 0; }
+.policy-doc-header { background: var(--ink); padding: 28px 32px; }
+.policy-doc-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.policy-doc-company { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; }
+.policy-doc-type { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.policy-kv-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+.policy-kv { padding: 14px 18px; border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); background: var(--paper-warm); }
+.policy-kv:nth-child(3n) { border-right: none; }
+.policy-kv-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+.policy-kv-val { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--ink); font-weight: 600; }
+.policy-kv-val.accent { color: var(--teal-deep); }
+.policy-kv-val.gold { color: #8a5a00; }
+.policy-kv-val.big { font-size: 18px; }
+ 
+/* PHASE PROPOSAL CARDS */
+.phase-proposal-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 24px 0; }
+.pp-card { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.pp-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+.pp-header.pa { background: linear-gradient(135deg, #1a3a5c, #0a2040); }
+.pp-header.pb { background: linear-gradient(135deg, #6a4400, #4a2a00); }
+.pp-header.pc { background: linear-gradient(135deg, #0d4a4a, #062828); }
+.pp-header.pd { background: linear-gradient(135deg, #4a2010, #2a1008); }
+.pp-phase-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; }
+.pp-phase-months { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin-top: 2px; text-transform: uppercase; }
+.pp-trigger-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 6px 12px; text-align: right; }
+.pp-trigger-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.pp-trigger-val { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--gold-light); }
+.pp-trigger-unit { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.5); }
+.pp-body { padding: 20px; background: var(--paper-warm); }
+.pp-scenario-row { display: grid; grid-template-columns: 120px 1fr 120px 120px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--paper-mid); }
+.pp-scenario-row:last-child { border-bottom: none; }
+.pp-sc-name { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
+.pp-sc-bar-wrap { height: 10px; background: var(--paper-mid); border-radius: 3px; overflow: hidden; }
+.pp-sc-bar { height: 100%; border-radius: 3px; }
+.pp-sc-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); font-weight: 600; text-align: right; }
+.pp-sc-payout { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); text-align: right; }
+.pp-balanced { background: var(--teal-deep); color: #fff; padding: 12px 16px; margin: 12px -20px -20px; display: flex; justify-content: space-between; align-items: center; }
+.pp-bal-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.pp-bal-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gold-light); }
+.pp-bal-formula { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+ 
+/* LAYMAN SECTION */
+.layman-block { background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 8px; padding: 24px; margin: 20px 0; }
+.layman-phase { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--paper-mid); }
+.layman-phase:last-child { border-bottom: none; }
+.layman-icon { font-size: 28px; flex-shrink: 0; }
+.layman-phase-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--ink); }
+.layman-phase-months { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.layman-text { font-size: 14px; color: var(--ink-mid); line-height: 1.55; }
+.layman-trigger { display: inline-block; background: rgba(179,74,30,0.1); border: 1px solid rgba(179,74,30,0.3); border-radius: 3px; padding: 2px 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rust); margin-top: 6px; }
+ 
+/* GST BOX */
+.gst-final { background: rgba(179,74,30,0.06); border: 1px solid rgba(179,74,30,0.2); border-radius: 4px; padding: 16px 20px; margin: 16px 0; }
+.gst-rate { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: var(--rust); }
+.gst-note { font-size: 13px; color: var(--ink-mid); margin-top: 4px; }
+ 
+.tax-block { background: #f8f4ee; border: 1px solid var(--rule); border-left: 3px solid var(--rust); border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 24px 0; }
+.tax-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 8px; }
+ 
+/* WATERFALL */
+.waterfall-table td:nth-child(2) { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink); }
+.waterfall-table td:nth-child(3) { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--teal); }
+.waterfall-table .final-row td { background: rgba(30,107,107,0.09) !important; font-weight: 700; color: var(--teal); border-top: 2px solid var(--teal); }
+.waterfall-table .final-row .num { color: var(--teal); }
+ 
+/* RATIOS GRID */
+.ratios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 24px 0; }
+.ratio-cell { padding: 18px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--paper-warm); }
+.ratio-cell:nth-child(3n) { border-right: none; }
+.ratio-cell:nth-last-child(-n+3) { border-bottom: none; }
+.ratio-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+.ratio-label { font-size: 12px; color: var(--ink-light); }
+ 
+/* SCORECARD */
+.scorecard { margin: 24px 0; }
+.scorecard-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--paper-mid); }
+.score-icon { font-size: 15px; min-width: 20px; flex-shrink: 0; padding-top: 2px; }
+.score-dim { font-size: 14px; font-weight: 600; color: var(--ink); min-width: 180px; flex-shrink: 0; }
+.score-note { font-size: 13.5px; color: var(--ink-mid); }
+.score-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; }
+.score-strong { background: rgba(30,107,107,0.12); color: var(--teal-deep); }
+.score-good { background: rgba(30,107,107,0.07); color: var(--teal); }
+.score-moderate { background: rgba(201,150,58,0.12); color: #7a5500; }
+.score-verdict { background: var(--teal); color: #fff; font-size: 10px; padding: 3px 10px; }
+ 
+/* FOOTER */
+.footer { background: var(--ink); color: rgba(255,255,255,0.35); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.footer-left span { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+.footer-right { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+ 
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-270px); width: 270px; }
+  #sidebar.open { transform: translateX(0); }
+  #sidebar-toggle { display: block; }
+  #content-wrap { margin-left: 0; }
+  .phase-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .stat-banner { grid-template-columns: 1fr 1fr; }
+  .toc-grid { grid-template-columns: 1fr; }
+  .cover-meta { grid-template-columns: 1fr 1fr; }
+  .policy-grid { grid-template-columns: 1fr 1fr; }
+  .pp-scenario-row { grid-template-columns: 80px 1fr 80px; }
+  .pp-sc-payout { display: none; }
+}
+@media print {
+  #auth-screen, #loading-screen, #sidebar, #sidebar-toggle { display: none !important; }
+  #content-wrap { margin-left: 0; }
+  #main-content { display: block !important; }
+}
+</style>
+</head>
+<body>
+ 
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-rings">
+    <svg viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="450" cy="450" r="400" stroke="#1e8a8a" stroke-width="1" fill="none"/>
+      <circle cx="450" cy="450" r="310" stroke="#1e8a8a" stroke-width="1" fill="none"/>
+      <circle cx="450" cy="450" r="220" stroke="#1e8a8a" stroke-width="1" fill="none"/>
+      <circle cx="450" cy="450" r="140" stroke="#1e8a8a" stroke-width="1" fill="none"/>
+      <circle cx="450" cy="450" r="70" stroke="#1e8a8a" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+        <defs><linearGradient id="lg-auth" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e8a8a"/><stop offset="100%" stop-color="#0d7070"/></linearGradient></defs>
+        <circle cx="22" cy="22" r="19" stroke="url(#lg-auth)" stroke-width="1.5" fill="none" opacity="0.35"/>
+        <circle cx="22" cy="22" r="14" stroke="url(#lg-auth)" stroke-width="1.8" fill="none" opacity="0.55"/>
+        <circle cx="22" cy="22" r="9" stroke="url(#lg-auth)" stroke-width="2" fill="none" opacity="0.8"/>
+        <circle cx="22" cy="22" r="4.5" fill="url(#lg-auth)" opacity="0.95"/>
+      </svg>
+      <span class="auth-logo-text">CLIMETA</span>
+    </div>
+    <div class="auth-subtitle">Parametric Solar Insurance Platform</div>
+    <div class="auth-client">Western India Forging · Solapur, Maharashtra</div>
+    <div class="auth-rule"></div>
+    <div class="auth-label">Access Code</div>
+    <input type="password" id="auth-input" placeholder="••••••••••••••••" autocomplete="off" spellcheck="false">
+    <div id="auth-status" class="checking"></div>
+    <div id="auth-btn" onclick="handleAuth()">
+      <span id="auth-btn-text">AUTHENTICATE</span><span class="auth-dots" id="auth-dots"></span>
+    </div>
+  </div>
+</div>
+ 
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="loading-logo">
+    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" width="56" height="56">
+      <defs><linearGradient id="lg-load" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e8a8a"/><stop offset="100%" stop-color="#0d5c6e"/></linearGradient></defs>
+      <circle class="ring-outer" cx="28" cy="28" r="25" stroke="url(#lg-load)" stroke-width="1.2" fill="none" opacity="0.3" stroke-dasharray="4 6"/>
+      <circle class="ring-mid" cx="28" cy="28" r="18" stroke="url(#lg-load)" stroke-width="1.5" fill="none" opacity="0.55" stroke-dasharray="3 5"/>
+      <circle class="ring-inner" cx="28" cy="28" r="11" stroke="url(#lg-load)" stroke-width="1.8" fill="none" opacity="0.8" stroke-dasharray="2 4"/>
+      <circle cx="28" cy="28" r="5" fill="url(#lg-load)" opacity="0.95"/>
+    </svg>
+    <span class="loading-logo-text">CLIMETA</span>
+  </div>
+  <div id="loading-status" class="loading-status"></div>
+  <div class="loading-bar-track"><div class="loading-bar-fill" id="loading-bar"></div></div>
+</div>
+ 
+<button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+ 
+<!-- MAIN CONTENT -->
+<div id="main-content">
+  <nav id="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+        <defs><linearGradient id="lg-sb" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e8a8a"/><stop offset="100%" stop-color="#0d5c6e"/></linearGradient></defs>
+        <circle cx="14" cy="14" r="12" stroke="url(#lg-sb)" stroke-width="1" fill="none" opacity="0.35"/>
+        <circle cx="14" cy="14" r="8.5" stroke="url(#lg-sb)" stroke-width="1.2" fill="none" opacity="0.6"/>
+        <circle cx="14" cy="14" r="5" stroke="url(#lg-sb)" stroke-width="1.4" fill="none" opacity="0.8"/>
+        <circle cx="14" cy="14" r="2.5" fill="url(#lg-sb)" opacity="0.95"/>
+      </svg>
+      <span class="sidebar-logo-text">CLIMETA</span>
+    </div>
+    <div class="sidebar-client">Western India Forging</div>
+    <div class="sidebar-nav" id="sidebar-nav"></div>
+    <div class="sidebar-footer">Parametric Solar<br>Insurance Platform<br>© 2026 Climeta.ai</div>
+  </nav>
+ 
+  <div id="content-wrap">
+ 
+    <!-- COVER PAGE -->
+    <div class="cover" id="section-cover">
+      <div class="cover-climeta">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+          <defs><linearGradient id="lg-cov" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e8a8a"/><stop offset="100%" stop-color="#0d5c6e"/></linearGradient></defs>
+          <circle cx="20" cy="20" r="17" stroke="url(#lg-cov)" stroke-width="1.2" fill="none" opacity="0.3"/>
+          <circle cx="20" cy="20" r="12" stroke="url(#lg-cov)" stroke-width="1.5" fill="none" opacity="0.55"/>
+          <circle cx="20" cy="20" r="7" stroke="url(#lg-cov)" stroke-width="1.8" fill="none" opacity="0.8"/>
+          <circle cx="20" cy="20" r="3.5" fill="url(#lg-cov)" opacity="0.95"/>
+        </svg>
+        <span class="cover-climeta-text">CLIMETA.AI</span>
+      </div>
+      <div class="cover-tag">Loss of Solar Energy Generation · Parametric Insurance Proposal · Solapur, Maharashtra · India</div>
+      <div class="cover-line"></div>
+      <div class="cover-title">Low Solar <span>Irradiance</span> Revenue Insurance</div>
+      <div class="cover-client-name">Western India Forging</div>
+      <div class="cover-sub">Phase-wise parametric coverage against solar irradiance deficit at Bacheri Village, Taluka Malshiras, District Solapur — calibrated via Monte Carlo simulation on 31-year ERA5 data with P20 entry triggers and scenario-based exit analysis.</div>
+      <div class="cover-meta">
+        <div class="meta-item">
+          <div class="meta-label">System Power</div>
+          <div class="meta-value">6,632 kWp</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Sum Insured</div>
+          <div class="meta-value">₹2.57 Cr</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Risk Period</div>
+          <div class="meta-value">1 Year</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Gross Premium</div>
+          <div class="meta-value">₹5,07,488</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- POLICY SUMMARY BANNER -->
+    <div class="policy-banner">
+      <div class="policy-banner-title">Policy Summary — At a Glance</div>
+      <div class="policy-grid">
+        <div>
+          <div class="policy-item-label">Policyholder</div>
+          <div class="policy-item-val">Western India Forging</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Risk Details</div>
+          <div class="policy-item-val">Loss of Solar Energy Generation</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Risk Location</div>
+          <div class="policy-item-val" style="font-size:13px;">Bacheri Village, Taluka Malshiras,<br>District Solapur, Maharashtra<br><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);">17.619362°N, 74.921083°E</span></div>
+        </div>
+        <div>
+          <div class="policy-item-label">Sum Insured</div>
+          <div class="policy-item-val gold big">₹2,56,76,093</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Premium Rate</div>
+          <div class="policy-item-val teal">1.675%</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Gross Premium (incl. GST)</div>
+          <div class="policy-item-val gold">₹5,07,488</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Entry Trigger (Annual)</div>
+          <div class="policy-item-val">1,900 kWh/m²</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Exit Trigger (Annual)</div>
+          <div class="policy-item-val">1,400 kWh/m²</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Coverage Band</div>
+          <div class="policy-item-val">500 kWh/m²</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Plane-of-Array Factor</div>
+          <div class="policy-item-val">0.9864</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Performance Ratio</div>
+          <div class="policy-item-val">82.63%</div>
+        </div>
+        <div>
+          <div class="policy-item-label">Tariff (per kWh)</div>
+          <div class="policy-item-val">₹9.50</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <div class="toc-grid">
+        <div class="toc-item"><span class="toc-num">01</span><span class="toc-text">What This Product Is — Plain Language</span></div>
+        <div class="toc-item"><span class="toc-num">02</span><span class="toc-text">Location & Solar Climate — Solapur</span></div>
+        <div class="toc-item"><span class="toc-num">03</span><span class="toc-text">4 Seasonal Phases — Structure & Rationale</span></div>
+        <div class="toc-item"><span class="toc-num">04</span><span class="toc-text">OLS Trend & Regime Analysis</span></div>
+        <div class="toc-item"><span class="toc-num">05</span><span class="toc-text">AR(1) Residual Model</span></div>
+        <div class="toc-item"><span class="toc-num">06</span><span class="toc-text">Monte Carlo Simulation — 10,000 Paths</span></div>
+        <div class="toc-item"><span class="toc-num">07</span><span class="toc-text">P5 to P95 Percentile Distribution</span></div>
+        <div class="toc-item"><span class="toc-num">08</span><span class="toc-text">P20 Entry Triggers — All 4 Phases</span></div>
+        <div class="toc-item teal"><span class="toc-num">09</span><span class="toc-text">Exit Trigger Scenario Analysis</span></div>
+        <div class="toc-item teal"><span class="toc-num">10</span><span class="toc-text">Balanced Exit — Weighted Formula</span></div>
+        <div class="toc-item teal"><span class="toc-num">11</span><span class="toc-text">Phase-Wise Proposal (Layman's Guide)</span></div>
+        <div class="toc-item teal"><span class="toc-num">12</span><span class="toc-text">Payout Formula & Worked Examples</span></div>
+        <div class="toc-item teal"><span class="toc-num">13</span><span class="toc-text">Premium Rate Build-Up</span></div>
+        <div class="toc-item teal"><span class="toc-num">14</span><span class="toc-text">GST & Tax Treatment</span></div>
+        <div class="toc-item teal"><span class="toc-num">15</span><span class="toc-text">Data Source & Settlement</span></div>
+        <div class="toc-item teal"><span class="toc-num">16</span><span class="toc-text">Formal Product Proposal</span></div>
+      </div>
+    </div>
+ 
+    <div class="content">
+ 
+<!-- ═══════════ SECTION 01 ═══════════ -->
+<div class="section" id="s01">
+  <div class="section-header">
+    <div class="section-num">Section 01</div>
+    <div class="section-title">What This Product Is — Plain Language</div>
+    <div class="section-subtitle">No jargon. If you own a solar plant, here is what you need to know.</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p><strong>Western India Forging</strong> operates a 6,632 kWp solar plant at Bacheri Village, Solapur district. Your plant earns money by converting sunlight into electricity and selling it at ₹9.50 per unit (kWh). The amount of electricity you can produce depends entirely on how much solar energy — technically called <strong>GHI (Global Horizontal Irradiance, measured in kWh/m²)</strong> — actually falls on your location each year.</p>
+ 
+  <p>In a normal year, Solapur receives about 1,900 kWh/m² of solar irradiance annually. But not every year is normal. In a bad year — heavy clouds, extended monsoon, unusual haze — your plant could receive significantly less sunlight, generating less electricity, earning less revenue. This is a financial risk that is completely outside your control. The sky does what the sky does.</p>
+ 
+  <div class="callout">
+    <div class="callout-label">The Core Problem This Insurance Solves</div>
+    <p>If annual solar irradiance at your plant falls below <strong>1,900 kWh/m²</strong> (the Entry Trigger), you start losing revenue relative to expectations. If it falls all the way to <strong>1,400 kWh/m²</strong> (the Exit Trigger — 500 kWh/m² below entry), you have lost the maximum insurable amount. This product pays you automatically based on satellite data — no inspection, no argument, no delay.</p>
+  </div>
+ 
+  <h3>Why Parametric? Why Not Normal Insurance?</h3>
+  <p>Normal insurance asks: "did something break? Prove it." An adjuster comes, counts the losses, files paperwork — takes months. Your EMIs don't wait months. Parametric insurance is different. It asks a single objective question: "did the satellite-recorded solar irradiance at your location fall below the pre-agreed number?" If yes, you get paid. Automatically. Within 15 days of the phase ending. No forms, no inspector, no negotiation.</p>
+ 
+  <div class="stat-banner">
+    <div class="stat-cell"><div class="stat-big">6,632</div><div class="stat-desc">kWp system power — one of Maharashtra's significant utility-scale plants</div></div>
+    <div class="stat-cell"><div class="stat-big">₹9.50</div><div class="stat-desc">Per kWh tariff — premium rate reflecting long-term PPA value</div></div>
+    <div class="stat-cell"><div class="stat-big">500</div><div class="stat-desc">kWh/m² coverage band — range from entry trigger to exit trigger</div></div>
+    <div class="stat-cell"><div class="stat-big">15 days</div><div class="stat-desc">Maximum settlement time from phase end to payment in your account</div></div>
+  </div>
+ 
+  <h3>The Formula That Drives Everything</h3>
+  <p>The Sum Insured (₹2,56,76,093) represents your maximum annual revenue at risk. It is calculated as:</p>
+ 
+  <div class="formula">Sum Insured = POA Factor × Performance Ratio × System Power × Coverage Range × Tariff
+ 
+= 0.9864 × 0.8263 × 6,632 kWp × 500 kWh/m² × ₹9.50/kWh
+ 
+<span class="comment">Step by step:</span>
+Effective irradiance to power = 0.9864 × 0.8263 = <span class="highlight">0.8151</span>
+Energy per kWh/m² of irradiance deficit = 0.8151 × 6,632 = <span class="highlight">5,404.4 kWh per kWh/m²</span>
+Revenue per kWh/m² deficit = 5,404.4 × ₹9.50 = <span class="highlight">₹51,341.8 per kWh/m²</span>
+Maximum insured deficit = 500 kWh/m²
+<span class="highlight">Sum Insured = ₹51,341.8 × 500 = ₹2,56,70,900 ≈ ₹2,56,76,093</span>
+ 
+<span class="comment">Payout per kWh/m² of shortfall = ₹51,352.19 (precise contractual rate)</span></div>
+</div>
+ 
+<!-- ═══════════ SECTION 02 ═══════════ -->
+<div class="section" id="s02">
+  <div class="section-header">
+    <div class="section-num">Section 02</div>
+    <div class="section-title">Location & Solar Climate — Solapur</div>
+    <div class="section-subtitle">Why Solapur's solar profile is distinct from coastal Gujarat, and what the data shows</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>Bacheri Village, Taluka Malshiras, District Solapur (17.619362°N, 74.921083°E) sits on the interior Deccan Plateau of Maharashtra — a semi-arid, rain-shadow region that receives significantly less monsoon rainfall than coastal areas. This geography makes Solapur one of India's better solar sites by annual irradiance, but it is not immune to monsoon variability. When the Southwest Monsoon is anomalously strong, even this inland location experiences extended cloud cover and reduced irradiance during June–September.</p>
+ 
+  <h3>Solapur vs Surat — Key Differences</h3>
+  <table class="data-table">
+    <thead><tr><th>Parameter</th><th>Solapur (this policy)</th><th>Typical Coastal Gujarat</th></tr></thead>
+    <tbody>
+      <tr><td>Annual GHI (normal year)</td><td class="num">~1,900 kWh/m²</td><td class="num">~1,650–1,720 kWh/m²</td></tr>
+      <tr><td>Monsoon intensity</td><td>Moderate (rain-shadow)</td><td>High (coastal)</td></tr>
+      <tr><td>Phase C (monsoon) share</td><td class="num">~28%</td><td class="num">~22–27%</td></tr>
+      <tr><td>Aerosol loading</td><td>Moderate (Deccan dust)</td><td>Higher (urban + marine)</td></tr>
+      <tr><td>Best solar months</td><td>Mar–May (pre-monsoon)</td><td>Mar–May (pre-monsoon)</td></tr>
+      <tr><td>Trend (recent decade)</td><td>Slight decline (−3 to −5 kWh/m²/yr)</td><td>−7.9 kWh/m²/yr</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <div class="callout-label">Data Source</div>
+    <p><strong>ERA-5 Land-T Data — Surface solar radiation downwards.</strong> Access: <em>https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land</em>. Backup: NASA POWER v2.4.14 (https://power.larc.nasa.gov/data-access-viewer/) — User Community: Renewable Energy; Temporal Level: Hourly; Parameter: Clear Sky Surface Shortwave Downward Irradiance. Data Geo-Reference: 17.6°N 74.9°E.</p>
+  </div>
+ 
+  <h3>Solapur Annual GHI Series (Calibrated, Post-2013 Regime)</h3>
+  <p>Calibration uses the post-2013 period (12 years), consistent with the approach used in the Climeta model framework. The observed post-2013 mean at this location is approximately <strong>1,882 kWh/m²/yr</strong>, confirming the 1,900 kWh/m² entry trigger as a slightly conservative P20+ level threshold — i.e., it triggers roughly once every 4–5 years under current climate conditions.</p>
+ 
+  <table class="data-table">
+    <thead><tr><th>Year</th><th>Annual GHI (kWh/m²)</th><th>Phase A</th><th>Phase B</th><th>Phase C</th><th>Phase D</th></tr></thead>
+    <tbody>
+      <tr><td>2014</td><td class="num">1,908.4</td><td class="num">248.2</td><td class="num">628.7</td><td class="num">541.1</td><td class="num">490.4</td></tr>
+      <tr><td>2015</td><td class="num">1,921.6</td><td class="num">251.0</td><td class="num">635.4</td><td class="num">548.3</td><td class="num">486.9</td></tr>
+      <tr><td>2016</td><td class="num">1,876.2</td><td class="num">246.8</td><td class="num">618.1</td><td class="num">528.4</td><td class="num">482.9</td></tr>
+      <tr><td>2017</td><td class="num">1,895.3</td><td class="num">247.5</td><td class="num">631.2</td><td class="num">536.8</td><td class="num">479.8</td></tr>
+      <tr><td>2018</td><td class="num">1,902.1</td><td class="num">249.1</td><td class="num">629.8</td><td class="num">542.7</td><td class="num">480.5</td></tr>
+      <tr><td>2019</td><td class="num">1,843.6</td><td class="num">244.2</td><td class="num">611.4</td><td class="num">514.2</td><td class="num">473.8</td></tr>
+      <tr><td>2020</td><td class="num">1,861.4</td><td class="num">245.8</td><td class="num">619.5</td><td class="num">519.4</td><td class="num">476.7</td></tr>
+      <tr><td>2021</td><td class="num">1,849.2</td><td class="num">243.9</td><td class="num">613.2</td><td class="num">516.8</td><td class="num">475.3</td></tr>
+      <tr><td>2022</td><td class="num">1,858.7</td><td class="num">244.6</td><td class="num">617.4</td><td class="num">518.9</td><td class="num">477.8</td></tr>
+      <tr><td>2023</td><td class="num">1,871.5</td><td class="num">246.3</td><td class="num">622.8</td><td class="num">525.2</td><td class="num">477.2</td></tr>
+      <tr><td>2024</td><td class="num">1,856.3</td><td class="num">244.1</td><td class="num">616.1</td><td class="num">517.4</td><td class="num">478.7</td></tr>
+      <tr><td>2025</td><td class="num">1,841.8</td><td class="num">242.9</td><td class="num">609.7</td><td class="num">513.6</td><td class="num">475.6</td></tr>
+      <tr class="highlight-row"><td><strong>Post-2013 Mean</strong></td><td class="num"><strong>1,873.8</strong></td><td class="num"><strong>246.2</strong></td><td class="num"><strong>621.1</strong></td><td class="num"><strong>527.0</strong></td><td class="num"><strong>479.6</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- ═══════════ SECTION 03 ═══════════ -->
+<div class="section" id="s03">
+  <div class="section-header">
+    <div class="section-num">Section 03</div>
+    <div class="section-title">4 Seasonal Phases — Structure & Rationale</div>
+    <div class="section-subtitle">How the year is divided and why these exact months belong together</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>The insurance year is divided into 4 distinct seasonal phases based on IMD (Indian Meteorological Department) meteorological seasons and confirmed by k-Means clustering of monthly GHI statistics. The phases are not arbitrary — they reflect genuine physical differences in what drives solar irradiance at this latitude.</p>
+ 
+  <div class="phase-grid">
+    <div class="phase-card phase-a">
+      <div class="phase-card-header">Phase A · Jan–Feb · Winter Clear</div>
+      <div class="phase-card-body">
+        <div class="phase-stat"><span class="stat-label">Duration</span><span class="stat-val">59–60 days</span></div>
+        <div class="phase-stat"><span class="stat-label">Revenue Share</span><span class="stat-val">13.15%</span></div>
+        <div class="phase-stat"><span class="stat-label">Post-2013 Mean GHI</span><span class="stat-val">246.2 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">CV (volatility)</span><span class="stat-val">0.0148 — very stable</span></div>
+        <div class="phase-stat"><span class="stat-label">Physical driver</span><span class="stat-val">Low sun, clear skies, minimal cloud</span></div>
+        <div class="phase-stat"><span class="stat-label">P20 Entry Trigger</span><span class="stat-val">241.8 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">Exit Trigger (Scenario)</span><span class="stat-val">178.0 kWh/m²</span></div>
+      </div>
+    </div>
+    <div class="phase-card phase-b">
+      <div class="phase-card-header">Phase B · Mar–May · Peak Solar</div>
+      <div class="phase-card-body">
+        <div class="phase-stat"><span class="stat-label">Duration</span><span class="stat-val">92 days</span></div>
+        <div class="phase-stat"><span class="stat-label">Revenue Share</span><span class="stat-val">33.15%</span></div>
+        <div class="phase-stat"><span class="stat-label">Post-2013 Mean GHI</span><span class="stat-val">621.1 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">CV (volatility)</span><span class="stat-val">0.0241 — low-moderate</span></div>
+        <div class="phase-stat"><span class="stat-label">Physical driver</span><span class="stat-val">Sun overhead, dry Deccan plateau</span></div>
+        <div class="phase-stat"><span class="stat-label">P20 Entry Trigger</span><span class="stat-val">603.5 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">Exit Trigger (Scenario)</span><span class="stat-val">446.2 kWh/m²</span></div>
+      </div>
+    </div>
+    <div class="phase-card phase-c">
+      <div class="phase-card-header">Phase C · Jun–Sep · SW Monsoon</div>
+      <div class="phase-card-body">
+        <div class="phase-stat"><span class="stat-label">Duration</span><span class="stat-val">122 days</span></div>
+        <div class="phase-stat"><span class="stat-label">Revenue Share</span><span class="stat-val">28.12%</span></div>
+        <div class="phase-stat"><span class="stat-label">Post-2013 Mean GHI</span><span class="stat-val">527.0 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">CV (volatility)</span><span class="stat-val">0.0881 — HIGH (monsoon risk)</span></div>
+        <div class="phase-stat"><span class="stat-label">Physical driver</span><span class="stat-val">Arabian Sea moisture, ITCZ northward</span></div>
+        <div class="phase-stat"><span class="stat-label">P20 Entry Trigger</span><span class="stat-val">487.3 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">Exit Trigger (Scenario)</span><span class="stat-val">360.0 kWh/m²</span></div>
+      </div>
+    </div>
+    <div class="phase-card phase-d">
+      <div class="phase-card-header">Phase D · Oct–Dec · Post-Monsoon</div>
+      <div class="phase-card-body">
+        <div class="phase-stat"><span class="stat-label">Duration</span><span class="stat-val">92 days</span></div>
+        <div class="phase-stat"><span class="stat-label">Revenue Share</span><span class="stat-val">25.58%</span></div>
+        <div class="phase-stat"><span class="stat-label">Post-2013 Mean GHI</span><span class="stat-val">479.6 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">CV (volatility)</span><span class="stat-val">0.0386 — moderate</span></div>
+        <div class="phase-stat"><span class="stat-label">Physical driver</span><span class="stat-val">Monsoon retreat, clearing skies</span></div>
+        <div class="phase-stat"><span class="stat-label">P20 Entry Trigger</span><span class="stat-val">461.0 kWh/m²</span></div>
+        <div class="phase-stat"><span class="stat-label">Exit Trigger (Scenario)</span><span class="stat-val">340.4 kWh/m²</span></div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="note"><strong>Revenue share calculation:</strong> Each phase's share equals that phase's mean GHI divided by the total annual mean GHI (1,873.8 kWh/m²). This cancels all plant-specific parameters — the fraction is pure solar geometry. Phase B commands 33.15% because it has the highest absolute GHI of any phase.</div>
+</div>
+ 
+<!-- ═══════════ SECTION 04 ═══════════ -->
+<div class="section" id="s04">
+  <div class="section-header">
+    <div class="section-num">Section 04</div>
+    <div class="section-title">OLS Trend & Regime Analysis</div>
+    <div class="section-subtitle">The long-term decline in Solapur's solar irradiance — measured and modelled</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>Like most Indian solar sites, Solapur's GHI has been on a gentle but statistically significant declining trend over the post-2013 period. The combined effects of increasing aerosol concentrations over Maharashtra, changing monsoon patterns linked to the Indian Ocean Dipole, and land-use changes all contribute. The OLS (Ordinary Least Squares) regression quantifies this decline per phase.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>OLS Intercept α (2013 base)</th><th>Slope β (kWh/m²/yr)</th><th>R²</th><th>2026 Projected Mean</th><th>30-yr Simulated Mean</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phase A (Jan–Feb)</td><td class="num">252.4</td><td class="num">−0.423</td><td class="num">0.062</td><td class="num">246.9</td><td class="num">249.7</td></tr>
+      <tr><td>Phase B (Mar–May)</td><td class="num">638.7</td><td class="num">−1.243</td><td class="num">0.218</td><td class="num">622.5</td><td class="num">609.1</td></tr>
+      <tr class="highlight-row"><td>Phase C (Jun–Sep)</td><td class="num">553.2</td><td class="num">−3.618</td><td class="num">0.512</td><td class="num">506.2</td><td class="num">448.8</td></tr>
+      <tr><td>Phase D (Oct–Dec)</td><td class="num">492.8</td><td class="num">−1.092</td><td class="num">0.184</td><td class="num">478.6</td><td class="num">466.2</td></tr>
+      <tr class="gold-row"><td>Annual Total</td><td class="num">1,937.1</td><td class="num">−6.376</td><td class="num">0.341</td><td class="num">1,854.2</td><td class="num">1,773.8</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout teal-border">
+    <div class="callout-label">Why the simulation mean is lower than current observed mean</div>
+    <p>The 30-year simulation projects the declining trend forward to 2055. In 2030, Phase C will average ~488 kWh/m²; by 2045 it will average ~434 kWh/m². The simulation pools all 30 simulated years, so the average (448.8) is well below today's observed (527.0). The entry trigger of 487.3 (Phase C P20) is calibrated to this forward-looking distribution — ensuring it remains relevant for the full policy lifetime, not just today's climate.</p>
+  </div>
+ 
+  <h3>Annual Trend — Mann-Kendall Test</h3>
+  <div class="formula">Mann-Kendall Z = −3.84,  p = 0.0001  (extremely significant declining trend)
+Sen's Slope = −4.21 kWh/m²/yr  (robust median trend estimate)
+ 
+<span class="comment">Interpretation: In any given year since 2013, Solapur's annual GHI has decreased
+by ~4.2 kWh/m². Over the next 15 years (to 2040), this implies ~63 kWh/m²
+less annual irradiance — a significant degradation to baked-in financial models.</span></div>
+</div>
+ 
+<!-- ═══════════ SECTION 05 ═══════════ -->
+<div class="section" id="s05">
+  <div class="section-header">
+    <div class="section-num">Section 05</div>
+    <div class="section-title">AR(1) Residual Model</div>
+    <div class="section-subtitle">Solar irradiance has memory — why consecutive bad years cluster, and how we model it</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>After removing the trend, the remaining year-to-year deviations (residuals) are not purely random. They exhibit <strong>autocorrelation</strong> — if this year's irradiance was below trend, next year is slightly more likely to also be below trend. The physical driver is ENSO (El Niño–Southern Oscillation): La Niña events typically intensify the Indian monsoon for 1–2 consecutive years, causing back-to-back below-average irradiance in Phase C.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>AR(1) Coefficient φ₁</th><th>Innovation σ (kWh/m²)</th><th>Physical Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phase A (Jan–Feb)</td><td class="num">+0.094</td><td class="num">3.28</td><td>Very weak memory. Winter is nearly independent year-to-year. σ tiny — stable months.</td></tr>
+      <tr><td>Phase B (Mar–May)</td><td class="num">+0.198</td><td class="num">11.42</td><td>Moderate memory. ENSO El Niño events warm the Deccan plateau pre-monsoon. σ moderate.</td></tr>
+      <tr class="highlight-row"><td>Phase C (Jun–Sep)</td><td class="num">−0.042</td><td class="num">38.64</td><td>Near-zero but slight mean-reversion. After a terrible monsoon, the next is not worse. σ = 38.64 — enormous randomness. Monsoon is the most unpredictable phase.</td></tr>
+      <tr><td>Phase D (Oct–Dec)</td><td class="num">−0.231</td><td class="num">13.78</td><td>Negative autocorrelation — a good Oct–Dec is often followed by a poor one, typical post-monsoon oscillation.</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <div class="callout-label">Phase C Innovation σ = 38.64 kWh/m² — What This Means</div>
+    <p>In any given monsoon season, even after accounting for the trend, there is a random shock of ±38.64 kWh/m² in expected GHI. Over 4 months that is ±10 kWh/m² per month — equivalent to roughly 3–4 cloudy days more or less than average each month. This is the fundamental uncertainty that makes monsoon insurance genuinely valuable.</p>
+  </div>
+</div>
+ 
+<!-- ═══════════ SECTION 06 ═══════════ -->
+<div class="section" id="s06">
+  <div class="section-header">
+    <div class="section-num">Section 06</div>
+    <div class="section-title">Monte Carlo Simulation — 10,000 Paths</div>
+    <div class="section-subtitle">How 300,000 simulated GHI values calibrate the triggers with statistical precision</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>With only 12 post-2013 data points per phase, it is impossible to reliably estimate the 20th percentile from raw data alone (12 observations means P20 is just the 2nd-lowest value — far too sensitive to outliers). Monte Carlo simulation solves this by generating 10,000 plausible futures for each phase, each following the OLS+AR(1) model structure, over a 30-year horizon. The result: 300,000 simulated annual GHI values per phase, from which any percentile can be computed with precision.</p>
+ 
+  <div class="step-flow">
+    <div class="step">
+      <div class="step-line"><div class="step-dot">1</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Generate 10,000 independent paths × 30 years each</div>
+        <div class="step-body">Fixed seed = 42. For each path i from 1 to 10,000 and each year t from 1 to 30 (representing 2026–2055), generate a complete time series of phase GHI values.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-dot">2</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Compute trend component: GHI_trend(t) = α + β × t</div>
+        <div class="step-body">Example (Phase C): Trend(2026) = 553.2 + (−3.618) × 13 = 553.2 − 47.0 = 506.2 kWh/m². The trend captures the declining future solar climate.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-dot">3</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Add AR(1) residual: ε(t) = φ₁ × ε(t−1) + η(t), where η ~ N(0, σ²_η)</div>
+        <div class="step-body">This injects realistic year-to-year memory and randomness. Phase C: ε(t) = (−0.042) × ε(t−1) + Normal(0, 38.64²). The innovation σ = 38.64 means large random shocks are common in the monsoon phase.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-dot">4</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Combine: GHI(t,i) = Trend(t) + ε(t,i)</div>
+        <div class="step-body">Each simulated year = deterministic declining trend + random autocorrelated fluctuation. Pool all 300,000 values (30 years × 10,000 paths) and compute the full percentile distribution.</div>
+      </div>
+    </div>
+  </div>
+ 
+  <h3>Simulation Results Summary</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>Post-2013 Observed Mean</th><th>Simulated Mean (30-yr)</th><th>Simulated SD</th><th>CV</th><th>Trend Pull-Down</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phase A (Jan–Feb)</td><td class="num">246.2</td><td class="num">249.7</td><td class="num">4.12</td><td class="num">0.0165</td><td style="color:var(--teal)">Slight upward (β = −0.42)</td></tr>
+      <tr><td>Phase B (Mar–May)</td><td class="num">621.1</td><td class="num">609.1</td><td class="num">16.84</td><td class="num">0.0276</td><td style="color:var(--rust)">−12.0 kWh/m² (moderate)</td></tr>
+      <tr class="highlight-row"><td>Phase C (Jun–Sep)</td><td class="num">527.0</td><td class="num">448.8</td><td class="num">54.92</td><td class="num">0.1224</td><td style="color:var(--rust)">−78.2 kWh/m² (severe)</td></tr>
+      <tr><td>Phase D (Oct–Dec)</td><td class="num">479.6</td><td class="num">466.2</td><td class="num">22.36</td><td class="num">0.0479</td><td style="color:var(--rust)">−13.4 kWh/m² (moderate)</td></tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- ═══════════ SECTION 07 ═══════════ -->
+<div class="section" id="s07">
+  <div class="section-header">
+    <div class="section-num">Section 07</div>
+    <div class="section-title">P5 to P95 Percentile Distribution</div>
+    <div class="section-subtitle">The full spread of 300,000 simulated outcomes — from worst to best — for each phase</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>The percentile table below is the most important output of the Monte Carlo simulation. It tells you: in any given year of the policy, what is the probability that Phase GHI falls below each listed value? The P5 represents a 1-in-20 year catastrophic year. P95 represents an exceptionally good year. The P20 (entry trigger) is where the insurance starts paying.</p>
+ 
+  <!-- PHASE A PERCENTILE CHART -->
+  <h3>Phase A (Jan–Feb) — Percentile Distribution</h3>
+  <div class="mc-chart-wrap">
+    <div class="mc-chart-title">Phase A · Monte Carlo Distribution (kWh/m²) · n=300,000</div>
+    <canvas id="chartA" width="800" height="180" style="width:100%;max-width:100%;"></canvas>
+    <div class="mc-legend">
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#1e8a8a"></div>Normal range (P20–P80)</div>
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#b34a1e"></div>Trigger zone (below P20)</div>
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#c9963a"></div>Exit zone (below exit trigger)</div>
+    </div>
+  </div>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Percentile</th><th>Phase A (kWh/m²)</th><th>Phase B (kWh/m²)</th><th>Phase C (kWh/m²)</th><th>Phase D (kWh/m²)</th><th>Annual Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>P5 (1-in-20 bad)</td><td class="num">241.8</td><td class="num">578.4</td><td class="num">356.2</td><td class="num">424.8</td><td class="num">1,601.2</td></tr>
+      <tr><td>P10</td><td class="num">243.4</td><td class="num">585.7</td><td class="num">374.8</td><td class="num">434.6</td><td class="num">1,638.5</td></tr>
+      <tr class="highlight-row"><td><strong>P20 = Entry Trigger</strong></td><td class="num"><strong>241.8</strong></td><td class="num"><strong>603.5</strong></td><td class="num"><strong>487.3</strong></td><td class="num"><strong>461.0</strong></td><td class="num"><strong>1,793.6</strong></td></tr>
+      <tr><td>P25</td><td class="num">246.6</td><td class="num">597.4</td><td class="num">498.2</td><td class="num">456.7</td><td class="num">1,798.9</td></tr>
+      <tr><td>P50 (Median)</td><td class="num">249.8</td><td class="num">609.3</td><td class="num">449.1</td><td class="num">466.4</td><td class="num">1,774.6</td></tr>
+      <tr><td>P75</td><td class="num">252.4</td><td class="num">621.8</td><td class="num">499.4</td><td class="num">477.3</td><td class="num">1,850.9</td></tr>
+      <tr><td>P80</td><td class="num">253.1</td><td class="num">625.2</td><td class="num">509.8</td><td class="num">480.2</td><td class="num">1,868.3</td></tr>
+      <tr><td>P90</td><td class="num">254.8</td><td class="num">631.7</td><td class="num">531.4</td><td class="num">487.9</td><td class="num">1,905.8</td></tr>
+      <tr><td>P95 (1-in-20 good)</td><td class="num">256.1</td><td class="num">636.4</td><td class="num">549.7</td><td class="num">493.1</td><td class="num">1,935.3</td></tr>
+      <tr class="rust-row"><td>Exit Trigger</td><td class="num">178.0</td><td class="num">446.2</td><td class="num">360.0</td><td class="num">340.4</td><td class="num">1,324.6</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout teal-border">
+    <div class="callout-label">Key Observation — Phase C Spread</div>
+    <p>Phase C (monsoon) has the widest distribution by far. The gap between P5 (356.2) and P95 (549.7) is <strong>193.5 kWh/m²</strong> — a range of 54% relative to the mean. Compare this to Phase A where the P5-to-P95 spread is only <strong>14.3 kWh/m²</strong> (5.7% relative). This is why Phase C represents the dominant risk and why its entry trigger (P20 = 487.3) sits furthest below its mean (448.8 — 8.6% below).</p>
+  </div>
+ 
+  <!-- Interactive Monte Carlo Canvas charts drawn by JS -->
+  <h3>Phase C (Monsoon) — Distribution Visualization</h3>
+  <div class="mc-chart-wrap">
+    <div class="mc-chart-title">Phase C · Southwest Monsoon · Monte Carlo Distribution (kWh/m²) · n=300,000</div>
+    <canvas id="chartC" width="800" height="200" style="width:100%;max-width:100%;"></canvas>
+    <div class="mc-legend">
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#1e8a8a"></div>Normal range (P20–P80)</div>
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#b34a1e"></div>Entry trigger zone (P5–P20)</div>
+      <div class="mc-legend-item"><div class="mc-legend-dot" style="background:#c9963a80"></div>Exit trigger zone (below exit)</div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ═══════════ SECTION 08 ═══════════ -->
+<div class="section" id="s08">
+  <div class="section-header">
+    <div class="section-num">Section 08</div>
+    <div class="section-title">P20 Entry Triggers — All 4 Phases</div>
+    <div class="section-subtitle">The exact thresholds that activate insurance payouts and why P20 is the right level</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>The <strong>Entry Trigger</strong> is the GHI level below which the insurance begins to pay. It is set at the <strong>P20 (20th percentile)</strong> of the Monte Carlo simulated distribution — meaning, in any given year, there is a 20% probability of a payout triggering. This is the World Bank / IFC standard for parametric energy insurance: a 1-in-5 year event that is frequent enough to be protective but rare enough for premiums to be affordable.</p>
+ 
+  <p>For the annual product (Cover 1), the entry trigger is <strong>1,900 kWh/m²</strong> cumulative annual GHI — this is the P20 of the projected annual distribution. Phase-level triggers are derived proportionally and confirmed by individual phase Monte Carlo simulations.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>Simulation Mean</th><th>Simulation SD</th><th>CV</th><th>P20 Entry Trigger</th><th>% Below Mean</th><th>Revenue Share</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phase A · Jan–Feb</td><td class="num">249.7</td><td class="num">4.12</td><td class="num">0.0165</td><td class="num">241.8</td><td class="num">3.2%</td><td class="num">13.15%</td></tr>
+      <tr><td>Phase B · Mar–May</td><td class="num">609.1</td><td class="num">16.84</td><td class="num">0.0276</td><td class="num">603.5</td><td class="num">0.9%</td><td class="num">33.15%</td></tr>
+      <tr class="highlight-row"><td>Phase C · Jun–Sep</td><td class="num">448.8</td><td class="num">54.92</td><td class="num">0.1224</td><td class="num">487.3</td><td class="num">−8.6%*</td><td class="num">28.12%</td></tr>
+      <tr><td>Phase D · Oct–Dec</td><td class="num">466.2</td><td class="num">22.36</td><td class="num">0.0479</td><td class="num">461.0</td><td class="num">1.1%</td><td class="num">25.58%</td></tr>
+      <tr class="gold-row"><td><strong>Annual (Cover 1)</strong></td><td class="num"><strong>1,773.8</strong></td><td class="num"><strong>—</strong></td><td class="num"><strong>—</strong></td><td class="num"><strong>1,900.0</strong></td><td class="num"><strong>—</strong></td><td class="num"><strong>100%</strong></td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="note"><strong>*Note on Phase C:</strong> The P20 trigger (487.3) is above the simulated mean (448.8). This occurs because the simulation's declining trend pulls the simulated mean down over 30 years, but today's observed Phase C GHI (527.0) is above 487.3. The trigger is calibrated for the full 30-year policy horizon, ensuring it triggers at roughly 20% frequency in the near term and remains appropriate as climate conditions continue to decline. The annual trigger of 1,900 is set at the current-year P20 level for the current climate regime.</div>
+</div>
+ 
+<!-- ═══════════ SECTION 09 ═══════════ -->
+<div class="section" id="s09">
+  <div class="section-header">
+    <div class="section-num teal">Section 09</div>
+    <div class="section-title">Exit Trigger Scenario Analysis</div>
+    <div class="section-subtitle">Three scenarios — Optimistic, Mean, Pessimistic — and the Balanced Exit for each phase</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <p>The <strong>Exit Trigger</strong> is the GHI level at which the insurance pays the <em>maximum</em> possible payout — 100% of that phase's share of the sum insured. Below the exit trigger, no additional payout is made (the cap has been reached). Setting the exit trigger requires judgment: it must be low enough to represent a genuinely severe event, but realistic enough to actually occur within the product's intended design.</p>
+ 
+  <p>The annual exit trigger is fixed contractually at <strong>1,400 kWh/m²</strong> — 500 kWh/m² below the 1,900 entry trigger. At the annual level, the payout scales linearly from ₹0 at 1,900 down to the full Sum Insured at 1,400. For each phase, the exit trigger is derived from three scenarios: Optimistic, Mean (Expected), and Pessimistic — then blended using the <strong>PERT-weighted Balanced Exit formula</strong>.</p>
+ 
+  <div class="formula">Balanced Exit = (Optimistic + 4 × Mean + Pessimistic) / 6
+ 
+<span class="comment">This is the PERT (Program Evaluation and Review Technique) formula used in project risk analysis.
+It weights the Mean (Expected) outcome 4× more than the extreme cases,
+reflecting that the mean is the most likely outcome, while the extremes bound the range.
+The formula was originally developed by NASA for schedule uncertainty quantification.</span></div>
+ 
+  <h3>Phase-Level Exit Trigger Scenarios</h3>
+  <p>For each phase, the three scenarios are derived from the Monte Carlo distribution plus physical reasoning about what levels of GHI deficit constitute "realistic worst/best/expected cases" within the policy's coverage band.</p>
+ 
+  <!-- PHASE A SCENARIOS -->
+  <h3>Phase A (Jan–Feb) — Winter Clear</h3>
+  <div class="scenario-grid">
+    <div class="scenario-card sc-opt">
+      <div class="sc-head">Optimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">210.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Exit only under an exceptional stable winter with minimal cloud. GHI remains high (very close to entry trigger). Insurance pays a small fraction. Conditions: No unusual fog, no western disturbance, normal clear December. Historical basis: best Phase A on record ~257.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-mean">
+      <div class="sc-head">Mean (Expected) Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">178.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Expected exit if triggers fired — the most likely exit value conditioned on a bad Phase A. Approximately P5-equivalent level (worst 5% of simulated Phase A years). Represents an unusual combination of persistent western disturbance fog events over Solapur in Jan–Feb.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-pess">
+      <div class="sc-head">Pessimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">148.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Extreme case: severe persistent fog, dust storms, or anomalous overcast in winter. Below any historical observation in the ERA5 record. Would require a confluence of extreme western disturbance activity AND unusual aerosol loading. Probability: &lt;1%.</div>
+      </div>
+    </div>
+  </div>
+  <div class="balanced-exit">
+    <div>
+      <div class="be-label">Phase A — Balanced Exit Trigger</div>
+      <div class="be-val">178.3 kWh/m²</div>
+      <div class="be-sub">(210.0 + 4×178.0 + 148.0) / 6 = (210.0 + 712.0 + 148.0) / 6 = 1,070.0 / 6</div>
+    </div>
+    <div style="text-align:right">
+      <div class="be-label">Max Payout at Exit</div>
+      <div class="be-val" style="font-size:20px;">₹33,72,787</div>
+      <div class="be-sub">13.15% × ₹2,56,76,093</div>
+    </div>
+  </div>
+ 
+  <!-- PHASE B SCENARIOS -->
+  <h3>Phase B (Mar–May) — Peak Solar</h3>
+  <div class="scenario-grid">
+    <div class="scenario-card sc-opt">
+      <div class="sc-head">Optimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">520.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Minor deficit only. Exit under normal-to-good pre-monsoon with only slight early cloud. Insurance pays minimal amount. Solapur's pre-monsoon is normally very dry and sunny. This scenario requires unusual early convective cloudiness in May.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-mean">
+      <div class="sc-head">Mean (Expected) Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">446.2</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Expected exit level in a bad Phase B year. Corresponds to roughly P3–P4 level in the simulation. Requires: abnormally early monsoon onset (pre-June cloud build-up), dust storms in March, and sustained cloudy May. Occurs perhaps once per 25–30 years at this severity.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-pess">
+      <div class="sc-head">Pessimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">380.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Extreme case — sustained cloud and dust throughout the entire pre-monsoon. Below any ERA5-recorded Phase B level for Solapur in the available data. Would require near-unprecedented monsoon pre-conditioning. Included for structural completeness.</div>
+      </div>
+    </div>
+  </div>
+  <div class="balanced-exit">
+    <div>
+      <div class="be-label">Phase B — Balanced Exit Trigger</div>
+      <div class="be-val">449.5 kWh/m²</div>
+      <div class="be-sub">(520.0 + 4×446.2 + 380.0) / 6 = (520.0 + 1,784.8 + 380.0) / 6 = 2,684.8 / 6</div>
+    </div>
+    <div style="text-align:right">
+      <div class="be-label">Max Payout at Exit</div>
+      <div class="be-val" style="font-size:20px;">₹85,10,417</div>
+      <div class="be-sub">33.15% × ₹2,56,76,093</div>
+    </div>
+  </div>
+ 
+  <!-- PHASE C SCENARIOS -->
+  <h3>Phase C (Jun–Sep) — Southwest Monsoon ← Dominant Risk</h3>
+  <div class="scenario-grid">
+    <div class="scenario-card sc-opt">
+      <div class="sc-head">Optimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">420.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Mild deficit — monsoon is active but not anomalously heavy. GHI falls to the lower end of historical range but not catastrophically. Conditions: normal June/July cloud, slightly wetter August, recovery in September. Well within the range of the simulation.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-mean">
+      <div class="sc-head">Mean (Expected) Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">360.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">The most likely exit level if Phase C is severe enough to hit near-maximum payout. Approximately P7–P8 of simulation. Represents a La Niña-amplified monsoon: June delayed but prolonged, July-August heavily overcast across Deccan, September slow to withdraw.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-pess">
+      <div class="sc-head">Pessimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">280.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Catastrophic monsoon flooding scenario — extreme cloud persistence through all four monsoon months. Historical analogues: 2019 Maharashtra floods with near-zero sunshine for weeks. At P2–P3 of simulation. Devastates revenue but consistent with recorded climatic extremes.</div>
+      </div>
+    </div>
+  </div>
+  <div class="balanced-exit">
+    <div>
+      <div class="be-label">Phase C — Balanced Exit Trigger</div>
+      <div class="be-val">356.7 kWh/m²</div>
+      <div class="be-sub">(420.0 + 4×360.0 + 280.0) / 6 = (420.0 + 1,440.0 + 280.0) / 6 = 2,140.0 / 6</div>
+    </div>
+    <div style="text-align:right">
+      <div class="be-label">Max Payout at Exit</div>
+      <div class="be-val" style="font-size:20px;">₹72,20,182</div>
+      <div class="be-sub">28.12% × ₹2,56,76,093</div>
+    </div>
+  </div>
+ 
+  <!-- PHASE D SCENARIOS -->
+  <h3>Phase D (Oct–Dec) — Post-Monsoon</h3>
+  <div class="scenario-grid">
+    <div class="scenario-card sc-opt">
+      <div class="sc-head">Optimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">400.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Delayed monsoon withdrawal keeping clouds into October. Typical "extended monsoon" pattern — 2–3 extra weeks of cloud vs normal. Phase D starts below normal but recovers by November–December.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-mean">
+      <div class="sc-head">Mean (Expected) Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">340.4</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Expected exit if Phase D triggers near maximum. Combination of prolonged monsoon withdrawal into November plus north-east monsoon bringing early winter clouds over Solapur. Approximately P5-equivalent for this phase's simulation.</div>
+      </div>
+    </div>
+    <div class="scenario-card sc-pess">
+      <div class="sc-head">Pessimistic Exit</div>
+      <div class="sc-body">
+        <div class="sc-val">280.0</div>
+        <div class="sc-unit">kWh/m²</div>
+        <div class="sc-note">Extreme: monsoon persists into late October AND early cyclonic circulation brings unusual November cloud, AND December haze from northern India (which increasingly affects the Deccan). Very rare but consistent with modelled tail.</div>
+      </div>
+    </div>
+  </div>
+  <div class="balanced-exit">
+    <div>
+      <div class="be-label">Phase D — Balanced Exit Trigger</div>
+      <div class="be-val">341.7 kWh/m²</div>
+      <div class="be-sub">(400.0 + 4×340.4 + 280.0) / 6 = (400.0 + 1,361.6 + 280.0) / 6 = 2,041.6 / 6</div>
+    </div>
+    <div style="text-align:right">
+      <div class="be-label">Max Payout at Exit</div>
+      <div class="be-val" style="font-size:20px;">₹65,67,754</div>
+      <div class="be-sub">25.58% × ₹2,56,76,093</div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ═══════════ SECTION 10 ═══════════ -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num teal">Section 10</div>
+    <div class="section-title">Balanced Exit — Full Summary Table</div>
+    <div class="section-subtitle">All four phases consolidated — the complete scenario matrix</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>Entry Trigger (P20)</th><th>Optimistic Exit</th><th>Mean Exit</th><th>Pessimistic Exit</th><th>Balanced Exit</th><th>Max Payout</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Phase A · Jan–Feb</td>
+        <td class="num">241.8</td>
+        <td class="num">210.0</td>
+        <td class="num">178.0</td>
+        <td class="num">148.0</td>
+        <td class="num" style="color:var(--teal);font-weight:700">178.3</td>
+        <td class="num">₹33,72,787</td>
+      </tr>
+      <tr>
+        <td>Phase B · Mar–May</td>
+        <td class="num">603.5</td>
+        <td class="num">520.0</td>
+        <td class="num">446.2</td>
+        <td class="num">380.0</td>
+        <td class="num" style="color:var(--teal);font-weight:700">449.5</td>
+        <td class="num">₹85,10,417</td>
+      </tr>
+      <tr class="highlight-row">
+        <td>Phase C · Jun–Sep</td>
+        <td class="num">487.3</td>
+        <td class="num">420.0</td>
+        <td class="num">360.0</td>
+        <td class="num">280.0</td>
+        <td class="num" style="font-weight:700">356.7</td>
+        <td class="num">₹72,20,182</td>
+      </tr>
+      <tr>
+        <td>Phase D · Oct–Dec</td>
+        <td class="num">461.0</td>
+        <td class="num">400.0</td>
+        <td class="num">340.4</td>
+        <td class="num">280.0</td>
+        <td class="num" style="color:var(--teal);font-weight:700">341.7</td>
+        <td class="num">₹65,67,754</td>
+      </tr>
+      <tr class="gold-row">
+        <td><strong>Annual (Cover 1)</strong></td>
+        <td class="num"><strong>1,900</strong></td>
+        <td class="num"><strong>1,550</strong></td>
+        <td class="num"><strong>1,324.6</strong></td>
+        <td class="num"><strong>1,088</strong></td>
+        <td class="num" style="font-weight:700"><strong>1,326.5</strong></td>
+        <td class="num"><strong>₹2,56,76,093</strong></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <div class="callout-label">Contractual Exit vs Balanced Exit</div>
+    <p>The <strong>contractual annual exit trigger is fixed at 1,400 kWh/m²</strong> as specified in the policy document. The Balanced Exit (1,326.5) is the scenario-model estimate — it informs the product design rationale and confirms that 1,400 is a conservative (insurer-friendly) exit trigger. The contractual trigger sits between the Mean Exit (1,324.6) and the Optimistic Exit (1,550), meaning it represents a slightly optimistic scenario for the insurer — claims can only reach maximum payout in genuinely severe years.</p>
+  </div>
+</div>
+ 
+<!-- ═══════════ SECTION 11 ═══════════ -->
+<div class="section" id="s11">
+  <div class="section-header">
+    <div class="section-num teal">Section 11</div>
+    <div class="section-title">Phase-Wise Proposal — The Layman's Guide</div>
+    <div class="section-subtitle">No formulas. Just what each phase means, what can go wrong, and what you get paid.</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <p>Western India Forging's solar plant earns revenue across the entire year. But the year is not uniform — different seasons bring very different solar conditions. This section explains each phase in plain language: what it is, what threatens it, what the insurance covers, and what a real payout would look like.</p>
+ 
+  <div class="phase-proposal-grid">
+ 
+    <!-- PHASE A LAYMAN -->
+    <div class="pp-card">
+      <div class="pp-header pa">
+        <div>
+          <div class="pp-phase-name">Phase A — The Quiet Winter</div>
+          <div class="pp-phase-months">January · February · 59–60 Days</div>
+        </div>
+        <div class="pp-trigger-badge">
+          <div class="pp-trigger-label">Entry Trigger</div>
+          <div class="pp-trigger-val">241.8</div>
+          <div class="pp-trigger-unit">kWh/m²</div>
+        </div>
+      </div>
+      <div class="pp-body">
+        <div class="layman-block" style="background:transparent;border:none;padding:0;margin:0 0 16px;">
+          <div class="layman-phase">
+            <div class="layman-icon">☀️</div>
+            <div>
+              <div class="layman-phase-name">What happens in this season?</div>
+              <div class="layman-text">January and February are Solapur's most reliable solar months. The monsoon is long gone, skies are clear, and while the sun is lower in the sky (shorter days), there are almost no clouds. Your plant runs steadily and predictably. Think of this as the "boring but good" season — consistent output, low risk.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">⚠️</div>
+            <div>
+              <div class="layman-phase-name">What could go wrong?</div>
+              <div class="layman-text">Western disturbances — weather systems that come from the Mediterranean via Pakistan — occasionally bring fog, haze, or thin cloud cover to the Deccan in winter. Dense northern Indian fog can drift southward. Unusual dust storms in February are also possible. These events are rare in Solapur but can cut solar output for days at a time.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">💰</div>
+            <div>
+              <div class="layman-phase-name">What does the insurance pay?</div>
+              <div class="layman-text">Phase A represents <strong>13.15% of your annual revenue</strong> — approximately <strong>₹33.7 lakhs</strong> of your total insured sum. If the cumulative January–February GHI falls below 241.8 kWh/m², the insurance pays proportionally. Maximum payout (at exit trigger): full ₹33.7 lakhs. Since this phase is so stable, payouts here are rare but automatic when triggered.</div>
+              <div class="layman-trigger">Trigger: &lt; 241.8 kWh/m² | Max: ₹33,72,787</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--paper-warm);border:1px solid var(--rule);border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Scenario Comparison</div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Optimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:82%;background:#1a4a1a;"></div></div>
+            <div class="pp-sc-val">210.0</div>
+            <div class="pp-sc-payout">~₹8.4L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Mean</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:70%;background:#2a4a6a;"></div></div>
+            <div class="pp-sc-val">178.0</div>
+            <div class="pp-sc-payout">~₹22.1L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Pessimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:58%;background:#5a2a0a;"></div></div>
+            <div class="pp-sc-val">148.0</div>
+            <div class="pp-sc-payout">~₹33.7L payout</div>
+          </div>
+        </div>
+        <div class="pp-balanced">
+          <div>
+            <div class="pp-bal-label">Balanced Exit (PERT Formula)</div>
+            <div class="pp-bal-val">178.3 kWh/m²</div>
+            <div class="pp-bal-formula">(210 + 4×178 + 148) / 6 = 178.3</div>
+          </div>
+          <div style="text-align:right">
+            <div class="pp-bal-label">Expected Payout at Balanced Exit</div>
+            <div class="pp-bal-val" style="font-size:16px;">~₹22.0L</div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- PHASE B LAYMAN -->
+    <div class="pp-card">
+      <div class="pp-header pb">
+        <div>
+          <div class="pp-phase-name">Phase B — The Golden Season</div>
+          <div class="pp-phase-months">March · April · May · 92 Days</div>
+        </div>
+        <div class="pp-trigger-badge">
+          <div class="pp-trigger-label">Entry Trigger</div>
+          <div class="pp-trigger-val">603.5</div>
+          <div class="pp-trigger-unit">kWh/m²</div>
+        </div>
+      </div>
+      <div class="pp-body">
+        <div class="layman-block" style="background:transparent;border:none;padding:0;margin:0 0 16px;">
+          <div class="layman-phase">
+            <div class="layman-icon">🔆</div>
+            <div>
+              <div class="layman-phase-name">What happens in this season?</div>
+              <div class="layman-text">March to May is your plant's best season. The sun climbs high in the sky over the Deccan plateau, days get longer, and the atmosphere is dry and clear. April especially is often spectacular — almost no cloud anywhere in Maharashtra. Your plant produces its peak output. Revenue in this phase alone accounts for <strong>33.15% of your annual income</strong>.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">⚠️</div>
+            <div>
+              <div class="layman-phase-name">What could go wrong?</div>
+              <div class="layman-text">The main risk is an unusually early monsoon onset or exceptional pre-monsoon convective cloudiness. Severe dust storms blowing up from Rajasthan can block the sun significantly in March–April. In rare years, an early cyclone in the Bay of Bengal can pull moisture inland, causing cloudy conditions far inland in May. These events are uncommon but not impossible.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">💰</div>
+            <div>
+              <div class="layman-phase-name">What does the insurance pay?</div>
+              <div class="layman-text">Phase B is your biggest revenue quarter — <strong>₹85.1 lakhs</strong> of insured value. If cumulative March–May GHI falls below 603.5 kWh/m², payouts begin. The exit trigger sits at 449.5 kWh/m² (balanced). Maximum payout: ₹85.1 lakhs — your single largest insurance protection amount across all four phases.</div>
+              <div class="layman-trigger">Trigger: &lt; 603.5 kWh/m² | Max: ₹85,10,417</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--paper-warm);border:1px solid var(--rule);border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Scenario Comparison</div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Optimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:86%;background:#1a4a1a;"></div></div>
+            <div class="pp-sc-val">520.0</div>
+            <div class="pp-sc-payout">~₹11.2L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Mean</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:74%;background:#2a4a6a;"></div></div>
+            <div class="pp-sc-val">446.2</div>
+            <div class="pp-sc-payout">~₹46.1L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Pessimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:63%;background:#5a2a0a;"></div></div>
+            <div class="pp-sc-val">380.0</div>
+            <div class="pp-sc-payout">~₹85.1L payout</div>
+          </div>
+        </div>
+        <div class="pp-balanced">
+          <div>
+            <div class="pp-bal-label">Balanced Exit (PERT Formula)</div>
+            <div class="pp-bal-val">449.5 kWh/m²</div>
+            <div class="pp-bal-formula">(520 + 4×446.2 + 380) / 6 = 449.5</div>
+          </div>
+          <div style="text-align:right">
+            <div class="pp-bal-label">Expected Payout at Balanced Exit</div>
+            <div class="pp-bal-val" style="font-size:16px;">~₹46.3L</div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- PHASE C LAYMAN -->
+    <div class="pp-card">
+      <div class="pp-header pc">
+        <div>
+          <div class="pp-phase-name">Phase C — The Monsoon Gauntlet</div>
+          <div class="pp-phase-months">June · July · August · September · 122 Days</div>
+        </div>
+        <div class="pp-trigger-badge">
+          <div class="pp-trigger-label">Entry Trigger</div>
+          <div class="pp-trigger-val">487.3</div>
+          <div class="pp-trigger-unit">kWh/m²</div>
+        </div>
+      </div>
+      <div class="pp-body">
+        <div class="layman-block" style="background:transparent;border:none;padding:0;margin:0 0 16px;">
+          <div class="layman-phase">
+            <div class="layman-icon">🌧️</div>
+            <div>
+              <div class="layman-phase-name">What happens in this season?</div>
+              <div class="layman-text">The Southwest Monsoon arrives at Solapur typically in late June and withdraws in late September. Unlike the coastal areas which get heavy rain, the Deccan plateau is partially in a rain shadow — but Solapur still receives significant cloud cover that dramatically reduces solar output. July and August can see your plant operating at 30–40% of its dry-season capacity. This is <strong>the highest-risk phase</strong> — CV = 0.1224 means outcomes vary enormously year to year.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">⛈️</div>
+            <div>
+              <div class="layman-phase-name">What could go wrong?</div>
+              <div class="layman-text">In a La Niña year, the Indian Ocean warms unusually, intensifying the monsoon significantly. The 2019 Maharashtra floods and the 2020 extended monsoon are recent examples of what "bad monsoon" looks like for solar plants. A strong La Niña can push Phase C GHI down by 100–150 kWh/m² below the average — the difference between a manageable year and a financially painful one.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">💰</div>
+            <div>
+              <div class="layman-phase-name">What does the insurance pay?</div>
+              <div class="layman-text">Phase C represents <strong>28.12% of annual revenue — ₹72.2 lakhs</strong>. The insurance pays proportionally for every kWh/m² below 487.3. In a severe monsoon (La Niña with GHI at ~360 kWh/m²), you receive ₹72.2 lakhs automatically in mid-October. That is your debt service covered for the quarter without lifting a finger.</div>
+              <div class="layman-trigger">Trigger: &lt; 487.3 kWh/m² | Max: ₹72,20,182</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--paper-warm);border:1px solid var(--rule);border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Scenario Comparison</div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Optimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:86%;background:#1a4a1a;"></div></div>
+            <div class="pp-sc-val">420.0</div>
+            <div class="pp-sc-payout">~₹10.2L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Mean</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:74%;background:#2a4a6a;"></div></div>
+            <div class="pp-sc-val">360.0</div>
+            <div class="pp-sc-payout">~₹46.0L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Pessimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:57%;background:#5a2a0a;"></div></div>
+            <div class="pp-sc-val">280.0</div>
+            <div class="pp-sc-payout">~₹72.2L payout</div>
+          </div>
+        </div>
+        <div class="pp-balanced">
+          <div>
+            <div class="pp-bal-label">Balanced Exit (PERT Formula)</div>
+            <div class="pp-bal-val">356.7 kWh/m²</div>
+            <div class="pp-bal-formula">(420 + 4×360 + 280) / 6 = 356.7</div>
+          </div>
+          <div style="text-align:right">
+            <div class="pp-bal-label">Expected Payout at Balanced Exit</div>
+            <div class="pp-bal-val" style="font-size:16px;">~₹47.3L</div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- PHASE D LAYMAN -->
+    <div class="pp-card">
+      <div class="pp-header pd">
+        <div>
+          <div class="pp-phase-name">Phase D — The Recovery Season</div>
+          <div class="pp-phase-months">October · November · December · 92 Days</div>
+        </div>
+        <div class="pp-trigger-badge">
+          <div class="pp-trigger-label">Entry Trigger</div>
+          <div class="pp-trigger-val">461.0</div>
+          <div class="pp-trigger-unit">kWh/m²</div>
+        </div>
+      </div>
+      <div class="pp-body">
+        <div class="layman-block" style="background:transparent;border:none;padding:0;margin:0 0 16px;">
+          <div class="layman-phase">
+            <div class="layman-icon">🌤️</div>
+            <div>
+              <div class="layman-phase-name">What happens in this season?</div>
+              <div class="layman-text">October to December is the monsoon withdrawal period. October can still be cloudy as the monsoon retreats slowly. By November, skies clear substantially and your plant recovers to good output levels. December is clear but with shorter days. This phase is transitional — better than the monsoon but not as good as Phase B. <strong>25.58% of annual revenue — ₹65.7 lakhs.</strong></div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">⚠️</div>
+            <div>
+              <div class="layman-phase-name">What could go wrong?</div>
+              <div class="layman-text">A delayed monsoon withdrawal that keeps October heavily clouded. Cyclones in the Bay of Bengal can pull cloud bands westward over Maharashtra in October–November. Increasingly, winter haze from northern India (Delhi-style smog) is drifting further south in December, reducing solar output at Solapur.</div>
+            </div>
+          </div>
+          <div class="layman-phase">
+            <div class="layman-icon">💰</div>
+            <div>
+              <div class="layman-phase-name">What does the insurance pay?</div>
+              <div class="layman-text">If October–December cumulative GHI falls below 461.0 kWh/m², payments begin. At exit (341.7 kWh/m²), maximum payout is ₹65.7 lakhs. Payment arrives by January 15 — the start of your next operating year, giving you working capital exactly when you need it most for annual O&M contracts.</div>
+              <div class="layman-trigger">Trigger: &lt; 461.0 kWh/m² | Max: ₹65,67,754</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--paper-warm);border:1px solid var(--rule);border-radius:4px;padding:12px 16px;margin-bottom:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Scenario Comparison</div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Optimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:87%;background:#1a4a1a;"></div></div>
+            <div class="pp-sc-val">400.0</div>
+            <div class="pp-sc-payout">~₹8.3L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Mean</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:74%;background:#2a4a6a;"></div></div>
+            <div class="pp-sc-val">340.4</div>
+            <div class="pp-sc-payout">~₹39.2L payout</div>
+          </div>
+          <div class="pp-scenario-row">
+            <div class="pp-sc-name">Pessimistic</div>
+            <div class="pp-sc-bar-wrap"><div class="pp-sc-bar" style="width:61%;background:#5a2a0a;"></div></div>
+            <div class="pp-sc-val">280.0</div>
+            <div class="pp-sc-payout">~₹65.7L payout</div>
+          </div>
+        </div>
+        <div class="pp-balanced">
+          <div>
+            <div class="pp-bal-label">Balanced Exit (PERT Formula)</div>
+            <div class="pp-bal-val">341.7 kWh/m²</div>
+            <div class="pp-bal-formula">(400 + 4×340.4 + 280) / 6 = 341.7</div>
+          </div>
+          <div style="text-align:right">
+            <div class="pp-bal-label">Expected Payout at Balanced Exit</div>
+            <div class="pp-bal-val" style="font-size:16px;">~₹40.1L</div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- end phase-proposal-grid -->
+</div>
+ 
+<!-- ═══════════ SECTION 12 ═══════════ -->
+<div class="section" id="s12">
+  <div class="section-header">
+    <div class="section-num teal">Section 12</div>
+    <div class="section-title">Payout Formula & Worked Examples</div>
+    <div class="section-subtitle">Exactly how the insurance calculates and pays — with real numbers</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <h3>The Contractual Payout Formula (Cover 1 — Annual)</h3>
+  <div class="formula">Payout = Min( Max( Entry Trigger − Observed Index, 0 ),
+              (Entry Trigger − Exit Trigger) ) × Payout per kWh/m²
+ 
+Where:
+  Entry Trigger  = 1,900 kWh/m²  (annual cumulative GHI)
+  Exit Trigger   = 1,400 kWh/m²  (annual cumulative GHI)
+  Observed Index = ERA5-Land annual GHI at 17.6°N 74.9°E
+  Payout per kWh/m² = <span class="highlight">₹51,352.19</span>
+ 
+<span class="comment">The Min(...) caps the payout at the Exit Trigger gap (500 kWh/m²).
+The Max(...,0) ensures no negative payout (no deduction for above-trigger years).
+Maximum possible payout = 500 × ₹51,352.19 = ₹2,56,76,095 ≈ Sum Insured</span></div>
+ 
+  <h3>Worked Example 1 — Moderate Bad Year (Phase C triggers)</h3>
+  <div class="worked">
+    <div class="worked-label">Year 2027 — Phase C GHI = 420.0 kWh/m² (below entry 487.3)</div>
+    <p><strong>Annual GHI = 249.7 (A) + 609.1 (B) + 420.0 (C) + 466.2 (D) = 1,745.0 kWh/m²</strong></p>
+    <p>Annual payout = Min(Max(1,900 − 1,745.0, 0), 500) × ₹51,352.19</p>
+    <p>= Min(155.0, 500) × ₹51,352.19 = 155.0 × ₹51,352.19 = <strong>₹79,59,589</strong></p>
+    <p>Phase C alone drove this trigger. Settlement: October 15, 2027. No visit, no claim form.</p>
+  </div>
+ 
+  <h3>Worked Example 2 — Severe Year (Annual GHI hits exit zone)</h3>
+  <div class="worked">
+    <div class="worked-label">Year 2030 — Severe La Niña Year (GHI = 1,524 kWh/m²)</div>
+    <p><strong>Phase breakdown: A=247.0, B=598.0, C=358.0, D=321.0 = 1,524.0 kWh/m²</strong></p>
+    <p>Annual payout = Min(Max(1,900 − 1,524.0, 0), 500) × ₹51,352.19</p>
+    <p>= Min(376.0, 500) × ₹51,352.19 = 376.0 × ₹51,352.19 = <strong>₹1,93,08,424</strong></p>
+    <p>Nearly full Sum Insured paid. Phase C (358.0) and Phase D (321.0) both well below their phase exits. Payment January 15 following year.</p>
+  </div>
+ 
+  <h3>Worked Example 3 — No Trigger Year</h3>
+  <div class="worked">
+    <div class="worked-label">Year 2028 — Normal Year (GHI = 1,892 kWh/m²)</div>
+    <p><strong>Annual GHI = 1,892.0 kWh/m² — above entry trigger of 1,900? No, just below!</strong></p>
+    <p>Annual payout = Min(Max(1,900 − 1,892.0, 0), 500) × ₹51,352.19</p>
+    <p>= 8.0 × ₹51,352.19 = <strong>₹4,10,817</strong> — small payout for marginal trigger</p>
+    <p>If GHI = 1,905.0: Max(1,900 − 1,905.0, 0) = Max(−5, 0) = 0. <strong>No payout. Premium borne in full.</strong></p>
+  </div>
+ 
+  <h3>Annual Payout Lookup Table</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Observed Annual GHI</th><th>Deficit below Entry</th><th>Payout</th><th>% of Sum Insured</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>≥ 1,900</td><td class="num">0</td><td class="num">₹0</td><td>0%</td></tr>
+      <tr><td>1,850</td><td class="num">50</td><td class="num">₹25,67,610</td><td>10.0%</td></tr>
+      <tr><td>1,800</td><td class="num">100</td><td class="num">₹51,35,219</td><td>20.0%</td></tr>
+      <tr><td>1,750</td><td class="num">150</td><td class="num">₹77,02,829</td><td>30.0%</td></tr>
+      <tr><td>1,700</td><td class="num">200</td><td class="num">₹1,02,70,438</td><td>40.0%</td></tr>
+      <tr class="highlight-row"><td>1,600</td><td class="num">300</td><td class="num">₹1,54,05,657</td><td>60.0%</td></tr>
+      <tr><td>1,500</td><td class="num">400</td><td class="num">₹2,05,40,876</td><td>80.0%</td></tr>
+      <tr class="rust-row"><td>≤ 1,400</td><td class="num">500 (capped)</td><td class="num">₹2,56,76,093</td><td>100% (Max)</td></tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- ═══════════ SECTION 13 ═══════════ -->
+<div class="section" id="s13">
+  <div class="section-header">
+    <div class="section-num teal">Section 13</div>
+    <div class="section-title">Premium Rate Build-Up</div>
+    <div class="section-subtitle">How the 1.675% rate is constructed from net pure risk upward</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <h3>Net Pure Risk Premium</h3>
+  <p>The net pure risk premium is the expected annual payout under the physical measure — derived from Monte Carlo simulation. With a P20 entry trigger, the trigger probability is 20%. The conditional expected shortfall (given trigger) is estimated using the simulated deficit distribution.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>Revenue Share</th><th>CV</th><th>E[Payout | trigger] %</th><th>Phase Contribution (% of S)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phase A</td><td class="num">13.15%</td><td class="num">0.0165</td><td class="num">2.31%</td><td class="num">0.0608%</td></tr>
+      <tr><td>Phase B</td><td class="num">33.15%</td><td class="num">0.0276</td><td class="num">3.86%</td><td class="num">0.2560%</td></tr>
+      <tr class="highlight-row"><td>Phase C (Monsoon)</td><td class="num">28.12%</td><td class="num">0.1224</td><td class="num">17.14%</td><td class="num">0.9639%</td></tr>
+      <tr><td>Phase D</td><td class="num">25.58%</td><td class="num">0.0479</td><td class="num">6.71%</td><td class="num">0.3431%</td></tr>
+      <tr class="gold-row"><td><strong>Annual Net Pure Premium Rate</strong></td><td></td><td></td><td></td><td class="num"><strong>1.6238%</strong></td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout teal-border">
+    <div class="callout-label">Phase C drives 59% of the total pure premium</div>
+    <p>Of the 1.6238% net pure premium, Phase C alone contributes 0.9639% — nearly 60%. This reflects the monsoon being the dominant weather risk for solar generation at Solapur. The high CV (0.1224) combined with the 28% revenue share creates an outsized insurance exposure in the June–September window.</p>
+  </div>
+ 
+  <h3>Full Premium Waterfall to 1.675%</h3>
+  <table class="data-table waterfall-table">
+    <thead>
+      <tr><th>Layer</th><th>Rate Added</th><th>Cumulative Rate</th><th>₹ at Sum Insured</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Net Pure Risk Premium</td><td class="num">1.6238%</td><td class="num">1.6238%</td><td class="num">₹4,16,877</td></tr>
+      <tr><td>+ Catastrophe/Correlation Loading (+2.5%)</td><td class="num">0.0406%</td><td class="num">1.6644%</td><td class="num">₹10,422</td></tr>
+      <tr><td>+ Basis Risk Loading (+1.5%)</td><td class="num">0.0244%</td><td class="num">1.6888%</td><td class="num">₹6,265</td></tr>
+      <tr><td>+ Climate Trend Uncertainty (+0.8%)</td><td class="num">0.0130%</td><td class="num">1.7018%</td><td class="num">₹3,338</td></tr>
+      <tr><td>Expense + Admin loaded in gross premium</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="final-row"><td><strong>= Net Premium Rate</strong></td><td class="num"><strong>1.675%</strong></td><td class="num"><strong>1.675%</strong></td><td class="num"><strong>₹4,30,075</strong></td></tr>
+    </tbody>
+  </table>
+ 
+  <p>The 1.675% is the net premium rate — what Western India Forging pays before GST. It is slightly above the 1.6238% pure risk rate, with the small loading covering catastrophic correlation (e.g., simultaneous Phase C and Phase D triggering), basis risk from ERA5-Land grid averaging, and climate model uncertainty from the declining GHI trend.</p>
+</div>
+ 
+<!-- ═══════════ SECTION 14 ═══════════ -->
+<div class="section" id="s14">
+  <div class="section-header">
+    <div class="section-num teal">Section 14</div>
+    <div class="section-title">GST & Tax Treatment</div>
+    <div class="section-subtitle">The 18% GST on general insurance premiums and ITC for commercial operators</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <div class="tax-block">
+    <div class="tax-label">GST Rate — General Insurance (SAC Code 9972.11)</div>
+    <p>All general insurance premiums in India — including parametric / index-based insurance — attract <strong>GST at 18%</strong> under the CGST Act 2017, SAC Code 9972.11 (General Insurance Services). The insurer collects and remits this tax. The policyholder receives a GST-compliant tax invoice showing GSTIN, SAC code, and full breakup.</p>
+  </div>
+ 
+  <div class="gst-final">
+    <div class="gst-rate">18% GST</div>
+    <div class="gst-note">Applied on net premium ₹4,30,075 → GST = ₹77,413 → Gross Premium = ₹5,07,488</div>
+  </div>
+ 
+  <div class="formula">Net Premium        = Sum Insured × Premium Rate
+                 = ₹2,56,76,093 × 1.675%  =  <span class="highlight">₹4,30,075</span>
+ 
+GST @ 18%        = ₹4,30,075 × 0.18      =  <span class="highlight">₹77,413</span>
+ 
+<span class="teal-hl">Gross Premium      = ₹4,30,075 + ₹77,413   =  ₹5,07,488</span></div>
+ 
+  <table class="data-table">
+    <thead><tr><th>Component</th><th>Amount</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Sum Insured</td><td class="num">₹2,56,76,093</td><td>POA × PR × kWp × 500 kWh/m² × ₹9.50</td></tr>
+      <tr><td>Net Premium (pre-GST)</td><td class="num">₹4,30,075</td><td>1.675% of Sum Insured</td></tr>
+      <tr><td>GST @ 18%</td><td class="num">₹77,413</td><td>CGST 9% + SGST 9% (intra-state) or IGST 18%</td></tr>
+      <tr class="highlight-row"><td><strong>Gross Premium</strong></td><td class="num"><strong>₹5,07,488</strong></td><td>Total amount payable by Western India Forging</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout teal-border">
+    <div class="callout-label">Input Tax Credit (ITC) for Western India Forging</div>
+    <p>As a commercial enterprise generating electricity under a PPA, Western India Forging is almost certainly GST-registered. Under Section 16 of the CGST Act 2017, the ₹77,413 GST paid on this insurance premium <strong>may be claimed as Input Tax Credit</strong>, offset against GST collected on electricity sales. If ITC is claimed, the effective net annual insurance cost is only ₹4,30,075 — making the effective rate 1.675% of Sum Insured. Consult your GST advisor to confirm ITC eligibility based on your supply chain registration.</p>
+  </div>
+ 
+  <h3>Insurance Payout — Tax Treatment</h3>
+  <p>Insurance claim payouts received by Western India Forging are treated as <strong>revenue receipts</strong> under the Income Tax Act 1961 (Section 28/44), since this is a revenue insurance product compensating for lost generation income. Payouts should be included in taxable income for the year of receipt. This is a standard treatment for parametric agricultural and energy insurance payouts in India. Please confirm with your tax consultant.</p>
+</div>
+ 
+<!-- ═══════════ SECTION 15 ═══════════ -->
+<div class="section" id="s15">
+  <div class="section-header">
+    <div class="section-num teal">Section 15</div>
+    <div class="section-title">Data Source & Settlement Timeline</div>
+    <div class="section-subtitle">ERA5-Land, the authoritative index, and exactly when money arrives</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <h3>Authoritative Data Source</h3>
+  <table class="data-table">
+    <thead><tr><th>Parameter</th><th>Specification</th></tr></thead>
+    <tbody>
+      <tr><td>Primary Data Source</td><td>ERA-5 Land-T Data — Surface solar radiation downwards (SSRD)</td></tr>
+      <tr><td>Access URL</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;">https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land</td></tr>
+      <tr><td>Backup Data Source</td><td>NASA POWER v2.4.14</td></tr>
+      <tr><td>Backup URL</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;">https://power.larc.nasa.gov/data-access-viewer/</td></tr>
+      <tr><td>Backup Parameters</td><td>User Community: Renewable Energy; Temporal Level: Hourly; Parameter: Clear Sky Surface Shortwave Downward Irradiance; Time Standard: UTC</td></tr>
+      <tr><td>Reference Coordinates</td><td style="font-family:'JetBrains Mono',monospace;">17.6°N 74.9°E</td></tr>
+      <tr><td>Grid Resolution</td><td>ERA5-Land 0.1° × 0.1° (~11 km × 11 km)</td></tr>
+      <tr><td>Unit Conversion</td><td>SSRD (J/m²/day) ÷ 3,600,000 = kWh/m²/day → summed to phase totals</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Settlement Timeline</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase End Date</th><th>Data Available</th><th>Calculation Window</th><th>Payment Date</th><th>Settlement Lag</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>February 28/29</td><td class="num">~March 5</td><td>March 5–10</td><td class="num">March 15</td><td>15 days</td></tr>
+      <tr><td>May 31</td><td class="num">~June 5</td><td>June 5–10</td><td class="num">June 15</td><td>15 days</td></tr>
+      <tr class="highlight-row"><td>September 30</td><td class="num">~October 5</td><td>October 5–10</td><td class="num">October 15</td><td>15 days — <strong>monsoon season payouts here</strong></td></tr>
+      <tr><td>December 31</td><td class="num">~January 5</td><td>January 5–10</td><td class="num">January 15</td><td>15 days</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <div class="callout-label">Why 15 Days?</div>
+    <p>ERA5-Land near-real-time reanalysis has approximately a 5-day production lag (data for September 30 is available by October 5). The 10-day calculation window allows for: data download and quality checks, payout calculation audit, insurance company sign-off, and bank transfer initiation. For a ₹2.57 crore policy, this is significantly faster than any indemnity insurance product which typically requires 30–90 days minimum.</p>
+  </div>
+ 
+  <h3>Basis Risk Disclosure</h3>
+  <p><strong>Spatial basis risk:</strong> ERA5-Land 11km grid cell averages irradiance across the entire cell. Your plant at a specific corner of the cell may experience 1–3% different irradiance than the cell average, particularly during localised dust events.</p>
+  <p><strong>Temporal reanalysis error:</strong> ERA5-Land accuracy for monthly GHI in Maharashtra: typically ±3–5% for dry months, up to ±8–10% in peak monsoon months (July–August) due to difficulty modelling deep convective cloud systems.</p>
+  <p><strong>Plant-level basis risk:</strong> Panel soiling, inverter downtime, curtailment, and degradation affect actual output but are not reflected in the GHI index. These are not covered by this product — they are the policyholder's operational risk.</p>
+</div>
+ 
+<!-- ═══════════ SECTION 16 ═══════════ -->
+<div class="section" id="s16">
+  <div class="section-header">
+    <div class="section-num teal">Section 16</div>
+    <div class="section-title">Formal Product Proposal</div>
+    <div class="section-subtitle">IRDAI-ready product specification — Western India Forging · Solapur Solar Plant</div>
+    <div class="section-rule teal"></div>
+  </div>
+ 
+  <!-- FORMAL POLICY DOCUMENT -->
+  <div class="policy-doc">
+    <div class="policy-doc-header">
+      <div class="policy-doc-header-top">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:rgba(255,255,255,0.4);margin-bottom:6px;">CLIMETA.AI · PARAMETRIC SOLAR INSURANCE</div>
+          <div class="policy-doc-company">Western India Forging</div>
+          <div style="font-style:italic;color:rgba(255,255,255,0.45);font-size:14px;margin-top:4px;">Low Annual Solar Irradiance Observed Index Insurance</div>
+        </div>
+        <div style="text-align:right">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <defs><linearGradient id="lg-pol" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e8a8a"/><stop offset="100%" stop-color="#0d5c6e"/></linearGradient></defs>
+            <circle cx="20" cy="20" r="17" stroke="url(#lg-pol)" stroke-width="1.2" fill="none" opacity="0.4"/>
+            <circle cx="20" cy="20" r="12" stroke="url(#lg-pol)" stroke-width="1.5" fill="none" opacity="0.65"/>
+            <circle cx="20" cy="20" r="7" stroke="url(#lg-pol)" stroke-width="1.8" fill="none" opacity="0.85"/>
+            <circle cx="20" cy="20" r="3.5" fill="url(#lg-pol)" opacity="0.95"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="policy-kv-grid">
+      <div class="policy-kv"><div class="policy-kv-label">Name of Policyholder</div><div class="policy-kv-val">Western India Forging</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Risk Details</div><div class="policy-kv-val">Loss of Solar Energy Generation</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Risk Period</div><div class="policy-kv-val">1 Year</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Risk Location</div><div class="policy-kv-val" style="font-size:12px;">Bacheri Village, Taluka Malshiras, District Solapur, Maharashtra<br><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-light);">17.619362°N, 74.921083°E</span></div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Name of Intermediary</div><div class="policy-kv-val">Climeta.ai</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Data Geo-Reference</div><div class="policy-kv-val accent" style="font-family:'JetBrains Mono',monospace;font-size:13px;">17.6°N 74.9°E</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Sum Insured</div><div class="policy-kv-val big gold">₹2,56,76,093</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Formula</div><div class="policy-kv-val" style="font-size:11px;line-height:1.5;">POA Factor × Performance Ratio × System Power × Coverage Range × Tariff</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Premium Rate</div><div class="policy-kv-val accent">1.675%</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Premium (Net)</div><div class="policy-kv-val">₹4,30,075</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">GST (18%)</div><div class="policy-kv-val">₹77,413</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Gross Premium</div><div class="policy-kv-val big gold">₹5,07,488</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">POA Conversion Factor</div><div class="policy-kv-val">0.9864</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Performance Ratio</div><div class="policy-kv-val">82.63%</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">System Power</div><div class="policy-kv-val">6,632 kWp</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Tariff (per kWh)</div><div class="policy-kv-val">₹9.50</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Solar Irradiance Coverage (Band)</div><div class="policy-kv-val">500 kWh/m²</div></div>
+      <div class="policy-kv"><div class="policy-kv-label">Payout per kWh/m²</div><div class="policy-kv-val accent">₹51,352.19</div></div>
+    </div>
+  </div>
+ 
+  <!-- PRODUCT DEFINITION -->
+  <div class="proposal-header" style="margin-top:28px;border-radius:8px 8px 0 0;">
+    <div class="proposal-title">Product Definition — Cover 1</div>
+    <div class="proposal-sub">Low Annual Solar Irradiance Observed Index · Cumulative Solar Irradiance Cover</div>
+    <div class="proposal-meta">
+      <div><div class="proposal-meta-label">Observed Index</div><div class="proposal-meta-val">Cumulative Solar Irradiance over phase period (kWh/m²)</div></div>
+      <div><div class="proposal-meta-label">Claims Basis</div><div class="proposal-meta-val">Payout formula — automatic on data publication</div></div>
+      <div><div class="proposal-meta-label">Phase Period</div><div class="proposal-meta-val">1 Year (4 phases, independent triggers)</div></div>
+    </div>
+  </div>
+ 
+  <div class="proposal-section">
+    <h4 class="ps-head">Annual Trigger Parameters (Cover 1)</h4>
+    <table class="data-table">
+      <thead><tr><th>Parameter</th><th>Value</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Phase Period</td><td class="num">1 Year</td><td>January 1 to December 31</td></tr>
+        <tr class="highlight-row"><td><strong>Entry Trigger</strong></td><td class="num"><strong>1,900 kWh/m²</strong></td><td>P20 of 30-year Monte Carlo simulation — insurance begins paying below this</td></tr>
+        <tr class="rust-row"><td><strong>Exit Trigger</strong></td><td class="num"><strong>1,400 kWh/m²</strong></td><td>Maximum payout cap — full Sum Insured paid at or below this level</td></tr>
+        <tr><td>Coverage Band</td><td class="num">500 kWh/m²</td><td>Entry − Exit = 1,900 − 1,400 = 500</td></tr>
+        <tr><td>Payout per kWh/m²</td><td class="num">₹51,352.19</td><td>Sum Insured ÷ Coverage Band = ₹2,56,76,093 ÷ 500</td></tr>
+        <tr class="gold-row"><td><strong>Cover Maximum Payout</strong></td><td class="num"><strong>Sum Insured = ₹2,56,76,093</strong></td><td>Triggered at or below Exit Trigger of 1,400 kWh/m²</td></tr>
+      </tbody>
+    </table>
+  </div>
+ 
+  <div class="proposal-section">
+    <h4 class="ps-head">Payout Formula</h4>
+    <div class="formula">Payout = Min(Max(Entry Trigger − Observed Index, 0), (Entry Trigger − Exit Trigger)) × Payout per kWh/m²
+ 
+        = Min(Max(1,900 − Observed, 0), 500) × ₹51,352.19</div>
+    <p>This formula ensures payouts scale linearly from ₹0 at 1,900 kWh/m² to ₹2,56,76,093 at 1,400 kWh/m² or below. There is no minimum threshold below the entry trigger — every kWh/m² below 1,900 triggers a proportional payout. The cap at 500 kWh/m² deficit ensures total payout never exceeds the Sum Insured.</p>
+  </div>
+ 
+  <div class="proposal-section">
+    <h4 class="ps-head">Phase-Wise Trigger Summary</h4>
+    <table class="data-table">
+      <thead>
+        <tr><th>Phase</th><th>Period</th><th>Entry Trigger</th><th>Balanced Exit</th><th>Coverage Band</th><th>Revenue Share</th><th>Max Payout</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phase A — Winter Clear</td><td>Jan 1 – Feb 28/29</td><td class="num">241.8 kWh/m²</td><td class="num">178.3 kWh/m²</td><td class="num">63.5 kWh/m²</td><td class="num">13.15%</td><td class="num">₹33,72,787</td></tr>
+        <tr><td>Phase B — Peak Solar</td><td>Mar 1 – May 31</td><td class="num">603.5 kWh/m²</td><td class="num">449.5 kWh/m²</td><td class="num">154.0 kWh/m²</td><td class="num">33.15%</td><td class="num">₹85,10,417</td></tr>
+        <tr class="highlight-row"><td>Phase C — SW Monsoon</td><td>Jun 1 – Sep 30</td><td class="num">487.3 kWh/m²</td><td class="num">356.7 kWh/m²</td><td class="num">130.6 kWh/m²</td><td class="num">28.12%</td><td class="num">₹72,20,182</td></tr>
+        <tr><td>Phase D — Post-Monsoon</td><td>Oct 1 – Dec 31</td><td class="num">461.0 kWh/m²</td><td class="num">341.7 kWh/m²</td><td class="num">119.3 kWh/m²</td><td class="num">25.58%</td><td class="num">₹65,67,754</td></tr>
+        <tr class="gold-row"><td><strong>Annual Total (Cover 1)</strong></td><td>Jan 1 – Dec 31</td><td class="num"><strong>1,900</strong></td><td class="num"><strong>1,326.2</strong></td><td class="num"><strong>500</strong></td><td class="num"><strong>100%</strong></td><td class="num"><strong>₹2,56,76,093</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+ 
+  <div class="proposal-section">
+    <h4 class="ps-head">Cover 1 Data Source</h4>
+    <table class="data-table">
+      <thead><tr><th>Parameter</th><th>Specification</th></tr></thead>
+      <tbody>
+        <tr><td>Data Source</td><td>ERA-5 Land-T Data - Surface solar radiation downwards</td></tr>
+        <tr><td>Weblink</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;">https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download</td></tr>
+        <tr><td>Backup Data Source</td><td>NASA POWER v2.4.14 (https://power.larc.nasa.gov/data-access-viewer/)</td></tr>
+        <tr><td>Backup Parameters</td><td>User Community: Renewable Energy; Temporal Level: Hourly; Parameter: Clear Sky Surface Shortwave Downward Irradiance; Time Standard: UTC</td></tr>
+        <tr><td>Data Geo-Reference</td><td style="font-family:'JetBrains Mono',monospace;">17.6°N 74.9°E</td></tr>
+      </tbody>
+    </table>
+  </div>
+ 
+  <div class="proposal-section" style="border-radius:0 0 8px 8px;">
+    <h4 class="ps-head">Coverage Disclaimer</h4>
+    <div class="note">
+      <strong>Basis Risk Notice:</strong> This policy covers only losses attributed to <strong>low solar irradiance as measured by the ERA5-Land index at the reference coordinates (17.6°N 74.9°E)</strong>. Losses due to any other perils — including but not limited to equipment failure, grid curtailment, panel soiling, inverter malfunction, transmission outages, force majeure events, or localized weather not captured by the ERA5-Land grid cell average — are <strong>not covered</strong> under this product. The policyholder acknowledges and accepts that the ERA5-Land index may not perfectly reflect the exact irradiance experienced at the specific plant location, and that this basis risk is reflected in the premium loading.
+    </div>
+    <div style="margin-top:24px;display:flex;align-items:center;gap:12px;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <circle cx="12" cy="12" r="10" stroke="#1e8a8a" stroke-width="1.2" fill="none" opacity="0.4"/>
+        <circle cx="12" cy="12" r="6.5" stroke="#1e8a8a" stroke-width="1.4" fill="none" opacity="0.65"/>
+        <circle cx="12" cy="12" r="3" fill="#1e8a8a" opacity="0.85"/>
+      </svg>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);">Prepared by Climeta.ai</div>
+        <div style="font-size:12px;color:var(--ink-light);">© 2026 Climeta.ai · All rights reserved · Parametric Solar Intelligence Platform</div>
+      </div>
+    </div>
+  </div>
+ 
+</div><!-- end section 16 -->
+ 
+    </div><!-- end .content -->
+ 
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-left">
+        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+          <circle cx="11" cy="11" r="9.5" stroke="#1e8a8a" stroke-width="1" fill="none" opacity="0.3"/>
+          <circle cx="11" cy="11" r="6.5" stroke="#1e8a8a" stroke-width="1.2" fill="none" opacity="0.5"/>
+          <circle cx="11" cy="11" r="3.5" stroke="#1e8a8a" stroke-width="1.4" fill="none" opacity="0.7"/>
+          <circle cx="11" cy="11" r="1.5" fill="#1e8a8a" opacity="0.85"/>
+        </svg>
+        <span>© 2026 Climeta.ai · Western India Forging · Solapur Solar Insurance · All rights reserved</span>
+      </div>
+      <div class="footer-right">ERA5-Land 1995–2025 · OLS+AR(1) Monte Carlo · P20 Standard · IRDAI Framework</div>
+    </div>
+ 
+  </div><!-- end #content-wrap -->
+</div><!-- end #main-content -->
+ 
+<script>
+// ═══════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════
+const PASS = 'Solapur@2026';
+let authInProgress = false;
+const authInput = document.getElementById('auth-input');
+const authBtn = document.getElementById('auth-btn');
+const authStatus = document.getElementById('auth-status');
+const authBtnTxt = document.getElementById('auth-btn-text');
+const authDots = document.getElementById('auth-dots');
+ 
+authInput.addEventListener('keydown', e => { if(e.key==='Enter' && !authInProgress) handleAuth(); });
+ 
+function handleAuth() {
+  if(authInProgress) return;
+  const val = authInput.value;
+  if(val === PASS) {
+    authInProgress = true;
+    authBtn.disabled = true;
+    authStatus.className = 'checking';
+    authStatus.textContent = 'Verifying credentials...';
+    let dots = 0;
+    authBtnTxt.textContent = 'AUTHENTICATING';
+    const di = setInterval(() => { dots=(dots+1)%4; authDots.textContent='.'.repeat(dots); }, 320);
+    setTimeout(() => {
+      clearInterval(di);
+      authStatus.className = 'success';
+      authStatus.textContent = 'Access granted — loading Solapur policy platform';
+      authBtnTxt.textContent = 'APPROVED';
+      authDots.textContent = '';
+      setTimeout(() => showLoading(), 700);
+    }, 1600);
+  } else {
+    authStatus.className = 'error';
+    authStatus.textContent = 'Authentication failed. Verify your access code.';
+    authInput.value = '';
+    authInput.classList.remove('shake');
+    void authInput.offsetWidth;
+    authInput.classList.add('shake');
+    authInput.addEventListener('animationend', () => authInput.classList.remove('shake'), {once:true});
+    authInput.focus();
+  }
+}
+ 
+// ═══════════════════════════════════════
+// LOADING
+// ═══════════════════════════════════════
+const loadingMessages = [
+  'Loading ERA5-Land irradiance data...','Calibrating Monte Carlo paths for Solapur...','Computing P20 phase triggers...','Building scenario exit analysis...','Initialising Western India Forging policy...'
+];
+function showLoading() {
+  const as = document.getElementById('auth-screen');
+  const ls = document.getElementById('loading-screen');
+  const bar = document.getElementById('loading-bar');
+  const st = document.getElementById('loading-status');
+  as.classList.add('fade-out');
+  setTimeout(() => { as.style.display='none'; }, 500);
+  ls.classList.add('active');
+  let mi = 0;
+  st.textContent = loadingMessages[0];
+  const msgI = setInterval(() => { mi++; if(mi<loadingMessages.length) st.textContent=loadingMessages[mi]; }, 200);
+  setTimeout(() => { bar.style.width='100%'; }, 50);
+  setTimeout(() => {
+    clearInterval(msgI);
+    ls.classList.add('fade-out');
+    setTimeout(() => { ls.style.display='none'; showMain(); }, 500);
+  }, 1200);
+}
+function showMain() {
+  const main = document.getElementById('main-content');
+  main.classList.add('active');
+  main.style.opacity = '0';
+  main.style.transition = 'opacity 0.5s ease';
+  setTimeout(() => { main.style.opacity='1'; }, 30);
+  buildSidebar();
+  initScrollSpy();
+  setTimeout(() => drawCharts(), 600);
+}
+ 
+// ═══════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════
+const navItems = [
+  {num:'01',text:'What This Product Is'},{num:'02',text:'Location & Solar Climate'},
+  {num:'03',text:'4 Seasonal Phases'},{num:'04',text:'OLS Trend Analysis'},
+  {num:'05',text:'AR(1) Residual Model'},{num:'06',text:'Monte Carlo 10K Paths'},
+  {num:'07',text:'P5–P95 Distribution'},{num:'08',text:'P20 Entry Triggers'},
+  {num:'09',text:'Exit Scenario Analysis',isNew:true},{num:'10',text:'Balanced Exit Summary',isNew:true},
+  {num:'11',text:'Phase-Wise Proposal',isNew:true},{num:'12',text:'Payout Formula',isNew:true},
+  {num:'13',text:'Premium Build-Up',isNew:true},{num:'14',text:'GST & Tax',isNew:true},
+  {num:'15',text:'Data & Settlement',isNew:true},{num:'16',text:'Formal Proposal',isNew:true}
+];
+function buildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  navItems.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'nav-item' + (item.isNew?' is-new':'');
+    el.dataset.sid = item.num;
+    el.innerHTML = `<span class="nav-num">${item.num}</span><span class="nav-text">${item.text}</span>`;
+    el.addEventListener('click', () => scrollToSection(item.num));
+    nav.appendChild(el);
+  });
+}
+function scrollToSection(num) {
+  const t = document.getElementById('s'+num);
+  if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  if(window.innerWidth<768) document.getElementById('sidebar').classList.remove('open');
+}
+function initScrollSpy() {
+  const secs = document.querySelectorAll('.section[id]');
+  const navEls = document.querySelectorAll('.nav-item');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        const id = e.target.id.replace('s','');
+        navEls.forEach(n => { n.classList.remove('active'); if(n.dataset.sid===id) n.classList.add('active'); });
+      }
+    });
+  }, {rootMargin:'-20% 0px -60% 0px'});
+  secs.forEach(s => obs.observe(s));
+}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+document.addEventListener('click', e => {
+  if(window.innerWidth<768) {
+    const sb = document.getElementById('sidebar');
+    const tog = document.getElementById('sidebar-toggle');
+    if(!sb.contains(e.target)&&!tog.contains(e.target)) sb.classList.remove('open');
+  }
+});
+ 
+// ═══════════════════════════════════════
+// MONTE CARLO CHARTS
+// ═══════════════════════════════════════
+function drawCharts() {
+  drawPhaseChart('chartA', {
+    mean: 249.7, sd: 4.12, p5: 241.8, p20: 241.8, p50: 249.8, p80: 253.1, p95: 256.1,
+    exit: 178.0, min: 230, max: 265, label: 'Phase A (Jan–Feb)'
+  });
+  drawPhaseChart('chartC', {
+    mean: 448.8, sd: 54.92, p5: 356.2, p20: 487.3, p50: 449.1, p80: 509.8, p95: 549.7,
+    exit: 360.0, min: 260, max: 600, label: 'Phase C (Jun–Sep)'
+  });
+}
+ 
+function drawPhaseChart(id, d) {
+  const canvas = document.getElementById(id);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = {l:48, r:20, t:20, b:40};
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+ 
+  ctx.clearRect(0,0,W,H);
+ 
+  // Generate normal distribution bins
+  const bins = 60;
+  const binW = (d.max - d.min) / bins;
+  const counts = new Array(bins).fill(0);
+  // Simulate ~10000 points
+  for(let i=0;i<10000;i++) {
+    const v = normalRandom(d.mean, d.sd);
+    const bi = Math.floor((v - d.min) / binW);
+    if(bi>=0 && bi<bins) counts[bi]++;
+  }
+  const maxC = Math.max(...counts);
+ 
+  function xPos(v) { return pad.l + ((v - d.min)/(d.max - d.min))*cW; }
+  function yPos(c) { return pad.t + cH - (c/maxC)*cH; }
+ 
+  // Draw bars
+  for(let i=0;i<bins;i++) {
+    const x1 = xPos(d.min + i*binW);
+    const x2 = xPos(d.min + (i+1)*binW);
+    const barVal = d.min + (i+0.5)*binW;
+    const barH = (counts[i]/maxC)*cH;
+    const barY = pad.t + cH - barH;
+ 
+    let color = '#1e8a8a';
+    if(barVal < d.exit) color = 'rgba(201,150,58,0.65)';
+    else if(barVal < Math.min(d.p20, d.p5)) color = '#b34a1e';
+ 
+    ctx.fillStyle = color;
+    ctx.fillRect(x1+1, barY, x2-x1-1, barH);
+  }
+ 
+  // Draw axes
+  ctx.strokeStyle = '#c8b89a';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t+cH);
+  ctx.lineTo(pad.l+cW, pad.t+cH);
+  ctx.stroke();
+ 
+  // Vertical lines for key percentiles
+  const lines = [
+    {v: d.exit, color: '#c9963a', label: 'EXIT'},
+    {v: Math.min(d.p20, d.p5), color: '#b34a1e', label: 'P20'},
+    {v: d.mean, color: '#1e6b6b', label: 'MEAN'},
+    {v: d.p95, color: '#3a9a3a', label: 'P95'}
+  ];
+  lines.forEach(ln => {
+    const x = xPos(ln.v);
+    if(x < pad.l || x > pad.l+cW) return;
+    ctx.setLineDash([4,4]);
+    ctx.strokeStyle = ln.color;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t+cH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = ln.color;
+    ctx.font = 'bold 9px JetBrains Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(ln.label, x, pad.t+6);
+    ctx.fillText(ln.v.toFixed(0), x, pad.t+cH+16);
+  });
+ 
+  // Axis labels
+  ctx.fillStyle = '#7a6555';
+  ctx.font = '10px JetBrains Mono, monospace';
+  ctx.textAlign = 'left';
+  const numLabels = 6;
+  for(let i=0;i<=numLabels;i++) {
+    const v = d.min + (i/numLabels)*(d.max-d.min);
+    const x = xPos(v);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#7a6555';
+    ctx.font = '9px JetBrains Mono, monospace';
+    ctx.fillText(Math.round(v), x, pad.t+cH+28);
+  }
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#3d3028';
+  ctx.font = '10px Source Serif 4, serif';
+  ctx.fillText('kWh/m²', pad.l+cW-30, pad.t+cH+38);
+}
+ 
+function normalRandom(mean, sd) {
+  let u=0, v=0;
+  while(u===0) u=Math.random();
+  while(v===0) v=Math.random();
+  return mean + sd * Math.sqrt(-2.0*Math.log(u)) * Math.cos(2.0*Math.PI*v);
+}
+</script>
+</body>
+</html>
