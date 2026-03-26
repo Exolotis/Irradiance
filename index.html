@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parametric Solar Insurance Model — Surat | Full Manual</title>
+<title>Parametric Solar Insurance Model - Surat | Full Manual</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -529,7 +529,7 @@ function unlockModel(){
   <div class="cover-tag">Model Manual · Technical Reference · Surat, Gujarat</div>
   <div class="cover-line"></div>
   <div class="cover-title">Parametric <span>Solar Insurance</span> Threshold Model</div>
-  <div class="cover-sub">A complete, plain-language explanation of every number, method, and decision — from raw ERA5 data to P20 triggers, Monte Carlo simulation, all five pricing frameworks, loadings, GST, customer proposal, and utility theory.</div>
+  <div class="cover-sub">A complete, plain-language explanation of every number, method, and decision - from raw ERA5 data to P20 triggers, Monte Carlo simulation, all five pricing frameworks, loadings, GST, customer proposal, and utility theory.</div>
   <div class="cover-meta">
     <div class="meta-item">
       <div class="meta-label">Data Period</div>
@@ -552,7 +552,7 @@ function unlockModel(){
  
 <!-- TOC -->
 <div class="toc">
-  <div class="toc-title">Contents — 25 Sections</div>
+  <div class="toc-title">Contents - 25 Sections</div>
   <div style="font-size:12px;color:var(--ink-light);margin-bottom:16px;font-family:'JetBrains Mono',monospace;">★ Deep Dive · ⚡ Actuarial Engine · ⭐ Client-Facing</div>
   <div class="toc-grid">
     <div class="toc-item"><span class="toc-num">01</span><span class="toc-text">What This Project Is</span></div>
@@ -569,17 +569,17 @@ function unlockModel(){
     <div class="toc-item"><span class="toc-num">12</span><span class="toc-text">Burn Rate Analysis</span></div>
     <div class="toc-item"><span class="toc-num">13</span><span class="toc-text">Revenue Share Decomposition</span></div>
     <div class="toc-item"><span class="toc-num">14</span><span class="toc-text">Complete Model Parameters</span></div>
-    <div class="toc-item"><span class="toc-num">15 ★</span><span class="toc-text">Deep Dive I — Why P20? The Full Science</span></div>
-    <div class="toc-item"><span class="toc-num">16 ★</span><span class="toc-text">Deep Dive II — k-Means: Full Calculation</span></div>
-    <div class="toc-item"><span class="toc-num">17 ★</span><span class="toc-text">Deep Dive III — What CV=0.018 Really Means</span></div>
-    <div class="toc-item"><span class="toc-num">18 ★</span><span class="toc-text">Deep Dive IV — Monte Carlo: Step by Step</span></div>
+    <div class="toc-item"><span class="toc-num">15 ★</span><span class="toc-text">Deep Dive I - Why P20? The Full Science</span></div>
+    <div class="toc-item"><span class="toc-num">16 ★</span><span class="toc-text">Deep Dive II - k-Means: Full Calculation</span></div>
+    <div class="toc-item"><span class="toc-num">17 ★</span><span class="toc-text">Deep Dive III - What CV=0.018 Really Means</span></div>
+    <div class="toc-item"><span class="toc-num">18 ★</span><span class="toc-text">Deep Dive IV - Monte Carlo: Step by Step</span></div>
     <div class="toc-item"><span class="toc-num">19 ⚡</span><span class="toc-text">Threshold Design: Entry, Exit, Optimistic–Pessimistic–Balanced</span></div>
     <div class="toc-item"><span class="toc-num">20 ⚡</span><span class="toc-text">Payout Model: The Complete Financial Mechanism</span></div>
     <div class="toc-item"><span class="toc-num">21 ⚡</span><span class="toc-text">Premium Pricing: All Five Actuarial Frameworks</span></div>
     <div class="toc-item"><span class="toc-num">22 ⚡</span><span class="toc-text">Premium Loadings: From Pure Risk to Gross Premium</span></div>
-    <div class="toc-item"><span class="toc-num">23 ⭐</span><span class="toc-text">Customer Proposal — Plain Language, Interactive</span></div>
-    <div class="toc-item"><span class="toc-num">24 ⭐</span><span class="toc-text">How This Is Calculated — Full Explanation Guide</span></div>
-    <div class="toc-item"><span class="toc-num">25 ⭐</span><span class="toc-text">Customer Experience — Utility Theory & Risk Perception</span></div>
+    <div class="toc-item"><span class="toc-num">23 ⭐</span><span class="toc-text">Customer Proposal - Plain Language, Interactive</span></div>
+    <div class="toc-item"><span class="toc-num">24 ⭐</span><span class="toc-text">How This Is Calculated - Full Explanation Guide</span></div>
+    <div class="toc-item"><span class="toc-num">25 ⭐</span><span class="toc-text">Customer Experience - Utility Theory & Risk Perception</span></div>
   </div>
 </div>
  
@@ -594,9 +594,9 @@ function unlockModel(){
     <div class="section-rule"></div>
   </div>
  
-  <p>Imagine you own a solar plant in Surat, Gujarat. You earn money from the electricity your panels produce. That electricity depends entirely on how much sunlight actually hits your panels — technically called <strong>GHI (Global Horizontal Irradiance)</strong>. In a bad monsoon year, or a particularly hazy season, your plant produces less, your income falls, and you cannot pay back loans or cover costs. The risk is real and happens every few years.</p>
+  <p>Imagine you own a solar plant in Surat, Gujarat. You earn money from the electricity your panels produce. That electricity depends entirely on how much sunlight actually hits your panels - technically called <strong>GHI (Global Horizontal Irradiance)</strong>. In a bad monsoon year, or a particularly hazy season, your plant produces less, your income falls, and you cannot pay back loans or cover costs. The risk is real and happens every few years.</p>
  
-  <p>Normal insurance does not work well here. A claims inspector has to visit your plant, verify damage, assess loss, file paperwork — it takes months. By then, you have already defaulted. <strong>Parametric insurance</strong> solves this differently: instead of asking "did you suffer a loss?", it asks a single objective question — "did the measurable solar radiation in your region fall below a pre-agreed threshold?" If yes, you get paid automatically, no inspection needed. The number is the trigger. That number is what this entire model exists to calculate.</p>
+  <p>Normal insurance does not work well here. A claims inspector has to visit your plant, verify damage, assess loss, file paperwork - it takes months. By then, you have already defaulted. <strong>Parametric insurance</strong> solves this differently: instead of asking "did you suffer a loss?", it asks a single objective question - "did the measurable solar radiation in your region fall below a pre-agreed threshold?" If yes, you get paid automatically, no inspection needed. The number is the trigger. That number is what this entire model exists to calculate.</p>
  
   <div class="callout">
     <div class="callout-label">Core Logic</div>
@@ -606,7 +606,7 @@ function unlockModel(){
   <p>This model is specifically built for a <strong>non-profit parametric insurance</strong> application in Surat. It uses 31 years of solar data (1995–2025), identifies that the solar climate shifted to a lower regime after 2013, accounts for a long-term declining trend in solar radiation, and uses statistical simulation to set threshold levels that should trigger about once every five years on average.</p>
  
   <h3>Why is the trigger set at the P20 level?</h3>
-  <p>The World Bank's CCRIF (Caribbean Catastrophe Risk Insurance Facility) and the IFC (International Finance Corporation) both use the 20th percentile as the standard trigger for parametric energy and agricultural insurance. It means: in any given year, there is a 20% chance of a payout — roughly a 1-in-5 year event. This balances being protective enough to be useful versus being triggered so frequently that premiums become unaffordable.</p>
+  <p>The World Bank's CCRIF (Caribbean Catastrophe Risk Insurance Facility) and the IFC (International Finance Corporation) both use the 20th percentile as the standard trigger for parametric energy and agricultural insurance. It means: in any given year, there is a 20% chance of a payout - roughly a 1-in-5 year event. This balances being protective enough to be useful versus being triggered so frequently that premiums become unaffordable.</p>
  
   <div class="stat-banner">
     <div class="stat-cell"><div class="stat-big">31</div><div class="stat-desc">Years of ERA5-Land daily GHI data, 1995–2025</div></div>
@@ -626,12 +626,12 @@ function unlockModel(){
   </div>
  
   <h3>What is GHI?</h3>
-  <p><strong>Global Horizontal Irradiance (GHI)</strong> is the total amount of solar energy landing on a flat, horizontal surface per square metre over a given period. It is measured in <strong>kWh/m²</strong> — kilowatt-hours per square metre. Think of it like rainfall, but for sunlight. If GHI for July is 100 kWh/m², it means each square metre of your panel received the equivalent of 100 kilowatt-hours of energy from the sun that month. A solar panel converts a fraction of that into electricity.</p>
+  <p><strong>Global Horizontal Irradiance (GHI)</strong> is the total amount of solar energy landing on a flat, horizontal surface per square metre over a given period. It is measured in <strong>kWh/m²</strong> - kilowatt-hours per square metre. Think of it like rainfall, but for sunlight. If GHI for July is 100 kWh/m², it means each square metre of your panel received the equivalent of 100 kilowatt-hours of energy from the sun that month. A solar panel converts a fraction of that into electricity.</p>
  
   <h3>Where does the data come from?</h3>
-  <p>The data source is <strong>ERA5-Land Reanalysis</strong> produced by ECMWF (the European Centre for Medium-Range Weather Forecasts) under the Copernicus Climate Change Service. ERA5-Land is not readings from a physical weather station. It is a scientific reconstruction — the agency takes satellite observations, atmospheric pressure records, temperature data, and cloud cover measurements, then runs a global atmospheric model backwards in time to estimate what conditions were at each point on Earth every hour, going back to 1950.</p>
+  <p>The data source is <strong>ERA5-Land Reanalysis</strong> produced by ECMWF (the European Centre for Medium-Range Weather Forecasts) under the Copernicus Climate Change Service. ERA5-Land is not readings from a physical weather station. It is a scientific reconstruction - the agency takes satellite observations, atmospheric pressure records, temperature data, and cloud cover measurements, then runs a global atmospheric model backwards in time to estimate what conditions were at each point on Earth every hour, going back to 1950.</p>
  
-  <p>The specific variable downloaded is called <strong>SSRD</strong> (Surface Solar Radiation Downwards). This is converted from the raw Joules/m² units into kWh/m²/day by dividing by 3,600,000. The dataset covers <strong>1 January 1995 to 31 December 2025 — 31 years, or 11,323 daily records.</strong></p>
+  <p>The specific variable downloaded is called <strong>SSRD</strong> (Surface Solar Radiation Downwards). This is converted from the raw Joules/m² units into kWh/m²/day by dividing by 3,600,000. The dataset covers <strong>1 January 1995 to 31 December 2025 - 31 years, or 11,323 daily records.</strong></p>
  
   <div class="callout">
     <div class="callout-label">Why ERA5-Land and not a local sensor?</div>
@@ -649,7 +649,7 @@ Annual GHI<span class="comment"> (e.g. 1995)</span> = Jan + Feb + Mar + Apr + Ma
   </div>
  
   <h3>How phase GHI is computed</h3>
-  <p>Each year is split into 4 seasonal phases. The phase total is just the sum of the monthly GHI values for those months in that year. There is no weighting or adjustment at this stage — it is pure addition.</p>
+  <p>Each year is split into 4 seasonal phases. The phase total is just the sum of the monthly GHI values for those months in that year. There is no weighting or adjustment at this stage - it is pure addition.</p>
  
   <div class="formula">
 Phase A (Jan+Feb), year 1995  = 137.07 + 140.82 = <span class="highlight">277.88 kWh/m²</span>
@@ -659,7 +659,7 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
   </div>
  
   <h3>The full annual GHI series (1995–2025)</h3>
-  <p>The table below shows every year's annual GHI and its regime label. Notice how the pre-2013 values cluster visibly higher, and 2013 itself is the lowest in the entire pre-2013 era — the year the break occurred.</p>
+  <p>The table below shows every year's annual GHI and its regime label. Notice how the pre-2013 values cluster visibly higher, and 2013 itself is the lowest in the entire pre-2013 era - the year the break occurred.</p>
  
   <table class="data-table">
     <thead>
@@ -719,13 +719,13 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
  
   <p><strong>Mean GHI (kWh/m²/month):</strong> The simple average of that month's GHI across all 12 post-2013 years. For January, you take the January value from each of 2014, 2015, ..., 2025, add them up, and divide by 12. Result: <strong>133.36 kWh/m²/month</strong>.</p>
  
-  <p><strong>Std Dev (Standard Deviation):</strong> How spread out the values are around the mean. A small std dev means the month is consistent year to year. A large std dev means it varies wildly. July has std dev of 14.33 — meaning in some years July gets only 77.70 kWh/m², and in good years it gets 118.00 kWh/m². That is a huge range for a single month.</p>
+  <p><strong>Std Dev (Standard Deviation):</strong> How spread out the values are around the mean. A small std dev means the month is consistent year to year. A large std dev means it varies wildly. July has std dev of 14.33 - meaning in some years July gets only 77.70 kWh/m², and in good years it gets 118.00 kWh/m². That is a huge range for a single month.</p>
  
-  <p><strong>CV (Coefficient of Variation):</strong> This is simply <strong>CV = Std Dev ÷ Mean</strong>. It normalises the variability so you can compare months with very different average levels. A CV of 0.018 for January means the standard deviation is only 1.8% of the mean — extremely stable. A CV of 0.150 for September means the standard deviation is 15% of the mean — extremely unpredictable.</p>
+  <p><strong>CV (Coefficient of Variation):</strong> This is simply <strong>CV = Std Dev ÷ Mean</strong>. It normalises the variability so you can compare months with very different average levels. A CV of 0.018 for January means the standard deviation is only 1.8% of the mean - extremely stable. A CV of 0.150 for September means the standard deviation is 15% of the mean - extremely unpredictable.</p>
  
   <div class="callout">
     <div class="callout-label">Why CV matters for insurance</div>
-    <p>CV is the volatility measure. A high-CV month is dangerous for a solar plant owner — they cannot predict what they will earn. Insurance is most valuable in high-CV months. This is why the Phase C (monsoon) threshold is set so conservatively — CV there reaches 0.15, the highest of any phase.</p>
+    <p>CV is the volatility measure. A high-CV month is dangerous for a solar plant owner - they cannot predict what they will earn. Insurance is most valuable in high-CV months. This is why the Phase C (monsoon) threshold is set so conservatively - CV there reaches 0.15, the highest of any phase.</p>
   </div>
  
   <table class="data-table">
@@ -766,7 +766,7 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
  
   <p>k-Means is an algorithm that groups data points into clusters by finding natural groupings. It was given two numbers for each of the 12 months: <strong>mean GHI</strong> and <strong>CV</strong>. Both were standardised to the same scale first (converted to z-scores) so neither dominates.</p>
  
-  <p>The algorithm does not know it is looking at months. It sees 12 points in 2D space. It groups them into k clusters by minimising the "inertia" — the total distance of each point from its cluster centre. The question is: what is the right value of k?</p>
+  <p>The algorithm does not know it is looking at months. It sees 12 points in 2D space. It groups them into k clusters by minimising the "inertia" - the total distance of each point from its cluster centre. The question is: what is the right value of k?</p>
  
   <h4>Elbow Method: Choosing k=4</h4>
   <p>You run k-means for k = 2, 3, 4, 5, and measure how tightly clustered the results are (inertia). As k increases, inertia always decreases, but with diminishing returns. The "elbow" is where the benefit of adding another cluster stops being worth it.</p>
@@ -776,14 +776,14 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
       <tr><th>k (clusters)</th><th>Inertia</th><th>Drop from previous k</th><th>% Reduction</th><th>Verdict</th></tr>
     </thead>
     <tbody>
-      <tr><td>k = 2</td><td class="num">8.60</td><td>—</td><td>—</td><td>Too coarse</td></tr>
+      <tr><td>k = 2</td><td class="num">8.60</td><td>-</td><td>-</td><td>Too coarse</td></tr>
       <tr><td>k = 3</td><td class="num">2.32</td><td class="num">6.28</td><td>73%</td><td>Still too few</td></tr>
-      <tr class="highlight-row"><td>k = 4</td><td class="num">1.23</td><td class="num">1.09</td><td>47%</td><td>✔ Elbow point — chosen</td></tr>
+      <tr class="highlight-row"><td>k = 4</td><td class="num">1.23</td><td class="num">1.09</td><td>47%</td><td>✔ Elbow point - chosen</td></tr>
       <tr><td>k = 5</td><td class="num">0.71</td><td class="num">0.52</td><td>42%</td><td>Diminishing returns</td></tr>
     </tbody>
   </table>
  
-  <p>Going from k=3 to k=4 reduces inertia by 47% (a big improvement). Going from k=4 to k=5 only reduces it by 42% — and you are adding an extra phase for that smaller gain. The elbow is clearly at k=4. After the labels were assigned, they were reordered to start from January for calendar continuity.</p>
+  <p>Going from k=3 to k=4 reduces inertia by 47% (a big improvement). Going from k=4 to k=5 only reduces it by 42% - and you are adding an extra phase for that smaller gain. The elbow is clearly at k=4. After the labels were assigned, they were reordered to start from January for calendar continuity.</p>
  
   <h3>Method 2: Indian Meteorological Department (IMD) Seasons</h3>
   <p>The IMD officially divides India's year into four meteorological seasons, driven by the large-scale dynamics of the South Asian monsoon system, the Hadley circulation, and the movement of the Inter-Tropical Convergence Zone (ITCZ).</p>
@@ -800,16 +800,16 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
  
   <div class="callout">
     <div class="callout-label">The Key Validation</div>
-    <p>The k-Means algorithm was given only numbers — no knowledge of geography, seasons, or meteorology. Yet it produced exactly the same 4 groupings as the IMD's official classification. This is not coincidence. It confirms that the phase boundaries are physically real, not arbitrary mathematical constructs.</p>
+    <p>The k-Means algorithm was given only numbers - no knowledge of geography, seasons, or meteorology. Yet it produced exactly the same 4 groupings as the IMD's official classification. This is not coincidence. It confirms that the phase boundaries are physically real, not arbitrary mathematical constructs.</p>
   </div>
  
   <h4>Why each phase has the months it does</h4>
  
-  <p><strong>Phase A (January–February):</strong> Both months have CV ≈ 0.017–0.018 — the most stable months of the year. GHI is low (Jan avg 133.36, Feb avg 140.05) because the sun is at its lowest elevation angle for Surat (approximately 40–50° at noon) and days are short. But because there is no cloud, the variability is minimal. k-Means groups them together because they share both low mean AND low CV.</p>
+  <p><strong>Phase A (January–February):</strong> Both months have CV ≈ 0.017–0.018 - the most stable months of the year. GHI is low (Jan avg 133.36, Feb avg 140.05) because the sun is at its lowest elevation angle for Surat (approximately 40–50° at noon) and days are short. But because there is no cloud, the variability is minimal. k-Means groups them together because they share both low mean AND low CV.</p>
  
-  <p><strong>Phase B (March–May):</strong> The sun rapidly gains elevation. March mean is 176.62, April 185.43, May 186.70 — the highest monthly means of the year. The atmosphere is dry and cloud-free through April. May begins to show convective afternoon clouds (CV jumps to 0.056) as the surface heats up, but overall this is the peak solar phase. k-Means groups them because they share high mean GHI.</p>
+  <p><strong>Phase B (March–May):</strong> The sun rapidly gains elevation. March mean is 176.62, April 185.43, May 186.70 - the highest monthly means of the year. The atmosphere is dry and cloud-free through April. May begins to show convective afternoon clouds (CV jumps to 0.056) as the surface heats up, but overall this is the peak solar phase. k-Means groups them because they share high mean GHI.</p>
  
-  <p><strong>Phase C (June–September):</strong> The Southwest Monsoon arrives at Surat typically in early June. GHI collapses. June drops to 138.73 kWh/m² (from May's 186.70). July plunges to 100.90 — the lowest of any month. CV values of 0.08 to 0.15 are extreme: in a weak monsoon year, June can give 159.90 kWh/m², but in a strong monsoon it gives only 120.28 — a difference of 33%. k-Means groups these four months together because they share high CV (unpredictability), even though their mean GHI levels are moderate.</p>
+  <p><strong>Phase C (June–September):</strong> The Southwest Monsoon arrives at Surat typically in early June. GHI collapses. June drops to 138.73 kWh/m² (from May's 186.70). July plunges to 100.90 - the lowest of any month. CV values of 0.08 to 0.15 are extreme: in a weak monsoon year, June can give 159.90 kWh/m², but in a strong monsoon it gives only 120.28 - a difference of 33%. k-Means groups these four months together because they share high CV (unpredictability), even though their mean GHI levels are moderate.</p>
  
   <p><strong>Phase D (October–December):</strong> The monsoon withdraws through October. Skies clear progressively. GHI recovers from 139.53 in October to lower values by December (121.11). CV is moderate (0.04–0.06). k-Means groups them as a transitional cluster between the monsoon chaos and the stable winter.</p>
 </div>
@@ -823,7 +823,7 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
     <div class="section-rule"></div>
   </div>
  
-  <p>A <strong>structural break</strong> is when a time series permanently shifts to a new level or behaviour. It is not just a bad year — it is a lasting change. The 2013 break in Surat's solar data means that after 2013, the typical annual GHI is persistently lower than it was before 2013.</p>
+  <p>A <strong>structural break</strong> is when a time series permanently shifts to a new level or behaviour. It is not just a bad year - it is a lasting change. The 2013 break in Surat's solar data means that after 2013, the typical annual GHI is persistently lower than it was before 2013.</p>
  
   <h3>The numbers that reveal the break</h3>
  
@@ -839,9 +839,9 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
   <p>Possible physical drivers of this break include: <strong>increased aerosol loading</strong> over Gujarat and western India from industrial growth, <strong>changes in monsoon behaviour</strong> (the 2013 monsoon was exceptionally strong and cloud-heavy over Surat, seen in the anomalously low 2013 Phase C value of 394.78 kWh/m²), and <strong>long-term climate shifts</strong> in the Indian Ocean Dipole and ENSO patterns affecting cloud cover over western India.</p>
  
   <h3>Why this forces the calibration to use only post-2013 data</h3>
-  <p>If you set insurance thresholds using the full 31-year history, you are implicitly assuming the future will look like the past — including those 19 higher-solar years before 2013. But the data proves that period is over. Setting a threshold using pre-2013 conditions would place the trigger <strong>too high</strong> relative to where GHI now actually sits. In practice, the current post-2013 GHI levels would trigger insurance constantly, making the product uninsurable, OR the threshold would be above current normal levels, meaning it almost never triggers and beneficiaries get no protection.</p>
+  <p>If you set insurance thresholds using the full 31-year history, you are implicitly assuming the future will look like the past - including those 19 higher-solar years before 2013. But the data proves that period is over. Setting a threshold using pre-2013 conditions would place the trigger <strong>too high</strong> relative to where GHI now actually sits. In practice, the current post-2013 GHI levels would trigger insurance constantly, making the product uninsurable, OR the threshold would be above current normal levels, meaning it almost never triggers and beneficiaries get no protection.</p>
  
-  <p>The correct approach — confirmed by both tests below — is to treat post-2013 as the relevant climate, calibrate all parameters using only those 12 years, and project that forward.</p>
+  <p>The correct approach - confirmed by both tests below - is to treat post-2013 as the relevant climate, calibrate all parameters using only those 12 years, and project that forward.</p>
 </div>
  
 <!-- ═══════════════════════════════════════════ SECTION 06 -->
@@ -873,7 +873,7 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
       <div class="step-line"><div class="step-dot">2</div><div class="step-connector"></div></div>
       <div class="step-content">
         <div class="step-title">Calculate the standard deviations</div>
-        <div class="step-body">Pre-2013: standard deviation = 38.41 kWh/m²/yr. Post-2013: standard deviation = 36.72 kWh/m²/yr. Both periods have similar spread, which is reassuring — the difference in means is not driven by one outlier year.</div>
+        <div class="step-body">Pre-2013: standard deviation = 38.41 kWh/m²/yr. Post-2013: standard deviation = 36.72 kWh/m²/yr. Both periods have similar spread, which is reassuring - the difference in means is not driven by one outlier year.</div>
       </div>
     </div>
     <div class="step">
@@ -920,7 +920,7 @@ Phase D (Oct–Dec), 1995       = 145.65 + 135.64 + 126.24 = <span class="highli
  
   <p>The Welch t-test confirmed a break between two periods. But it does not tell us whether the solar radiation is gradually and consistently falling year over year across the whole 31-year series. That is what the <strong>Mann-Kendall test</strong> answers.</p>
  
-  <p>The Mann-Kendall test is <strong>non-parametric</strong> — it does not assume the data follows a bell curve or any specific distribution. It works by pure counting, which makes it robust.</p>
+  <p>The Mann-Kendall test is <strong>non-parametric</strong> - it does not assume the data follows a bell curve or any specific distribution. It works by pure counting, which makes it robust.</p>
  
   <h3>How it works</h3>
   <p>Take every possible pair of years in the 31-year series (1995–2025). With 31 years, there are <strong>31 × 30 / 2 = 465 pairs</strong>. For each pair (year i, year j where j is later than i): if GHI went up from i to j, score +1. If it went down, score −1. If unchanged, score 0.</p>
@@ -947,7 +947,7 @@ p-value &lt; 0.001  →  Extremely significant declining trend
  
   <div class="callout">
     <div class="callout-label">What this means practically</div>
-    <p>In 2025, the annual GHI was 1618.39 kWh/m². If the −3.311 trend continues, by 2035 we would expect approximately 1618.39 − (10 × 3.311) = 1585.28 kWh/m²/yr. Setting insurance thresholds without accounting for this trend would mean the trigger points become stale — they would be calibrated to a solar climate that no longer exists.</p>
+    <p>In 2025, the annual GHI was 1618.39 kWh/m². If the −3.311 trend continues, by 2035 we would expect approximately 1618.39 − (10 × 3.311) = 1585.28 kWh/m²/yr. Setting insurance thresholds without accounting for this trend would mean the trigger points become stale - they would be calibrated to a solar climate that no longer exists.</p>
   </div>
 </div>
  
@@ -960,10 +960,10 @@ p-value &lt; 0.001  →  Extremely significant declining trend
     <div class="section-rule"></div>
   </div>
  
-  <p>Once we know the post-2013 period is the relevant one, and that there is a declining trend, we need to formally model that trend for each phase so we can project GHI forward into the simulation. The tool for this is <strong>OLS — Ordinary Least Squares regression</strong>.</p>
+  <p>Once we know the post-2013 period is the relevant one, and that there is a declining trend, we need to formally model that trend for each phase so we can project GHI forward into the simulation. The tool for this is <strong>OLS - Ordinary Least Squares regression</strong>.</p>
  
   <h3>What OLS does, in plain language</h3>
-  <p>Imagine plotting 12 dots on a graph — one dot for each post-2013 year (2014–2025). The x-axis is time, the y-axis is that phase's GHI. The dots do not fall on a perfect line, but they have a rough upward or downward tendency. OLS finds the single straight line that passes through this scatter of dots as closely as possible, measured by minimising the sum of the squared vertical distances from each dot to the line.</p>
+  <p>Imagine plotting 12 dots on a graph - one dot for each post-2013 year (2014–2025). The x-axis is time, the y-axis is that phase's GHI. The dots do not fall on a perfect line, but they have a rough upward or downward tendency. OLS finds the single straight line that passes through this scatter of dots as closely as possible, measured by minimising the sum of the squared vertical distances from each dot to the line.</p>
  
   <div class="callout">
     <div class="callout-label">The OLS formula</div>
@@ -981,24 +981,24 @@ p-value &lt; 0.001  →  Extremely significant declining trend
   </ul>
  
   <h3>What R² tells you</h3>
-  <p>R² (R-squared) measures how much of the year-to-year variation in phase GHI is explained by the linear trend. An R² of 1.0 means the trend explains everything. An R² of 0 means the trend explains nothing — GHI is just random.</p>
+  <p>R² (R-squared) measures how much of the year-to-year variation in phase GHI is explained by the linear trend. An R² of 1.0 means the trend explains everything. An R² of 0 means the trend explains nothing - GHI is just random.</p>
  
   <table class="data-table">
     <thead>
       <tr><th>Phase</th><th>Months</th><th>Intercept α</th><th>Slope β (kWh/m²/yr)</th><th>R²</th><th>Interpretation</th></tr>
     </thead>
     <tbody>
-      <tr><td>Phase A</td><td>Jan–Feb</td><td class="num">271.75</td><td class="num">+0.255</td><td class="num">0.075</td><td>Very slight upward trend; weak fit — winters nearly flat</td></tr>
-      <tr><td>Phase B</td><td>Mar–May</td><td class="num">559.67</td><td class="num">−1.679</td><td class="num">0.292</td><td>Moderate declining trend; moderate fit — pre-monsoon cooling</td></tr>
-      <tr class="highlight-row"><td>Phase C</td><td>Jun–Sep</td><td class="num">492.73</td><td class="num">−5.403</td><td class="num">0.624</td><td>Steepest decline; best fit — monsoon degradation is consistent</td></tr>
-      <tr><td>Phase D</td><td>Oct–Dec</td><td class="num">399.75</td><td class="num">−1.803</td><td class="num">0.238</td><td>Moderate decline; weak-moderate fit — post-monsoon variable</td></tr>
+      <tr><td>Phase A</td><td>Jan–Feb</td><td class="num">271.75</td><td class="num">+0.255</td><td class="num">0.075</td><td>Very slight upward trend; weak fit - winters nearly flat</td></tr>
+      <tr><td>Phase B</td><td>Mar–May</td><td class="num">559.67</td><td class="num">−1.679</td><td class="num">0.292</td><td>Moderate declining trend; moderate fit - pre-monsoon cooling</td></tr>
+      <tr class="highlight-row"><td>Phase C</td><td>Jun–Sep</td><td class="num">492.73</td><td class="num">−5.403</td><td class="num">0.624</td><td>Steepest decline; best fit - monsoon degradation is consistent</td></tr>
+      <tr><td>Phase D</td><td>Oct–Dec</td><td class="num">399.75</td><td class="num">−1.803</td><td class="num">0.238</td><td>Moderate decline; weak-moderate fit - post-monsoon variable</td></tr>
     </tbody>
   </table>
  
-  <p>Phase C has the best R² (0.624) because the monsoon intensification trend is strong and consistent — each year from 2014 to 2025, the monsoon has been getting progressively cloudier and more intense over Surat, driving Phase C GHI down reliably. Phase A has the weakest R² (0.075) because winter clear-sky GHI in Surat has almost no trend — it just fluctuates randomly around a stable level.</p>
+  <p>Phase C has the best R² (0.624) because the monsoon intensification trend is strong and consistent - each year from 2014 to 2025, the monsoon has been getting progressively cloudier and more intense over Surat, driving Phase C GHI down reliably. Phase A has the weakest R² (0.075) because winter clear-sky GHI in Surat has almost no trend - it just fluctuates randomly around a stable level.</p>
  
   <h3>The OLS residuals</h3>
-  <p>After fitting the trend line, what remains — the difference between the actual observed value and what the trend predicted — is called the <strong>residual</strong>. For example, in 2019, Phase B actual GHI was 562.66 kWh/m². The OLS trend predicted 562.66 − 13.06 = 549.60. Residual = 562.66 − 549.60 = <strong>+13.06 kWh/m²</strong>. Phase B was 13 kWh/m² better than the trend expected in 2019. These residuals are the input to the AR(1) model in the next step.</p>
+  <p>After fitting the trend line, what remains - the difference between the actual observed value and what the trend predicted - is called the <strong>residual</strong>. For example, in 2019, Phase B actual GHI was 562.66 kWh/m². The OLS trend predicted 562.66 − 13.06 = 549.60. Residual = 562.66 − 549.60 = <strong>+13.06 kWh/m²</strong>. Phase B was 13 kWh/m² better than the trend expected in 2019. These residuals are the input to the AR(1) model in the next step.</p>
 </div>
  
 <!-- ═══════════════════════════════════════════ SECTION 09 -->
@@ -1012,10 +1012,10 @@ p-value &lt; 0.001  →  Extremely significant declining trend
  
   <p>After OLS removes the trend, the leftover residuals are not random. <strong>They have memory.</strong> If one year's residual was strongly positive (GHI above trend), the next year's residual is slightly more likely to also be positive. This is called <strong>autocorrelation</strong>.</p>
  
-  <p>The physical reason is that climate systems like <strong>ENSO (El Niño–Southern Oscillation)</strong> and the <strong>Indian Ocean Dipole (IOD)</strong> persist for 1–2 years. When an El Niño event weakens the Indian monsoon, you get multiple consecutive below-average monsoon years — the residuals are correlated across years. Ignoring this would underestimate the risk of consecutive bad years.</p>
+  <p>The physical reason is that climate systems like <strong>ENSO (El Niño–Southern Oscillation)</strong> and the <strong>Indian Ocean Dipole (IOD)</strong> persist for 1–2 years. When an El Niño event weakens the Indian monsoon, you get multiple consecutive below-average monsoon years - the residuals are correlated across years. Ignoring this would underestimate the risk of consecutive bad years.</p>
  
   <h3>The AR(1) model</h3>
-  <p>AR(1) stands for "Autoregressive of order 1" — the current period's value depends on the previous period's value (lag of 1). The model for the residuals is:</p>
+  <p>AR(1) stands for "Autoregressive of order 1" - the current period's value depends on the previous period's value (lag of 1). The model for the residuals is:</p>
  
   <div class="formula">ε(t) = φ₁ × ε(t−1)  +  η(t)
  
@@ -1035,20 +1035,20 @@ where:
       <tr><th>Phase</th><th>φ₁</th><th>Innovation σ (kWh/m²)</th><th>Physical Meaning</th></tr>
     </thead>
     <tbody>
-      <tr><td>Phase A (Jan–Feb)</td><td class="num">+0.107</td><td class="num">2.857</td><td>Weak positive memory. A warmer-than-trend January tends to be followed by slightly warmer February. Very stable overall — σ only 2.86.</td></tr>
-      <tr><td>Phase B (Mar–May)</td><td class="num">+0.231</td><td class="num">9.600</td><td>Moderate positive memory. Good pre-monsoon years cluster slightly. ENSO warm events give multiple good pre-monsoon years. σ = 9.60 — significant year-to-year randomness.</td></tr>
-      <tr><td>Phase C (Jun–Sep)</td><td class="num">−0.059</td><td class="num">15.605</td><td>Near-zero, slight negative memory (mild correction). Monsoon is mostly controlled by the Indian Ocean Dipole which resets annually. Highest σ = 15.61 — the most random phase.</td></tr>
-      <tr><td>Phase D (Oct–Dec)</td><td class="num">−0.269</td><td class="num">11.695</td><td>Strongest negative autocorrelation. Above-average post-monsoon tends to be followed by below-average, and vice versa — typical for transitional seasons.</td></tr>
+      <tr><td>Phase A (Jan–Feb)</td><td class="num">+0.107</td><td class="num">2.857</td><td>Weak positive memory. A warmer-than-trend January tends to be followed by slightly warmer February. Very stable overall - σ only 2.86.</td></tr>
+      <tr><td>Phase B (Mar–May)</td><td class="num">+0.231</td><td class="num">9.600</td><td>Moderate positive memory. Good pre-monsoon years cluster slightly. ENSO warm events give multiple good pre-monsoon years. σ = 9.60 - significant year-to-year randomness.</td></tr>
+      <tr><td>Phase C (Jun–Sep)</td><td class="num">−0.059</td><td class="num">15.605</td><td>Near-zero, slight negative memory (mild correction). Monsoon is mostly controlled by the Indian Ocean Dipole which resets annually. Highest σ = 15.61 - the most random phase.</td></tr>
+      <tr><td>Phase D (Oct–Dec)</td><td class="num">−0.269</td><td class="num">11.695</td><td>Strongest negative autocorrelation. Above-average post-monsoon tends to be followed by below-average, and vice versa - typical for transitional seasons.</td></tr>
     </tbody>
   </table>
  
   <div class="worked">
     <div class="worked-label">Worked Example: Phase A, 2016</div>
-    <p>Year 2015 Phase A residual = −0.221 (slightly below trend). The AR(1) model predicts 2016 residual = φ₁ × ε(2015) + η(2016) = 0.107 × (−0.221) + η = −0.024 + η. The innovation η is a random draw from Normal(0, 2.857²). The actual 2016 Phase A residual was +5.361. So η = 5.361 − (−0.024) = 5.385 — this is the "surprise" element that was not predictable from the previous year's state.</p>
+    <p>Year 2015 Phase A residual = −0.221 (slightly below trend). The AR(1) model predicts 2016 residual = φ₁ × ε(2015) + η(2016) = 0.107 × (−0.221) + η = −0.024 + η. The innovation η is a random draw from Normal(0, 2.857²). The actual 2016 Phase A residual was +5.361. So η = 5.361 − (−0.024) = 5.385 - this is the "surprise" element that was not predictable from the previous year's state.</p>
   </div>
  
-  <h3>Innovation σ — what it is and why it matters</h3>
-  <p>After you fit the AR(1) model to the residuals, there is still a remaining unexplained component — the innovations η(t). The standard deviation of these innovations (σ_η, called "Innovation σ" in the sheet) is the measure of <strong>pure random year-to-year unpredictability</strong> that cannot be attributed to either the long-term trend or last year's climate state. Phase A's innovation σ = 2.857 kWh/m² — only 2.86 kWh/m² of randomness in any given year. Phase C's innovation σ = 15.605 kWh/m² — enormous random shocks, because the monsoon is fundamentally unpredictable at the annual level.</p>
+  <h3>Innovation σ - what it is and why it matters</h3>
+  <p>After you fit the AR(1) model to the residuals, there is still a remaining unexplained component - the innovations η(t). The standard deviation of these innovations (σ_η, called "Innovation σ" in the sheet) is the measure of <strong>pure random year-to-year unpredictability</strong> that cannot be attributed to either the long-term trend or last year's climate state. Phase A's innovation σ = 2.857 kWh/m² - only 2.86 kWh/m² of randomness in any given year. Phase C's innovation σ = 15.605 kWh/m² - enormous random shocks, because the monsoon is fundamentally unpredictable at the annual level.</p>
 </div>
  
 <!-- ═══════════════════════════════════════════ SECTION 10 -->
@@ -1056,15 +1056,15 @@ where:
   <div class="section-header">
     <div class="section-num">Section 10</div>
     <div class="section-title">Monte Carlo Simulation</div>
-    <div class="section-subtitle">10,000 paths, 30 years, 300,000 values — what it does and why</div>
+    <div class="section-subtitle">10,000 paths, 30 years, 300,000 values - what it does and why</div>
     <div class="section-rule"></div>
   </div>
  
-  <p>You now have, for each phase: a trend line (OLS), and a model for the random deviations around that trend (AR(1)). Monte Carlo simulation combines these to generate thousands of plausible futures for GHI — not just the most likely future, but the full range of what could happen, including rare bad years.</p>
+  <p>You now have, for each phase: a trend line (OLS), and a model for the random deviations around that trend (AR(1)). Monte Carlo simulation combines these to generate thousands of plausible futures for GHI - not just the most likely future, but the full range of what could happen, including rare bad years.</p>
  
   <h3>Why simulate at all? Why not just use historical data?</h3>
   <p>Three important reasons:</p>
-  <p><strong>1. Too few post-2013 data points:</strong> We have only 12 post-2013 observations per phase. You cannot reliably estimate the 20th percentile from just 12 numbers — the P20 would be determined by a single data point, which is statistically fragile. With 300,000 simulated values, the P20 is extremely stable.</p>
+  <p><strong>1. Too few post-2013 data points:</strong> We have only 12 post-2013 observations per phase. You cannot reliably estimate the 20th percentile from just 12 numbers - the P20 would be determined by a single data point, which is statistically fragile. With 300,000 simulated values, the P20 is extremely stable.</p>
   <p><strong>2. The declining trend makes past data misleading:</strong> Even if we used all 31 historical years, the high pre-2013 solar years would push the percentiles upward. The correct threshold is for future GHI, which is lower. Simulation can project the trend forward.</p>
   <p><strong>3. Rare events need more samples:</strong> A 1-in-20 year event (P5) requires at least 60+ years of data to estimate reliably from history. Simulation gives us millions of synthetic years.</p>
  
@@ -1123,7 +1123,7 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
   </div>
  
   <h3>Simulated results vs observed means</h3>
-  <p>Note that the simulated means are <strong>lower</strong> than the post-2013 observed means. This is because the simulation projects the declining trend forward through 2055, so later simulation years have significantly lower GHI, pulling the overall mean down. This is intentional and correct — we want the threshold calibrated to future conditions, not the current baseline.</p>
+  <p>Note that the simulated means are <strong>lower</strong> than the post-2013 observed means. This is because the simulation projects the declining trend forward through 2055, so later simulation years have significantly lower GHI, pulling the overall mean down. This is intentional and correct - we want the threshold calibrated to future conditions, not the current baseline.</p>
  
   <table class="data-table">
     <thead>
@@ -1149,7 +1149,7 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
  
   <h3>What is a percentile?</h3>
   <p>A percentile is simply a rank-based boundary. If you have 300,000 numbers and you sort them from lowest to highest, the <strong>P20 (20th percentile)</strong> is the value at position 60,000 (bottom 20%). Exactly 20% of all simulated GHI values are below this point, and 80% are above.</p>
-  <p>In probability terms: in any given year, the probability that actual GHI falls below P20 is 20% — or equivalently, a 1-in-5 year event. This is the insurance trigger frequency.</p>
+  <p>In probability terms: in any given year, the probability that actual GHI falls below P20 is 20% - or equivalently, a 1-in-5 year event. This is the insurance trigger frequency.</p>
  
   <h3>Why P20 and not some other percentile?</h3>
   <p>The choice of P20 is an industry standard, not an arbitrary number. Consider the trade-offs:</p>
@@ -1159,11 +1159,11 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
       <tr><th>Percentile</th><th>Trigger Frequency</th><th>Problem if Used</th></tr>
     </thead>
     <tbody>
-      <tr><td>P5</td><td>1-in-20 year event</td><td>Too rare — insurance almost never pays out. Beneficiaries feel unprotected. Product loses credibility.</td></tr>
-      <tr><td>P10</td><td>1-in-10 year event</td><td>IFC calls this "severe stress trigger" — appropriate for catastrophic coverage only.</td></tr>
+      <tr><td>P5</td><td>1-in-20 year event</td><td>Too rare - insurance almost never pays out. Beneficiaries feel unprotected. Product loses credibility.</td></tr>
+      <tr><td>P10</td><td>1-in-10 year event</td><td>IFC calls this "severe stress trigger" - appropriate for catastrophic coverage only.</td></tr>
       <tr class="highlight-row"><td><strong>P20</strong></td><td>1-in-5 year event</td><td>✔ World Bank CCRIF standard. IFC "moderate stress" trigger. Balances protection vs affordability.</td></tr>
-      <tr><td>P25</td><td>1-in-4 year event</td><td>Slightly too loose — premiums become high. Still used in some non-profit contexts as secondary option.</td></tr>
-      <tr><td>P50</td><td>1-in-2 year event</td><td>Triggers every other year on average — actuarially unsustainable, premiums would be enormous.</td></tr>
+      <tr><td>P25</td><td>1-in-4 year event</td><td>Slightly too loose - premiums become high. Still used in some non-profit contexts as secondary option.</td></tr>
+      <tr><td>P50</td><td>1-in-2 year event</td><td>Triggers every other year on average - actuarially unsustainable, premiums would be enormous.</td></tr>
     </tbody>
   </table>
  
@@ -1236,7 +1236,7 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
     </div>
   </div>
  
-  <p>Notice how Phase C's P20 threshold (296.60) is <strong>14% below the simulated mean (345.02)</strong>. This is because the monsoon is so variable — the distribution of simulated Phase C values is very wide, so the bottom 20% sits far below the centre. Phase A's threshold is only 1.1% below its mean because winter is so stable — the distribution is narrow.</p>
+  <p>Notice how Phase C's P20 threshold (296.60) is <strong>14% below the simulated mean (345.02)</strong>. This is because the monsoon is so variable - the distribution of simulated Phase C values is very wide, so the bottom 20% sits far below the centre. Phase A's threshold is only 1.1% below its mean because winter is so stable - the distribution is narrow.</p>
 </div>
  
 <!-- ═══════════════════════════════════════════ SECTION 12 -->
@@ -1253,7 +1253,7 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
   <h3>Why the burn rates look strange</h3>
  
   <div class="note">
-    <strong>Important:</strong> The thresholds were calibrated using post-2013 forward simulation, not historical data. The burn rates are a consistency check, not the calibration basis. Their odd values reflect the regime shift and declining trend — not an error in the model.
+    <strong>Important:</strong> The thresholds were calibrated using post-2013 forward simulation, not historical data. The burn rates are a consistency check, not the calibration basis. Their odd values reflect the regime shift and declining trend - not an error in the model.
   </div>
  
   <table class="data-table">
@@ -1264,7 +1264,7 @@ Phase B example: Trend(t=13) = 559.67 + (−1.679) × 13 = 537.84 kWh/m²</div>
       <tr><td>Phase A</td><td class="num">276.60</td><td>0/31 (0%)</td><td>10/12 (83.3%)</td><td>Pre-2013 Phase A GHI averaged ~277, well above threshold. Post-2013 it averages ~273, mostly below threshold. The threshold sits right in the middle of the distribution shift.</td></tr>
       <tr><td>Phase B</td><td class="num">506.99</td><td>30/31 (96.8%)</td><td>0/12 (0%)</td><td>The threshold of 506.99 was set using the declining future simulation (mean 520.58). Current and historical Phase B values (averaging 548–560) are well above this. As the trend continues, burn rate will converge to 20%.</td></tr>
       <tr><td>Phase C</td><td class="num">296.60</td><td>0/31 (0%)</td><td>0/12 (0%)</td><td>Phase C historical values (averaging 345–460) are all above 296.60. The threshold is set for a much more degraded future climate 10–30 years from now when the declining trend will have pushed values down further.</td></tr>
-      <tr><td>Phase D</td><td class="num">344.88</td><td>0/31 (0%)</td><td>0/12 (0%)</td><td>Same story as Phase C — threshold calibrated forward, historical values are all above it.</td></tr>
+      <tr><td>Phase D</td><td class="num">344.88</td><td>0/31 (0%)</td><td>0/12 (0%)</td><td>Same story as Phase C - threshold calibrated forward, historical values are all above it.</td></tr>
     </tbody>
   </table>
  
@@ -1297,7 +1297,7 @@ Phase Share = Phase Revenue / Annual Revenue
 They cancel out completely. The revenue share is pure GHI ratio.</span>
   </div>
  
-  <p>This is a mathematically powerful result. It means the revenue share percentages are universal — they apply equally to a 10 kWp rooftop system and a 100 MW utility plant in Surat, regardless of whether the tariff is ₹2.5/kWh or ₹4/kWh. The seasonal solar distribution is what determines revenue proportions.</p>
+  <p>This is a mathematically powerful result. It means the revenue share percentages are universal - they apply equally to a 10 kWp rooftop system and a 100 MW utility plant in Surat, regardless of whether the tariff is ₹2.5/kWh or ₹4/kWh. The seasonal solar distribution is what determines revenue proportions.</p>
  
   <h3>Revenue share from simulation vs observed</h3>
   <p>The revenue shares in the model use the <strong>simulated means</strong> (which account for the declining trend forward), not the observed post-2013 means. This is consistent with using the simulation for threshold setting.</p>
@@ -1319,11 +1319,11 @@ They cancel out completely. The revenue share is pure GHI ratio.</span>
       <tr><td>Phase B (Mar–May)</td><td class="num">548.75</td><td class="num">32.90%</td><td class="num">₹1,371.89</td><td class="num">₹1,097.51</td><td class="num">506.99</td><td class="num">2.6%</td></tr>
       <tr><td>Phase C (Jun–Sep)</td><td class="num">457.61</td><td class="num">27.44%</td><td class="num">₹1,144.03</td><td class="num">₹915.22</td><td class="num">296.60</td><td class="num">14.0%</td></tr>
       <tr><td>Phase D (Oct–Dec)</td><td class="num">388.03</td><td class="num">23.27%</td><td class="num">₹970.08</td><td class="num">₹776.07</td><td class="num">344.88</td><td class="num">4.1%</td></tr>
-      <tr class="highlight-row"><td>TOTAL ANNUAL</td><td class="num">1,667.80</td><td class="num">100%</td><td class="num">₹4,169.51</td><td class="num">₹3,335.61</td><td>—</td><td>—</td></tr>
+      <tr class="highlight-row"><td>TOTAL ANNUAL</td><td class="num">1,667.80</td><td class="num">100%</td><td class="num">₹4,169.51</td><td class="num">₹3,335.61</td><td>-</td><td>-</td></tr>
     </tbody>
   </table>
  
-  <p>The "Max Payout % of Phase Revenue" column tells you the maximum insurance payout at P20 trigger as a fraction of that phase's expected revenue. Phase C's 14% is the most significant — when a bad monsoon triggers the insurance, the shortfall could be up to 14% of that phase's expected earnings. Phase A's 1.1% means even in a triggered year, the actual revenue loss relative to expectation is tiny — winter is just too stable for large shortfalls.</p>
+  <p>The "Max Payout % of Phase Revenue" column tells you the maximum insurance payout at P20 trigger as a fraction of that phase's expected revenue. Phase C's 14% is the most significant - when a bad monsoon triggers the insurance, the shortfall could be up to 14% of that phase's expected earnings. Phase A's 1.1% means even in a triggered year, the actual revenue loss relative to expectation is tiny - winter is just too stable for large shortfalls.</p>
  
   <p>At the benchmark of C=1 kWp, PR=0.80, tariff=₹2.5/kWh, the expected annual revenue is <strong>₹3,010.29 per kWp</strong>, split approximately as: Phase A ₹559 | Phase B ₹1,041 | Phase C ₹690 | Phase D ₹720.</p>
 </div>
@@ -1368,7 +1368,7 @@ They cancel out completely. The revenue share is pure GHI ratio.</span>
  
   <h3>Annual-level OLS parameters (post-2013)</h3>
   <div class="formula">Annual GHI(t) = 1722.65 + (−7.908) × (t − 2013)
-<span class="comment">Annual GHI is declining at 7.91 kWh/m²/yr — steeper than any single phase
+<span class="comment">Annual GHI is declining at 7.91 kWh/m²/yr - steeper than any single phase
 because all four phases contribute their individual declining trends</span>
  
 Annual GHI 2026 projection: 1722.65 + (−7.908) × 13 = 1722.65 − 102.80 = <span class="highlight">1619.85 kWh/m²</span>
@@ -1381,8 +1381,8 @@ Annual GHI 2026 projection: 1722.65 + (−7.908) × 13 = 1722.65 − 102.80 = <s
       <tr><td>Welch t-test (regime break)</td><td class="num">t = 2.901, p = 0.0078</td><td>Pre-2013 and post-2013 are statistically different periods (p &lt; 1%). Calibrate only on post-2013.</td></tr>
       <tr><td>Mann-Kendall (trend test)</td><td class="num">Z = −4.249, p &lt; 0.001</td><td>The 31-year series has an extremely significant long-term declining trend.</td></tr>
       <tr><td>Sen's Slope</td><td class="num">−3.311 kWh/m²/yr</td><td>Each year, annual solar irradiance in Surat declines by ~3.3 kWh/m².</td></tr>
-      <tr><td>Pre-2013 mean</td><td class="num">1711.24 kWh/m²/yr</td><td>The historical "normal" — no longer relevant for future projections.</td></tr>
-      <tr><td>Post-2013 mean</td><td class="num">1671.25 kWh/m²/yr</td><td>The current regime baseline — the starting point for calibration.</td></tr>
+      <tr><td>Pre-2013 mean</td><td class="num">1711.24 kWh/m²/yr</td><td>The historical "normal" - no longer relevant for future projections.</td></tr>
+      <tr><td>Post-2013 mean</td><td class="num">1671.25 kWh/m²/yr</td><td>The current regime baseline - the starting point for calibration.</td></tr>
     </tbody>
   </table>
 </div>
@@ -1390,56 +1390,56 @@ Annual GHI 2026 projection: 1722.65 + (−7.908) × 13 = 1722.65 − 102.80 = <s
 <!-- ═══════════════════════════════════════════ SECTION 15 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">Section 15 — Deep Dive I</div>
+    <div class="section-num">Section 15 - Deep Dive I</div>
     <div class="section-title">Why P20? The Science Behind the Number</div>
-    <div class="section-subtitle">Not just "CCRIF says so" — the actuarial and statistical reasoning from first principles</div>
+    <div class="section-subtitle">Not just "CCRIF says so" - the actuarial and statistical reasoning from first principles</div>
     <div class="section-rule"></div>
   </div>
  
-  <p>When the previous section said "World Bank CCRIF uses P20," that is a fact but not a reason. As a researcher, you need to know <em>why</em> P20 is mathematically and actuarially defensible — not just that an institution chose it. This section builds the case from the ground up.</p>
+  <p>When the previous section said "World Bank CCRIF uses P20," that is a fact but not a reason. As a researcher, you need to know <em>why</em> P20 is mathematically and actuarially defensible - not just that an institution chose it. This section builds the case from the ground up.</p>
  
   <h3>Step 1: What does a trigger percentile actually do?</h3>
-  <p>A parametric insurance trigger is a threshold T such that if the measured index (here, phase GHI) falls below T, a payout fires. The critical design parameter is the <strong>annual exceedance probability</strong> — what fraction of years will result in a payout? If you set T = P20, then by definition, 20% of simulated future years fall below T, giving a trigger probability of 0.20 per year.</p>
+  <p>A parametric insurance trigger is a threshold T such that if the measured index (here, phase GHI) falls below T, a payout fires. The critical design parameter is the <strong>annual exceedance probability</strong> - what fraction of years will result in a payout? If you set T = P20, then by definition, 20% of simulated future years fall below T, giving a trigger probability of 0.20 per year.</p>
  
   <p>This immediately determines the <strong>expected number of payout years</strong> in any contract period. For a 10-year contract at P20:</p>
   <div class="formula">E[payouts in 10 years] = 10 × 0.20 = <span class="highlight">2 payout years</span>
 E[payouts in 30 years] = 30 × 0.20 = <span class="highlight">6 payout years</span></div>
  
-  <p>The trigger probability also determines the <strong>pure premium rate</strong> — the minimum fraction of insured value that must be collected each year just to break even. At P20 with a payout of amount L when triggered:</p>
+  <p>The trigger probability also determines the <strong>pure premium rate</strong> - the minimum fraction of insured value that must be collected each year just to break even. At P20 with a payout of amount L when triggered:</p>
   <div class="formula">Pure premium rate = P(trigger) × E[L | trigger]
                   = 0.20 × E[shortfall given GHI &lt; P20]</div>
  
-  <h3>Step 2: The trade-off curve — why not P10, P30, or P50?</h3>
+  <h3>Step 2: The trade-off curve - why not P10, P30, or P50?</h3>
   <p>Every choice of trigger percentile creates a specific position on a trade-off curve between two competing objectives:</p>
  
   <div class="callout">
     <div class="callout-label">The Fundamental Tension</div>
-    <p><strong>Objective 1 — Beneficiary protection:</strong> Trigger often enough that the insurance actually helps when things go wrong. A P5 trigger fires only once every 20 years — useless for covering moderate shortfalls that happen every few years.<br><br>
-    <strong>Objective 2 — Affordability:</strong> Trigger infrequently enough that premiums are payable. A P50 trigger fires every other year on average — premiums would equal roughly half the insured amount per year, which is unaffordable.</p>
+    <p><strong>Objective 1 - Beneficiary protection:</strong> Trigger often enough that the insurance actually helps when things go wrong. A P5 trigger fires only once every 20 years - useless for covering moderate shortfalls that happen every few years.<br><br>
+    <strong>Objective 2 - Affordability:</strong> Trigger infrequently enough that premiums are payable. A P50 trigger fires every other year on average - premiums would equal roughly half the insured amount per year, which is unaffordable.</p>
   </div>
  
-  <p>To quantify this, consider the <strong>Expected Loss Ratio (ELR)</strong> — the ratio of expected payouts to expected premiums. A well-designed product has ELR close to 1 from the insurer's perspective. From the beneficiary's perspective, what matters is the <strong>coverage adequacy ratio</strong> — how much of actual annual revenue loss is compensated by expected insurance payouts.</p>
+  <p>To quantify this, consider the <strong>Expected Loss Ratio (ELR)</strong> - the ratio of expected payouts to expected premiums. A well-designed product has ELR close to 1 from the insurer's perspective. From the beneficiary's perspective, what matters is the <strong>coverage adequacy ratio</strong> - how much of actual annual revenue loss is compensated by expected insurance payouts.</p>
  
   <h3>Step 3: The mathematical argument for P20 specifically</h3>
-  <p>There is no single universally "correct" trigger percentile — but P20 sits at a mathematically identifiable sweet spot for the following reasons:</p>
+  <p>There is no single universally "correct" trigger percentile - but P20 sits at a mathematically identifiable sweet spot for the following reasons:</p>
  
-  <p><strong>Reason 1 — Distributional coverage.</strong> For most solar resource distributions (which are approximately Normal or slightly left-skewed), the interval [P20, P80] captures approximately 60% of the probability mass. This means P20 is far enough into the left tail to represent genuine low-solar years, but not so extreme that it only catches freak outliers. Empirically, for our Phase B simulation: P20 = 506.99 vs mean = 520.58 — a shortfall of 13.59 kWh/m², or 2.6%. This is the kind of loss that materially affects revenue but is not so catastrophic it would be covered by other instruments.</p>
+  <p><strong>Reason 1 - Distributional coverage.</strong> For most solar resource distributions (which are approximately Normal or slightly left-skewed), the interval [P20, P80] captures approximately 60% of the probability mass. This means P20 is far enough into the left tail to represent genuine low-solar years, but not so extreme that it only catches freak outliers. Empirically, for our Phase B simulation: P20 = 506.99 vs mean = 520.58 - a shortfall of 13.59 kWh/m², or 2.6%. This is the kind of loss that materially affects revenue but is not so catastrophic it would be covered by other instruments.</p>
  
-  <p><strong>Reason 2 — Basis risk minimisation.</strong> In parametric insurance, <strong>basis risk</strong> is the risk that the index (GHI) triggers a payout but the insured had no actual loss, or vice versa. Setting the trigger too deep (P5, P10) creates high basis risk — rare GHI events don't always correlate with plant-level revenue loss because performance ratio, curtailment, and demand factors also vary. P20 events are common enough that the correlation between GHI shortfall and actual revenue loss is high and reliable.</p>
+  <p><strong>Reason 2 - Basis risk minimisation.</strong> In parametric insurance, <strong>basis risk</strong> is the risk that the index (GHI) triggers a payout but the insured had no actual loss, or vice versa. Setting the trigger too deep (P5, P10) creates high basis risk - rare GHI events don't always correlate with plant-level revenue loss because performance ratio, curtailment, and demand factors also vary. P20 events are common enough that the correlation between GHI shortfall and actual revenue loss is high and reliable.</p>
  
-  <p><strong>Reason 3 — The actuarial frequency argument.</strong> Parametric insurance products need to accumulate enough premium years between claims to build reserves. If you model claim arrival as a Bernoulli process with probability p = 0.20 per year, the expected waiting time between claims is 1/p = 5 years. This gives the insurer 4 premium-collecting years between payouts on average — enough to build a reserve. At P10 (p=0.10), you wait 10 years on average between claims, which is actuarially fine but means beneficiaries go a decade without protection. At P25 (p=0.25), waiting time drops to 4 years — still workable but premium rates rise approximately 25% relative to P20.</p>
+  <p><strong>Reason 3 - The actuarial frequency argument.</strong> Parametric insurance products need to accumulate enough premium years between claims to build reserves. If you model claim arrival as a Bernoulli process with probability p = 0.20 per year, the expected waiting time between claims is 1/p = 5 years. This gives the insurer 4 premium-collecting years between payouts on average - enough to build a reserve. At P10 (p=0.10), you wait 10 years on average between claims, which is actuarially fine but means beneficiaries go a decade without protection. At P25 (p=0.25), waiting time drops to 4 years - still workable but premium rates rise approximately 25% relative to P20.</p>
  
-  <p><strong>Reason 4 — The Normal distribution argument.</strong> For a Normally distributed index with mean μ and standard deviation σ, the P20 is located at approximately μ − 0.842σ (since the z-score for the 20th percentile is −0.842). This means the trigger fires when GHI is more than 0.84 standard deviations below normal — a well-defined, statistically meaningful threshold. For comparison: P25 fires at μ − 0.674σ (less extreme), P10 fires at μ − 1.282σ (too extreme for moderate coverage). The 0.84σ point has a specific interpretation: it is approximately the boundary between "below average" and "significantly below average" under a Normal distribution.</p>
+  <p><strong>Reason 4 - The Normal distribution argument.</strong> For a Normally distributed index with mean μ and standard deviation σ, the P20 is located at approximately μ − 0.842σ (since the z-score for the 20th percentile is −0.842). This means the trigger fires when GHI is more than 0.84 standard deviations below normal - a well-defined, statistically meaningful threshold. For comparison: P25 fires at μ − 0.674σ (less extreme), P10 fires at μ − 1.282σ (too extreme for moderate coverage). The 0.84σ point has a specific interpretation: it is approximately the boundary between "below average" and "significantly below average" under a Normal distribution.</p>
  
   <div class="worked">
     <div class="worked-label">Numerical check for Phase B</div>
     <p>Simulated mean = 520.58 kWh/m², simulated SD = 14.94 kWh/m².</p>
     <p>Expected P20 under Normal approximation = 520.58 − 0.842 × 14.94 = 520.58 − 12.58 = <strong>508.00 kWh/m²</strong>.</p>
-    <p>Actual simulated P20 = <strong>506.99 kWh/m²</strong>. Difference = only 1.01 kWh/m² (0.2% error) — confirms the simulation is behaving normally and the Normal approximation is excellent for Phase B.</p>
-    <p>For Phase C (which is left-skewed due to the declining trend), the Normal approximation gives: 345.02 − 0.842 × 48.80 = 345.02 − 41.09 = 303.93 kWh/m², vs actual P20 = 296.60 kWh/m². The gap is larger (7.33 kWh/m²) because Phase C's distribution is not Normal — it is left-skewed, pulling the actual P20 further left than a Normal would predict. This is exactly why we simulate rather than just applying the formula.</p>
+    <p>Actual simulated P20 = <strong>506.99 kWh/m²</strong>. Difference = only 1.01 kWh/m² (0.2% error) - confirms the simulation is behaving normally and the Normal approximation is excellent for Phase B.</p>
+    <p>For Phase C (which is left-skewed due to the declining trend), the Normal approximation gives: 345.02 − 0.842 × 48.80 = 345.02 − 41.09 = 303.93 kWh/m², vs actual P20 = 296.60 kWh/m². The gap is larger (7.33 kWh/m²) because Phase C's distribution is not Normal - it is left-skewed, pulling the actual P20 further left than a Normal would predict. This is exactly why we simulate rather than just applying the formula.</p>
   </div>
  
-  <p><strong>Reason 5 — The IFC empirical basis.</strong> The IFC Solar Risk Management framework (2018) is based on analysis of 40+ solar insurance products across South Asia, Sub-Saharan Africa, and Latin America. Products calibrated at P20 showed claim frequency close to the expected 20%, low basis risk complaints from beneficiaries, and sustainable premium rates. Products at P10 had very low claim frequency (under-protection) and products at P30+ faced unsustainable premium escalation. P20 emerged empirically as the optimal point across diverse solar climates and insurance structures. This is not just one institution's preference — it is the convergence of multiple independent actuarial studies on renewable energy parametric products.</p>
+  <p><strong>Reason 5 - The IFC empirical basis.</strong> The IFC Solar Risk Management framework (2018) is based on analysis of 40+ solar insurance products across South Asia, Sub-Saharan Africa, and Latin America. Products calibrated at P20 showed claim frequency close to the expected 20%, low basis risk complaints from beneficiaries, and sustainable premium rates. Products at P10 had very low claim frequency (under-protection) and products at P30+ faced unsustainable premium escalation. P20 emerged empirically as the optimal point across diverse solar climates and insurance structures. This is not just one institution's preference - it is the convergence of multiple independent actuarial studies on renewable energy parametric products.</p>
  
   <h3>Summary: Why P20 and not another number</h3>
   <table class="data-table">
@@ -1458,16 +1458,16 @@ E[payouts in 30 years] = 30 × 0.20 = <span class="highlight">6 payout years</sp
 <!-- ═══════════════════════════════════════════ SECTION 16 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">Section 16 — Deep Dive II</div>
+    <div class="section-num">Section 16 - Deep Dive II</div>
     <div class="section-title">k-Means Clustering: The Full Calculation</div>
     <div class="section-subtitle">How inertia is computed, how the elbow works, and every step of the algorithm from scratch</div>
     <div class="section-rule"></div>
   </div>
  
-  <p>k-Means is not magic — it is a specific iterative algorithm with a well-defined mathematical objective. Here is every step, with the actual numbers from this model.</p>
+  <p>k-Means is not magic - it is a specific iterative algorithm with a well-defined mathematical objective. Here is every step, with the actual numbers from this model.</p>
  
   <h3>Step 0: What are we clustering?</h3>
-  <p>We have 12 data points — one per calendar month. Each point is described by two features drawn from the post-2013 data (2014–2025):</p>
+  <p>We have 12 data points - one per calendar month. Each point is described by two features drawn from the post-2013 data (2014–2025):</p>
   <ul style="margin: 12px 0 20px 28px; color: var(--ink-mid); line-height: 2;">
     <li><strong>Feature 1:</strong> Monthly mean GHI (kWh/m²/month)</li>
     <li><strong>Feature 2:</strong> Monthly CV (standard deviation / mean)</li>
@@ -1479,14 +1479,14 @@ E[payouts in 30 years] = 30 × 0.20 = <span class="highlight">6 payout years</sp
 For Feature 1 (GHI):  mean = 148.94,  std = 29.88
 For Feature 2 (CV):   mean = 0.0613,  std = 0.0509
  
-Example — January:
+Example - January:
   GHI z-score  = (133.36 − 148.94) / 29.88 = −15.58 / 29.88 = <span class="highlight">−0.521</span>
   CV  z-score  = (0.01802 − 0.0613) / 0.0509 = −0.0433 / 0.0509 = <span class="highlight">−0.851</span>
   January point in standardised space: (−0.521, −0.851)
   </div>
  
   <h3>Step 1: The k-Means algorithm</h3>
-  <p>The algorithm finds k cluster centres (called centroids) that minimise the total <strong>inertia</strong> — the sum of squared distances from each point to its assigned centroid. Here is the procedure:</p>
+  <p>The algorithm finds k cluster centres (called centroids) that minimise the total <strong>inertia</strong> - the sum of squared distances from each point to its assigned centroid. Here is the procedure:</p>
  
   <div class="step-flow">
     <div class="step">
@@ -1539,35 +1539,35 @@ Lower inertia = tighter clusters = better separation.</span>
   </ul>
   <p>For just January (z_GHI = −0.521, z_CV = −0.851) in Cluster 1 with centroid (−0.9, −0.7): its contribution to inertia is (−0.521 − (−0.9))² + (−0.851 − (−0.7))² = (0.379)² + (−0.151)² = 0.144 + 0.023 = 0.167. Sum this for all 12 points and you get total inertia for k=2.</p>
  
-  <h3>Step 3: The elbow method — computing inertia for k = 2, 3, 4, 5</h3>
+  <h3>Step 3: The elbow method - computing inertia for k = 2, 3, 4, 5</h3>
   <p>You run the k-means algorithm separately for each value of k, and record the final inertia. The actual values from this model:</p>
  
   <table class="data-table">
     <thead><tr><th>k</th><th>Inertia (WCSS)</th><th>Absolute drop</th><th>% drop</th><th>Marginal gain per extra cluster</th></tr></thead>
     <tbody>
-      <tr><td>k = 2</td><td class="num">8.60</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>k = 2</td><td class="num">8.60</td><td>-</td><td>-</td><td>-</td></tr>
       <tr><td>k = 3</td><td class="num">2.32</td><td class="num">6.28</td><td>73%</td><td>6.28 per cluster added</td></tr>
       <tr class="highlight-row"><td>k = 4</td><td class="num">1.23</td><td class="num">1.09</td><td>47%</td><td>1.09 per cluster added ← elbow</td></tr>
       <tr><td>k = 5</td><td class="num">0.71</td><td class="num">0.52</td><td>42%</td><td>0.52 per cluster added</td></tr>
     </tbody>
   </table>
  
-  <p>The elbow is at k=4 because going from k=3 to k=4 reduces inertia by 1.09 — a bigger gain than going from k=4 to k=5 (gain of 0.52). The <em>rate of improvement</em> drops from 1.09 to 0.52, a halving. Adding a 5th cluster gives diminishing returns — you are splitting an already-tight cluster rather than separating genuinely different groups.</p>
+  <p>The elbow is at k=4 because going from k=3 to k=4 reduces inertia by 1.09 - a bigger gain than going from k=4 to k=5 (gain of 0.52). The <em>rate of improvement</em> drops from 1.09 to 0.52, a halving. Adding a 5th cluster gives diminishing returns - you are splitting an already-tight cluster rather than separating genuinely different groups.</p>
  
   <div class="callout">
     <div class="callout-label">Formal elbow criterion</div>
-    <p>The elbow is mathematically identified as the point k* where the second derivative of the inertia curve changes sign — i.e., where the curve transitions from concave-down (rapidly improving) to concave-up (diminishing returns). Here: Δ(k=2→3) = 6.28, Δ(k=3→4) = 1.09, Δ(k=4→5) = 0.52. The largest single drop in Δ is from 6.28 to 1.09 (between k=3 and k=4), confirming the inflection point at k=4.</p>
+    <p>The elbow is mathematically identified as the point k* where the second derivative of the inertia curve changes sign - i.e., where the curve transitions from concave-down (rapidly improving) to concave-up (diminishing returns). Here: Δ(k=2→3) = 6.28, Δ(k=3→4) = 1.09, Δ(k=4→5) = 0.52. The largest single drop in Δ is from 6.28 to 1.09 (between k=3 and k=4), confirming the inflection point at k=4.</p>
   </div>
  
   <h3>Step 4: Why the result matches meteorological seasons</h3>
-  <p>After k=4 converges and cluster labels are reordered to run Jan–Dec, the 4 clusters are exactly the IMD seasons. Here is the intuition in standardised feature space: the 12 months form four natural clouds of points. The monsoon months (Jun–Sep) sit in one extreme corner — high CV, moderate-to-low GHI. The pre-monsoon months (Mar–May) sit in another — high GHI, moderate CV. Winter months (Jan–Feb) cluster tightly with low GHI and the lowest CV. Post-monsoon months (Oct–Dec) form a transitional cluster. k-Means with k=4 finds these four clouds precisely, because they are genuinely the most compact grouping possible — the physics of the monsoon creates real separation in this feature space.</p>
+  <p>After k=4 converges and cluster labels are reordered to run Jan–Dec, the 4 clusters are exactly the IMD seasons. Here is the intuition in standardised feature space: the 12 months form four natural clouds of points. The monsoon months (Jun–Sep) sit in one extreme corner - high CV, moderate-to-low GHI. The pre-monsoon months (Mar–May) sit in another - high GHI, moderate CV. Winter months (Jan–Feb) cluster tightly with low GHI and the lowest CV. Post-monsoon months (Oct–Dec) form a transitional cluster. k-Means with k=4 finds these four clouds precisely, because they are genuinely the most compact grouping possible - the physics of the monsoon creates real separation in this feature space.</p>
 </div>
  
 <!-- ═══════════════════════════════════════════ SECTION 17 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">Section 17 — Deep Dive III</div>
-    <div class="section-title">What CV = 0.018 Actually Means — For a Layman</div>
+    <div class="section-num">Section 17 - Deep Dive III</div>
+    <div class="section-title">What CV = 0.018 Actually Means - For a Layman</div>
     <div class="section-subtitle">Translating the number into plain language, physical intuition, and real consequences</div>
     <div class="section-rule"></div>
   </div>
@@ -1575,7 +1575,7 @@ Lower inertia = tighter clusters = better separation.</span>
   <p>CV stands for <strong>Coefficient of Variation</strong>. The formula is: CV = Standard Deviation ÷ Mean. That is it. But what does it mean in practice? Why does CV = 0.018 mean "stable" while CV = 0.150 means "wildly unpredictable"? Let's build this intuition from scratch.</p>
  
   <h3>First: what is standard deviation?</h3>
-  <p>Standard deviation (SD) is a measure of how spread out a set of numbers is. Imagine 12 values — one for each year's January GHI from 2014 to 2025. They range from 130.64 to 138.24, with a mean of 133.36. The standard deviation is essentially the average distance of each value from the mean. For January, SD = 2.40 kWh/m².</p>
+  <p>Standard deviation (SD) is a measure of how spread out a set of numbers is. Imagine 12 values - one for each year's January GHI from 2014 to 2025. They range from 130.64 to 138.24, with a mean of 133.36. The standard deviation is essentially the average distance of each value from the mean. For January, SD = 2.40 kWh/m².</p>
  
   <p>But here is the problem with SD alone: a standard deviation of 2.40 means something completely different for January (mean 133.36) versus July (mean 100.90). In January, an SD of 2.40 on a mean of 133 is tiny. But if July had the same SD of 2.40, it would also be tiny relative to its mean of 101. <strong>SD alone does not tell you about relative variability.</strong></p>
  
@@ -1586,23 +1586,23 @@ Lower inertia = tighter clusters = better separation.</span>
 July:    CV = SD / Mean = 14.33 / 100.90 = <span class="highlight">0.142</span></div>
  
   <h3>The plain-language translation</h3>
-  <p>CV = 0.018 means: the year-to-year variation in January GHI is only <strong>1.8% of the average January value</strong>. In absolute terms: January averages 133.36 kWh/m². A typical "bad" January (one standard deviation below) gives 133.36 − 2.40 = 130.96 kWh/m². A typical "good" January gives 133.36 + 2.40 = 135.76 kWh/m². The range between a bad and a good year is only about 4.8 kWh/m² — barely 3.6% variation.</p>
+  <p>CV = 0.018 means: the year-to-year variation in January GHI is only <strong>1.8% of the average January value</strong>. In absolute terms: January averages 133.36 kWh/m². A typical "bad" January (one standard deviation below) gives 133.36 − 2.40 = 130.96 kWh/m². A typical "good" January gives 133.36 + 2.40 = 135.76 kWh/m². The range between a bad and a good year is only about 4.8 kWh/m² - barely 3.6% variation.</p>
  
-  <p>CV = 0.142 means: the year-to-year variation in July GHI is <strong>14.2% of the average July value</strong>. In absolute terms: July averages 100.90 kWh/m². A typical bad July (one SD below) gives 100.90 − 14.33 = 86.57 kWh/m². A typical good July gives 100.90 + 14.33 = 115.23 kWh/m². That is a range of 28.66 kWh/m² — a 28% swing between a bad and a good year.</p>
+  <p>CV = 0.142 means: the year-to-year variation in July GHI is <strong>14.2% of the average July value</strong>. In absolute terms: July averages 100.90 kWh/m². A typical bad July (one SD below) gives 100.90 − 14.33 = 86.57 kWh/m². A typical good July gives 100.90 + 14.33 = 115.23 kWh/m². That is a range of 28.66 kWh/m² - a 28% swing between a bad and a good year.</p>
  
   <div class="callout">
     <div class="callout-label">The money translation</div>
     <p>For a 100 kWp solar plant (PR = 0.80, tariff = ₹2.5/kWh):<br><br>
     In January, the difference between a bad year and a good year in revenue is approximately:<br>
-    4.8 kWh/m² × (100/1000) × 0.80 × ₹2.5 = <strong>₹960 — almost nothing.</strong><br><br>
+    4.8 kWh/m² × (100/1000) × 0.80 × ₹2.5 = <strong>₹960 - almost nothing.</strong><br><br>
     In July (same calculation): 28.66 × (100/1000) × 0.80 × ₹2.5 = <strong>₹5,732 difference</strong> between a bad monsoon month and a good one. On a 100 kWp plant.<br><br>
-    Scale to 1 MWp and that July variability means your monthly revenue could swing by ₹57,320 compared to expectations — and you cannot predict which way it will go until the monsoon actually arrives.</p>
+    Scale to 1 MWp and that July variability means your monthly revenue could swing by ₹57,320 compared to expectations - and you cannot predict which way it will go until the monsoon actually arrives.</p>
   </div>
  
   <h3>Why CV matters for insurance design</h3>
-  <p>The key insight is this: <strong>high CV means the insured cannot predict their income</strong>. That is the core insurance problem. If January were the only month that mattered, nobody would need insurance — they can budget confidently for a ±1.8% swing. But July? September? Those are the months where the difference between a good year and a bad year is large enough to threaten debt repayment.</p>
+  <p>The key insight is this: <strong>high CV means the insured cannot predict their income</strong>. That is the core insurance problem. If January were the only month that mattered, nobody would need insurance - they can budget confidently for a ±1.8% swing. But July? September? Those are the months where the difference between a good year and a bad year is large enough to threaten debt repayment.</p>
  
-  <p>This is precisely why Phase C (monsoon, CV = 0.141) has the most conservative insurance design — the P20 threshold is 14% below the simulated mean, creating a wide safety margin because the distribution is so spread out. Phase A (winter, CV = 0.013) has the tightest design — P20 is only 1.1% below mean, because the distribution is so narrow that even a "bad" winter year is barely distinguishable from an average one.</p>
+  <p>This is precisely why Phase C (monsoon, CV = 0.141) has the most conservative insurance design - the P20 threshold is 14% below the simulated mean, creating a wide safety margin because the distribution is so spread out. Phase A (winter, CV = 0.013) has the tightest design - P20 is only 1.1% below mean, because the distribution is so narrow that even a "bad" winter year is barely distinguishable from an average one.</p>
  
   <h3>A physical intuition for why January is stable and July is not</h3>
   <p>In January, Surat's solar irradiance is controlled by a single dominant factor: the sun's elevation angle, which varies by only 1–2° between years due to fixed astronomical mechanics. Cloud cover is minimal because the winter anticyclone keeps air dry and stable. There is almost nothing that can make January dramatically different from year to year.</p>
@@ -1623,7 +1623,7 @@ July:    CV = SD / Mean = 14.33 / 100.90 = <span class="highlight">0.142</span><
 <!-- ═══════════════════════════════════════════ SECTION 18 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">Section 18 — Deep Dive IV</div>
+    <div class="section-num">Section 18 - Deep Dive IV</div>
     <div class="section-title">Monte Carlo: The Exact Calculation</div>
     <div class="section-subtitle">How every single simulated GHI value is generated, step by step, with numbers</div>
     <div class="section-rule"></div>
@@ -1707,7 +1707,7 @@ P20 = all_values[60000]  <span class="comment"># the value at position 20% × 30
     <li>Simulation spans 2026–2055 (centred near 2040)</li>
     <li>Phase B declines at −1.679 kWh/m²/yr</li>
     <li>Gap in time = approximately 20 years</li>
-    <li>Expected drop = 20 × 1.679 = 33.6 kWh/m² — consistent with the observed 28.17 kWh/m² difference (the simulation mean is the average of all 30 years from 2026–2055, not just year 2040)</li>
+    <li>Expected drop = 20 × 1.679 = 33.6 kWh/m² - consistent with the observed 28.17 kWh/m² difference (the simulation mean is the average of all 30 years from 2026–2055, not just year 2040)</li>
   </ul>
  
   <h3>How the P20 is extracted: sorting 300,000 values</h3>
@@ -1720,18 +1720,18 @@ For Phase B: the value at position 60,000 in the sorted list = <span class="high
 Verification: exactly 60,000 of the 300,000 simulated values are below 506.99
 → P[GHI &lt; 506.99] = 60,000 / 300,000 = 0.200 = 20.00% ✔</div>
  
-  <h3>Why 10,000 paths and 30 years — not some other number?</h3>
-  <p><strong>Why 10,000 paths?</strong> Statistical stability of the P20 estimate. The standard error of a percentile estimate scales as approximately √(p(1−p)/n) where p=0.20 and n is the total sample. With n=300,000: SE ≈ √(0.20 × 0.80 / 300,000) = √(0.000000533) = 0.00073. This means the estimated P20 has a standard error of only 0.073 percentage points — essentially zero uncertainty. With only 1,000 paths (30,000 values), the SE would be 8× larger at ±0.6 percentage points, still acceptable but noisier.</p>
+  <h3>Why 10,000 paths and 30 years - not some other number?</h3>
+  <p><strong>Why 10,000 paths?</strong> Statistical stability of the P20 estimate. The standard error of a percentile estimate scales as approximately √(p(1−p)/n) where p=0.20 and n is the total sample. With n=300,000: SE ≈ √(0.20 × 0.80 / 300,000) = √(0.000000533) = 0.00073. This means the estimated P20 has a standard error of only 0.073 percentage points - essentially zero uncertainty. With only 1,000 paths (30,000 values), the SE would be 8× larger at ±0.6 percentage points, still acceptable but noisier.</p>
  
-  <p><strong>Why 30 years?</strong> The simulation horizon of 2026–2055 matches the typical operating life of a solar plant. An insurance product designed today needs thresholds calibrated for the full contract period, not just the next few years. Using 30 years ensures the declining trend is fully reflected — a threshold calibrated for 2026 alone would be set too high and would under-trigger as the trend continues.</p>
+  <p><strong>Why 30 years?</strong> The simulation horizon of 2026–2055 matches the typical operating life of a solar plant. An insurance product designed today needs thresholds calibrated for the full contract period, not just the next few years. Using 30 years ensures the declining trend is fully reflected - a threshold calibrated for 2026 alone would be set too high and would under-trigger as the trend continues.</p>
  
-  <p><strong>Why Seed = 42?</strong> The random draws η(t,i) ~ Normal(0, σ²) are generated by a pseudo-random number generator (PRNG). A PRNG is deterministic given a starting "seed" — the same seed always produces the same sequence of random numbers. Setting Seed = 42 makes the simulation <strong>perfectly reproducible</strong>: anyone running the same code with Seed = 42 gets identical results. This is essential for scientific verifiability and auditing of the insurance product's calibration.</p>
+  <p><strong>Why Seed = 42?</strong> The random draws η(t,i) ~ Normal(0, σ²) are generated by a pseudo-random number generator (PRNG). A PRNG is deterministic given a starting "seed" - the same seed always produces the same sequence of random numbers. Setting Seed = 42 makes the simulation <strong>perfectly reproducible</strong>: anyone running the same code with Seed = 42 gets identical results. This is essential for scientific verifiability and auditing of the insurance product's calibration.</p>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 19 — THRESHOLD DESIGN -->
+<!-- ═══════════════════════════════════════════ SECTION 19 - THRESHOLD DESIGN -->
 <div class="section" id="sec-thresholds-detail">
   <div class="section-header">
-    <div class="section-num">Section 19 — Actuarial Core I</div>
+    <div class="section-num">Section 19 - Actuarial Core I</div>
     <div class="section-title">Threshold Design: Entry, Exit & Optimistic–Pessimistic–Balanced</div>
     <div class="section-subtitle">Every threshold computed from data, every number justified, every concept explained twice</div>
     <div class="section-rule"></div>
@@ -1741,13 +1741,13 @@ Verification: exactly 60,000 of the 300,000 simulated values are below 506.99
  
   <div class="callout">
     <div class="callout-label">For a Five-Year-Old</div>
-    <p>Imagine you sell lemonade and you need at least 10 lemons a day to make money. If you only get 8 lemons, you start losing money. If you get only 4 lemons, you're really in trouble. Insurance works the same way — we agree in advance: if lemons drop below 10, we pay you. If they drop below 4, we pay you the maximum. This section decides what those lemon numbers are, using 31 years of sunshine records.</p>
+    <p>Imagine you sell lemonade and you need at least 10 lemons a day to make money. If you only get 8 lemons, you start losing money. If you get only 4 lemons, you're really in trouble. Insurance works the same way - we agree in advance: if lemons drop below 10, we pay you. If they drop below 4, we pay you the maximum. This section decides what those lemon numbers are, using 31 years of sunshine records.</p>
   </div>
  
   <h3>The Threshold Taxonomy</h3>
   <p>This model defines <strong>five distinct threshold levels</strong> for each seasonal phase. Each serves a different actuarial purpose. All values below are derived from the Phase A (Jan–Feb) Monte Carlo simulation distribution (10,000 paths × 30 years = 300,000 observations), centred on the 2026 projected mean of 275.06 kWh/m². Phase A is used as the primary worked example throughout; all four phases follow identical methodology.</p>
  
-  <h4>1. Mean Threshold (μ) — The Expected Centre</h4>
+  <h4>1. Mean Threshold (μ) - The Expected Centre</h4>
   <p><strong>Technical:</strong> The arithmetic mean of the simulated distribution. For Phase A: μ = 279.73 kWh/m² (30-year simulated mean). This is computed as:</p>
   <div class="formula"><span class="highlight">μ = (1/N) × Σ GHI_sim(t,i)</span>   <span class="comment">where N = 300,000 simulated values</span>
  
@@ -1755,9 +1755,9 @@ Phase A simulated mean:  <span class="highlight">μ_A = 279.73 kWh/m²</span>
 Annual simulated mean:   μ_annual = 1,619.77 kWh/m²  <span class="comment">(projected for 2026 with trend)</span>
 Post-2013 observed mean: μ_obs = 1,671.25 kWh/m²     <span class="comment">(historical, higher due to pre-trend)</span></div>
   <p><strong>Insurance meaning:</strong> The mean threshold is the "expected normal" level. It tells the insurer: in a perfectly average year, what irradiance should this region receive? No payout occurs above this level. It is the actuarial baseline.</p>
-  <p><strong>Like a child:</strong> Think of the mean as the "usual" amount of sunshine. If you got 280 sunny units last year and 280 again this year, nothing unusual happened. Insurance only kicks in when something unusually bad happens — below normal.</p>
+  <p><strong>Like a child:</strong> Think of the mean as the "usual" amount of sunshine. If you got 280 sunny units last year and 280 again this year, nothing unusual happened. Insurance only kicks in when something unusually bad happens - below normal.</p>
  
-  <h4>2. Entry Trigger (P20) — When the Policy Activates</h4>
+  <h4>2. Entry Trigger (P20) - When the Policy Activates</h4>
   <p><strong>Technical:</strong> The 20th percentile of the simulated 300,000-value distribution. This means 80% of simulated years have GHI above this value, and 20% fall below. It represents a "1-in-5 year bad event."</p>
   <div class="formula"><span class="highlight">Entry Trigger = P₂₀(GHI_sim)</span>
  
@@ -1770,10 +1770,10 @@ Derivation: Sort all 300,000 simulated GHI values ascending.
 Position = 0.20 × 300,000 = 60,000th value = 276.60 kWh/m² (Phase A)
  
 Trigger Probability Check: P[GHI < 276.60] = 60,000/300,000 = 0.2000 = <span class="highlight">20.00% ✔</span></div>
-  <p><strong>Why P20 specifically?</strong> The World Bank CCRIF and IFC have standardised parametric energy triggers at the P20 level. It creates an ~18–22% annual probability of triggering — frequent enough to be economically meaningful for the insured, infrequent enough to keep premiums actuarially sustainable.</p>
+  <p><strong>Why P20 specifically?</strong> The World Bank CCRIF and IFC have standardised parametric energy triggers at the P20 level. It creates an ~18–22% annual probability of triggering - frequent enough to be economically meaningful for the insured, infrequent enough to keep premiums actuarially sustainable.</p>
   <p><strong>Like a child:</strong> Out of 5 years, expect the insurance to pay out roughly once. If it paid every year, premiums would be too expensive. If it only paid once in 50 years, it wouldn't help anyone. Once in 5 is the sweet spot.</p>
  
-  <h4>3. Optimistic Threshold (P90) — The Bright Scenario</h4>
+  <h4>3. Optimistic Threshold (P90) - The Bright Scenario</h4>
   <p><strong>Technical:</strong> The 90th percentile of the simulated distribution. In 90% of simulated years, GHI is below this level; only 10% exceed it. It represents an unusually good solar year.</p>
   <div class="formula"><span class="highlight">Optimistic = P₉₀(GHI_sim)</span>
  
@@ -1783,14 +1783,14 @@ Phase C:  Optimistic = 410.72 kWh/m²
 Phase D:  Optimistic = 381.98 kWh/m²
  
 Mathematical justification: P90 is used (not P75 or P95) because:
-  • P75 is too close to median — only moderately good, not "optimistic"
+  • P75 is too close to median - only moderately good, not "optimistic"
   • P95 is extremely rare (1-in-20), overstates upside
   • P90 (1-in-10 year excellent) correctly bounds the upper range for PERT weighting</div>
   <p><strong>Insurance meaning:</strong> The optimistic threshold anchors the upper end of the PERT-weighted balanced estimate (see below). It ensures the balanced threshold is pulled slightly upward by realistic good scenarios, preventing excessive conservatism.</p>
-  <p><strong>Like a child:</strong> This is the "really sunny year" level. In 1 out of 10 years, sunshine is this high or higher. It's the best we can realistically expect — not a miracle, just a very good year.</p>
+  <p><strong>Like a child:</strong> This is the "really sunny year" level. In 1 out of 10 years, sunshine is this high or higher. It's the best we can realistically expect - not a miracle, just a very good year.</p>
  
-  <h4>4. Pessimistic Threshold (P5) — The Worst-Case Planner</h4>
-  <p><strong>Technical:</strong> The 5th percentile of the simulated distribution. Only 5% of simulated years fall below this level — a 1-in-20 catastrophic event.</p>
+  <h4>4. Pessimistic Threshold (P5) - The Worst-Case Planner</h4>
+  <p><strong>Technical:</strong> The 5th percentile of the simulated distribution. Only 5% of simulated years fall below this level - a 1-in-20 catastrophic event.</p>
   <div class="formula"><span class="highlight">Pessimistic = P₅(GHI_sim)</span>
  
 Phase A:  Pessimistic = 273.90 kWh/m²  <span class="comment">← bottom 5% of years</span>
@@ -1799,13 +1799,13 @@ Phase C:  Pessimistic = 268.30 kWh/m²
 Phase D:  Pessimistic = 332.07 kWh/m²
  
 Mathematical justification: P5 (not P10 or P1) because:
-  • P10 is the "deep trigger" — too common to represent true pessimism
+  • P10 is the "deep trigger" - too common to represent true pessimism
   • P1 is a catastrophic tail event, statistically unstable with only 300 obs below it
   • P5 is the 1-in-20 year event: severe but not unprecedented, well-estimated</div>
   <p><strong>Insurance meaning:</strong> The pessimistic threshold anchors the lower end of the PERT-weighted balanced estimate. It ensures the model accounts for extreme-but-plausible downside, providing the actuary with a conservatism buffer.</p>
   <p><strong>Like a child:</strong> Imagine the worst year in 20. Not a 1-in-100 disaster, but a 1-in-20 really bad year. We plan for this "pessimistic" case when we try to find the fair middle ground for the insurance trigger.</p>
  
-  <h4>5. Balanced Threshold — The Actuarial Sweet Spot</h4>
+  <h4>5. Balanced Threshold - The Actuarial Sweet Spot</h4>
   <p><strong>Technical:</strong> A modified PERT (Program Evaluation and Review Technique) weighted average of optimistic, mean, and pessimistic scenarios. The formula is:</p>
   <div class="formula"><span class="highlight">Balanced = (Optimistic + 4 × Mean + Pessimistic) / 6</span>
  
@@ -1819,15 +1819,15 @@ Phase B: (540.22 + 4×520.58 + 496.34) / 6 = 518.88 kWh/m²
 Phase C: (410.72 + 4×345.02 + 268.30) / 6 = 338.34 kWh/m²
 Phase D: (381.98 + 4×359.81 + 332.07) / 6 = 358.31 kWh/m²</div>
  
-  <p><strong>Why the divisor is 6 (not 3):</strong> The mean is weighted 4× because it represents the most likely outcome — the central mass of the probability distribution. The optimistic and pessimistic scenarios each get weight 1. Total weights = 1 + 4 + 1 = 6. This is identical to the PERT triangular distribution formula used in project management risk assessment and actuarial reserve estimation. The 4× weighting on the mean gives the balanced estimate 67% of its value from the central tendency, preventing extreme tails from distorting the result.</p>
+  <p><strong>Why the divisor is 6 (not 3):</strong> The mean is weighted 4× because it represents the most likely outcome - the central mass of the probability distribution. The optimistic and pessimistic scenarios each get weight 1. Total weights = 1 + 4 + 1 = 6. This is identical to the PERT triangular distribution formula used in project management risk assessment and actuarial reserve estimation. The 4× weighting on the mean gives the balanced estimate 67% of its value from the central tendency, preventing extreme tails from distorting the result.</p>
  
   <div class="worked">
     <div class="worked-label">Why PERT and not simple average?</div>
-    <p>A simple average of (Opt + Mean + Pess)/3 for Phase A = (284.38 + 279.73 + 273.90)/3 = 279.34. The PERT gives 279.53. The difference is small for Phase A (low volatility), but for Phase C (monsoon, CV=0.141): simple average = (410.72 + 345.02 + 268.30)/3 = 341.35 vs PERT = 338.34. The PERT is lower — it appropriately down-weights the optimistic tail because the distribution is left-skewed in volatile phases. This gives the insurer a more conservative (lower) anchor, which is actuarially sound.</p>
+    <p>A simple average of (Opt + Mean + Pess)/3 for Phase A = (284.38 + 279.73 + 273.90)/3 = 279.34. The PERT gives 279.53. The difference is small for Phase A (low volatility), but for Phase C (monsoon, CV=0.141): simple average = (410.72 + 345.02 + 268.30)/3 = 341.35 vs PERT = 338.34. The PERT is lower - it appropriately down-weights the optimistic tail because the distribution is left-skewed in volatile phases. This gives the insurer a more conservative (lower) anchor, which is actuarially sound.</p>
   </div>
  
-  <h4>6. Exit Trigger — The Policy's Maximum-Payout Floor</h4>
-  <p><strong>Technical:</strong> The exit trigger is the irradiance level at which the policy pays its <em>maximum possible payout</em>. Below the exit trigger, no additional payout is given — the cap has been reached. This protects the insurer from unlimited liability and makes premium calculation feasible.</p>
+  <h4>6. Exit Trigger - The Policy's Maximum-Payout Floor</h4>
+  <p><strong>Technical:</strong> The exit trigger is the irradiance level at which the policy pays its <em>maximum possible payout</em>. Below the exit trigger, no additional payout is given - the cap has been reached. This protects the insurer from unlimited liability and makes premium calculation feasible.</p>
  
   <p><strong>Two derivation methods were tested and compared:</strong></p>
  
@@ -1852,18 +1852,18 @@ Comparison:
 SELECTED: Method 2 (CTE)  ← more conservative, captures average extreme loss</div>
  
   <p><strong>Why CTE is preferred over P95 of loss:</strong></p>
-  <p>The CTE (also called CVaR — Conditional Value at Risk) is the <em>average loss in the worst 5% of scenarios</em>, not just the boundary. It is preferred because: (1) it reflects the <em>expected severity</em> of extreme events, not just the threshold; (2) it is sub-additive and coherent (Artzner et al., 1999) — mathematically superior to VaR; (3) it naturally widens the coverage range, ensuring the policy fully compensates the insured in genuine catastrophic years; (4) Solvency II (EU) and IRDAI guidelines both recommend CTE-based risk measures for tail exposures.</p>
+  <p>The CTE (also called CVaR - Conditional Value at Risk) is the <em>average loss in the worst 5% of scenarios</em>, not just the boundary. It is preferred because: (1) it reflects the <em>expected severity</em> of extreme events, not just the threshold; (2) it is sub-additive and coherent (Artzner et al., 1999) - mathematically superior to VaR; (3) it naturally widens the coverage range, ensuring the policy fully compensates the insured in genuine catastrophic years; (4) Solvency II (EU) and IRDAI guidelines both recommend CTE-based risk measures for tail exposures.</p>
  
   <div class="worked">
     <div class="worked-label">Simple analogy: entry → exit is a "safety zone"</div>
-    <p>Think of the entry trigger (276.60) as the front door of a danger zone. Once you cross it — your income is hurting. The exit trigger (272.33) is the back wall — beyond this, you're in maximum danger. The insurance pays proportionally as you move from the front door toward the back wall. Once you hit the back wall, it pays the maximum — no matter how much worse things get. This cap is essential: without it, the insurer cannot price the product because the maximum loss is unbounded.</p>
+    <p>Think of the entry trigger (276.60) as the front door of a danger zone. Once you cross it - your income is hurting. The exit trigger (272.33) is the back wall - beyond this, you're in maximum danger. The insurance pays proportionally as you move from the front door toward the back wall. Once you hit the back wall, it pays the maximum - no matter how much worse things get. This cap is essential: without it, the insurer cannot price the product because the maximum loss is unbounded.</p>
   </div>
  
   <div class="stat-banner">
-    <div class="stat-cell"><div class="stat-big">276.60</div><div class="stat-desc">Entry Trigger, Phase A (kWh/m²) — P20 of MC simulation</div></div>
-    <div class="stat-cell"><div class="stat-big">272.33</div><div class="stat-desc">Exit Trigger, Phase A (kWh/m²) — CTE below P5</div></div>
-    <div class="stat-cell"><div class="stat-big">4.27</div><div class="stat-desc">Coverage Range, Phase A (kWh/m²) — Entry minus Exit</div></div>
-    <div class="stat-cell"><div class="stat-big">18.2%</div><div class="stat-desc">Annual trigger probability — payout once in ~5.5 years</div></div>
+    <div class="stat-cell"><div class="stat-big">276.60</div><div class="stat-desc">Entry Trigger, Phase A (kWh/m²) - P20 of MC simulation</div></div>
+    <div class="stat-cell"><div class="stat-big">272.33</div><div class="stat-desc">Exit Trigger, Phase A (kWh/m²) - CTE below P5</div></div>
+    <div class="stat-cell"><div class="stat-big">4.27</div><div class="stat-desc">Coverage Range, Phase A (kWh/m²) - Entry minus Exit</div></div>
+    <div class="stat-cell"><div class="stat-big">18.2%</div><div class="stat-desc">Annual trigger probability - payout once in ~5.5 years</div></div>
   </div>
  
   <h3>All Four Phases: Complete Threshold Summary</h3>
@@ -1887,12 +1887,12 @@ SELECTED: Method 2 (CTE)  ← more conservative, captures average extreme loss</
   <p style="font-size:13px;color:var(--ink-light);font-style:italic;">All values in kWh/m². Exit trigger = CTE(below P5) of simulated distribution. Coverage = Entry − Exit.</p>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 20 — PAYOUT MODEL -->
+<!-- ═══════════════════════════════════════════ SECTION 20 - PAYOUT MODEL -->
 <div class="section" id="sec-payout">
   <div class="section-header">
-    <div class="section-num">Section 20 — Actuarial Core II</div>
+    <div class="section-num">Section 20 - Actuarial Core II</div>
     <div class="section-title">Payout Model: The Complete Financial Mechanism</div>
-    <div class="section-subtitle">Exact formula, full simulation, expected payout, and payout distribution — all derived</div>
+    <div class="section-subtitle">Exact formula, full simulation, expected payout, and payout distribution - all derived</div>
     <div class="section-rule"></div>
   </div>
  
@@ -1900,10 +1900,10 @@ SELECTED: Method 2 (CTE)  ← more conservative, captures average extreme loss</
  
   <div class="callout">
     <div class="callout-label">For a Five-Year-Old</div>
-    <p>Imagine you borrowed 10 lemons' worth of money. If you get 9 lemons, you're short by 1 — the insurance gives you money for that 1 lemon. If you get 5 lemons, you're short by 5 — the insurance gives you money for 5 lemons. But even if you get 0 lemons, the insurance only pays for up to the maximum agreed amount (maybe 4 lemons' worth). There's a floor, a ceiling, and everything in between scales perfectly. That's the payout formula.</p>
+    <p>Imagine you borrowed 10 lemons' worth of money. If you get 9 lemons, you're short by 1 - the insurance gives you money for that 1 lemon. If you get 5 lemons, you're short by 5 - the insurance gives you money for 5 lemons. But even if you get 0 lemons, the insurance only pays for up to the maximum agreed amount (maybe 4 lemons' worth). There's a floor, a ceiling, and everything in between scales perfectly. That's the payout formula.</p>
   </div>
  
-  <h3>The Payout Formula — Exact Derivation</h3>
+  <h3>The Payout Formula - Exact Derivation</h3>
   <div class="formula"><span class="highlight">Payout per kWp = min( max(Entry − GHI_observed, 0), Entry − Exit ) × Rate</span>
  
 Where:
@@ -1912,15 +1912,15 @@ Where:
   Rate   = Performance Ratio × Tariff = 0.80 × ₹2.50 = <span class="highlight">₹2.00 per kWh/m² per kWp</span>
   GHI_observed = actual measured GHI for the phase (from ERA5 or agreed satellite)</span>
  
-<span class="comment">— max(Entry − GHI_obs, 0): ensures payout is zero if GHI ≥ Entry</span>
-<span class="comment">— min(…, Entry − Exit): caps payout at maximum coverage range</span>
+<span class="comment">- max(Entry − GHI_obs, 0): ensures payout is zero if GHI ≥ Entry</span>
+<span class="comment">- min(…, Entry − Exit): caps payout at maximum coverage range</span>
  
 Coverage Range (cap) = Entry − Exit = 276.60 − 272.33 = <span class="highlight">4.27 kWh/m²</span>
 Maximum payout per kWp   = 4.27 × ₹2.00 = <span class="highlight">₹8.54 per kWp installed</span></div>
  
-  <h3>Why max() and Why min() — The Mathematical Necessity</h3>
-  <p>The <strong>max(..., 0)</strong> operator implements the "trigger rule": if observed GHI is above the entry trigger, the shortfall (Entry − GHI_obs) is negative, meaning there is no loss. A negative payout makes no sense in insurance — we use max to clip it at zero. This is mathematically equivalent to holding a call option on GHI shortfall.</p>
-  <p>The <strong>min(..., Entry − Exit)</strong> operator implements the "cap rule": even if GHI collapses to zero, the insurer only pays the maximum agreed amount. Without this cap, the insurer would face theoretically unlimited liability, which cannot be priced. This is equivalent to buying a spread in options markets — you are long a put at the Entry strike and short a put at the Exit strike.</p>
+  <h3>Why max() and Why min() - The Mathematical Necessity</h3>
+  <p>The <strong>max(..., 0)</strong> operator implements the "trigger rule": if observed GHI is above the entry trigger, the shortfall (Entry − GHI_obs) is negative, meaning there is no loss. A negative payout makes no sense in insurance - we use max to clip it at zero. This is mathematically equivalent to holding a call option on GHI shortfall.</p>
+  <p>The <strong>min(..., Entry − Exit)</strong> operator implements the "cap rule": even if GHI collapses to zero, the insurer only pays the maximum agreed amount. Without this cap, the insurer would face theoretically unlimited liability, which cannot be priced. This is equivalent to buying a spread in options markets - you are long a put at the Entry strike and short a put at the Exit strike.</p>
  
   <div class="formula"><span class="comment">This is mathematically identical to a bull put spread in derivatives:</span>
  
@@ -1936,10 +1936,10 @@ Payout = max(Entry − GHI, 0) − max(Exit − GHI, 0)
   = 1.60 − 0 = <span class="highlight">1.60 kWh/m² shortfall</span>
   → Payout = 1.60 × ₹2.00 = <span class="highlight">₹3.20 per kWp</span>
  
-<span class="comment">For GHI = 280 (above entry — no trigger):</span>
+<span class="comment">For GHI = 280 (above entry - no trigger):</span>
   = max(276.60 − 280, 0) = 0 → <span class="highlight">₹0 payout ✔</span></div>
  
-  <h3>Rate Derivation — Where ₹2.00 per kWh/m² Comes From</h3>
+  <h3>Rate Derivation - Where ₹2.00 per kWh/m² Comes From</h3>
   <p>The rate converts a GHI shortfall (kWh/m²) into an equivalent revenue loss (INR). The logic:</p>
   <div class="formula"><span class="comment">Energy produced by 1 kWp system in one year:</span>
 E = GHI × Performance Ratio   <span class="comment">(kWh/m² × dimensionless → kWh per kWp)</span>
@@ -1958,7 +1958,7 @@ Assumptions stated explicitly:
   • Performance Ratio (PR) = 0.80  (industry standard for well-maintained plant)
   • PR captures: inverter losses, wiring losses, soiling, temperature de-rating, shading</div>
  
-  <h3>Monte Carlo Payout Simulation — 10,000 Scenarios</h3>
+  <h3>Monte Carlo Payout Simulation - 10,000 Scenarios</h3>
   <p>Using the Phase A simulated distribution (μ=279.73, σ=3.57, Normal approximation), 10,000 GHI values were drawn and the payout formula applied to each:</p>
   <div class="formula"><span class="comment">Python: core simulation loop</span>
 payouts = []
@@ -1971,15 +1971,15 @@ for obs in mc_phaseA_10000:
 <span class="highlight">Results from 10,000 simulations:</span>
   Expected Payout (E[X]):     ₹0.666 per kWp per Phase A period
   Payout Std Dev (σ_X):       ₹1.822 per kWp
-  Trigger Probability:         18.17%   <span class="comment">(≈20% as designed — Monte Carlo sampling variation)</span>
+  Trigger Probability:         18.17%   <span class="comment">(≈20% as designed - Monte Carlo sampling variation)</span>
   Maximum Observed:            ₹8.545 per kWp  <span class="comment">(= full cap reached)</span>
   Median Payout (P50):         ₹0.00            <span class="comment">(majority of years: no trigger)</span>
   E[X | triggered]:            ₹3.67 per kWp   <span class="comment">(average payout WHEN it does trigger)</span>
   VaR(95%) of payouts:         ₹5.23 per kWp
   CTE(95%):                    ₹7.41 per kWp</div>
  
-  <h3>Interpreting E[X | triggered] — The Conditional Expected Loss</h3>
-  <p>The unconditional expected payout is ₹0.666 per kWp. But this is averaged across all years — including 81.83% of years where payout is ₹0. When the trigger <em>does</em> activate (18.17% of years), the average payout is ₹3.67 per kWp. This conditional severity is what the reinsurance market focuses on: it means that when this product pays out, it typically pays about 43% of the maximum — not a trivial amount, but not maximum either.</p>
+  <h3>Interpreting E[X | triggered] - The Conditional Expected Loss</h3>
+  <p>The unconditional expected payout is ₹0.666 per kWp. But this is averaged across all years - including 81.83% of years where payout is ₹0. When the trigger <em>does</em> activate (18.17% of years), the average payout is ₹3.67 per kWp. This conditional severity is what the reinsurance market focuses on: it means that when this product pays out, it typically pays about 43% of the maximum - not a trivial amount, but not maximum either.</p>
  
   <div class="stat-banner">
     <div class="stat-cell"><div class="stat-big">₹0.67</div><div class="stat-desc">Expected annual payout per kWp (Phase A)</div></div>
@@ -2007,12 +2007,12 @@ For 100 kWp plant: ₹2,350.35 × 100 = <span class="highlight">₹2,35,035 tota
 Note: This is Phase A only. Full-year policy would sum across all 4 phases.</div>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 21 — PRICING MODELS -->
+<!-- ═══════════════════════════════════════════ SECTION 21 - PRICING MODELS -->
 <div class="section" id="sec-pricing">
   <div class="section-header">
-    <div class="section-num">Section 21 — Actuarial Core III</div>
+    <div class="section-num">Section 21 - Actuarial Core III</div>
     <div class="section-title">Premium Pricing: All Five Actuarial Frameworks</div>
-    <div class="section-subtitle">Classical, Utility, Transform, Market, and Financial — every formula derived and explained</div>
+    <div class="section-subtitle">Classical, Utility, Transform, Market, and Financial - every formula derived and explained</div>
     <div class="section-rule"></div>
   </div>
  
@@ -2033,9 +2033,9 @@ Where: E[X] = expected payout = ₹0.666 per kWp
 π_EV = 0.666 × 1.15 = <span class="highlight">₹0.766 per kWp</span>
  
 <span class="comment">Pure risk premium (before loading) = E[X] = ₹0.666 per kWp</span>
-This is the "actuarially fair" price — what the insurer expects to pay out on average.</div>
+This is the "actuarially fair" price - what the insurer expects to pay out on average.</div>
   <p><strong>Technical:</strong> The expected value principle is the most intuitive. It assumes a risk-neutral insurer who charges exactly the expected loss plus a proportional margin. It is correct in theory for large portfolios (by law of large numbers) but insufficient alone for small books of business.</p>
-  <p><strong>Like a child:</strong> If I play a game and I'm expected to win ₹67 over 100 rounds, I charge ₹77 — the ₹10 extra is my fee for running the game. Simple.</p>
+  <p><strong>Like a child:</strong> If I play a game and I'm expected to win ₹67 over 100 rounds, I charge ₹77 - the ₹10 extra is my fee for running the game. Simple.</p>
  
   <h4>A2. Variance Principle</h4>
   <div class="formula"><span class="highlight">π_Var = E[X] + β × Var[X]</span>
@@ -2056,7 +2056,7 @@ A risk with the same mean but wildly volatile payouts costs more to hold.</div>
  
 π_SD = 0.666 + 0.15 × 1.822 = 0.666 + 0.273 = <span class="highlight">₹0.939 per kWp</span>
  
-Preferred over variance principle when: loss distribution is heavy-tailed (not the case here — Normal-like)</div>
+Preferred over variance principle when: loss distribution is heavy-tailed (not the case here - Normal-like)</div>
  
   <h3>B. Utility-Based Pricing</h3>
   <p>Utility theory asks: at what premium is the insurer indifferent between accepting the risk and not? This requires a utility function u(w) representing risk preference.</p>
@@ -2074,10 +2074,10 @@ For Normal(μ, σ²) X:
        = 0.666 + 0.00166
        = <span class="highlight">₹0.668 per kWp</span>   <span class="comment">(α=0.001, moderate risk aversion)</span>
  
-α interpretation: α = 0.001 means the insurer is mildly risk-averse — a loss of ₹1000 causes
+α interpretation: α = 0.001 means the insurer is mildly risk-averse - a loss of ₹1000 causes
 mild disutility beyond expected value. Industry range: 0.0001 (near-neutral) to 0.01 (very risk-averse)</div>
  
-  <p><strong>Technical:</strong> The zero utility premium is the actuarially "fair" price under exponential risk aversion. It adds a risk premium proportional to α × σ²/2 above the expected loss — this is the actuarial equivalent of the Sharpe ratio adjustment in finance. For Phase A's low-volatility loss distribution, this premium is nearly identical to E[X] because the variance is small relative to α.</p>
+  <p><strong>Technical:</strong> The zero utility premium is the actuarially "fair" price under exponential risk aversion. It adds a risk premium proportional to α × σ²/2 above the expected loss - this is the actuarial equivalent of the Sharpe ratio adjustment in finance. For Phase A's low-volatility loss distribution, this premium is nearly identical to E[X] because the variance is small relative to α.</p>
   <p><strong>Like a child:</strong> Imagine you charge ₹1 extra for every ₹1 you might unexpectedly lose beyond what you planned. For this product, unexpected losses are small, so this extra charge is tiny.</p>
  
   <h3>C. Transform-Based Pricing</h3>
@@ -2122,14 +2122,14 @@ Empirical result from 10,000 simulations:
   π_PH = <span class="highlight">₹0.452 per kWp</span>
  
 Note: PH gives a LOWER premium than E[X] because the distortion also downweights
-the very common zero-payout events. This is counterintuitive but mathematically correct —
+the very common zero-payout events. This is counterintuitive but mathematically correct -
 PH measures the "distorted expected value" and can sometimes be conservative on sparse triggers.</div>
  
   <h3>D. Market-Based Pricing</h3>
   <h4>D1. Swiss Premium Principle</h4>
   <div class="formula"><span class="highlight">Swiss Principle: π = E[X] + β × Var[X] / π</span>
  
-This is implicit — solve for π:
+This is implicit - solve for π:
   π² = π × E[X] + β × Var[X]
   π² − E[X] × π − β × Var[X] = 0
  
@@ -2176,7 +2176,7 @@ d₁ = [ln(S/K) + (r + σ²/2)T] / (σ√T)
 d₂ = d₁ − σ√T = 5.981 − 0.01276 = 5.968
  
 Put Price = K×e^(−rT)×N(−d₂) − S×N(−d₁)
-N(−5.968) ≈ 0.0000000012  <span class="comment">(essentially zero — S is deep OTM for put)</span>
+N(−5.968) ≈ 0.0000000012  <span class="comment">(essentially zero - S is deep OTM for put)</span>
  
 BS Put GHI units ≈ 0.0000  <span class="comment">(S >> K in vol-adjusted space; very low vol makes this near zero)</span>
 BS Premium ≈ <span class="highlight">₹0.000 per kWp</span>
@@ -2185,7 +2185,7 @@ Explanation: Phase A GHI has extremely low volatility (σ=1.28%). The put is ver
 (S/K = 1.011), but Black-Scholes for near-ATM with 1.28% vol gives a negligible price because
 the normal distributional probability of crossing the strike in one year with only 1.28% vol
 is nearly zero under risk-neutral measure. This shows why BS is inappropriate for parametric
-insurance with low-vol, non-lognormal indices — the simulation-based approaches are more realistic.
+insurance with low-vol, non-lognormal indices - the simulation-based approaches are more realistic.
 BS works better for Phase C (vol = 14%), which is why Wang Transform is the preferred method.</div>
  
   <h3>Pricing Method Comparison Table</h3>
@@ -2206,12 +2206,12 @@ BS works better for Phase C (vol = 14%), which is why Wang Transform is the pref
   <div class="note"><strong>Selected Method for Final Pricing:</strong> Wang Transform (₹1.121 per kWp) is selected as the primary pricing method. Rationale: (1) It is theoretically consistent with CAPM and market pricing; (2) It is widely used in parametric insurance and cat bonds (Swiss Re, Munich Re); (3) It appropriately compensates for left-tail risk through the λ=0.25 adjustment; (4) It lies in the middle of the range, avoiding both under-pricing (EV) and over-pricing (Swiss). The final gross premium uses Wang Transform as the pure-risk base before loadings.</div>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 22 — LOADINGS -->
+<!-- ═══════════════════════════════════════════ SECTION 22 - LOADINGS -->
 <div class="section" id="sec-loadings">
   <div class="section-header">
-    <div class="section-num">Section 22 — Actuarial Core IV</div>
+    <div class="section-num">Section 22 - Actuarial Core IV</div>
     <div class="section-title">Premium Loadings: From Pure Risk to Gross Premium</div>
-    <div class="section-subtitle">Every loading derived from risk measures — no guessing, no arbitrary percentages</div>
+    <div class="section-subtitle">Every loading derived from risk measures - no guessing, no arbitrary percentages</div>
     <div class="section-rule"></div>
   </div>
  
@@ -2225,7 +2225,7 @@ BS works better for Phase C (vol = 14%), which is why Wang Transform is the pref
   <h4>1. Pure Risk Premium</h4>
   <div class="formula">Pure Risk Premium = E[X] from Wang Transform = <span class="highlight">₹1.121 per kWp</span>
  
-<span class="comment">This is the expected payout — the actuarially fair single price before any costs.
+<span class="comment">This is the expected payout - the actuarially fair single price before any costs.
 It is NOT the Wang premium itself, but the base payout E[X] which the Wang transform adjusts.
 For loading purposes, we use Wang as the base for the full premium structure.</span>
  
@@ -2239,13 +2239,13 @@ Selected Base: Wang Transform Premium = ₹1.121 per kWp (Phase A, per year)</di
 VaR(95%) of payout distribution = ₹5.231 per kWp
 CTE(95%) = E[X | X ≥ VaR₉₅] = ₹7.411 per kWp
  
-<span class="comment">CTE represents the average payout in the worst 5% of scenarios — the "expected shortfall."
+<span class="comment">CTE represents the average payout in the worst 5% of scenarios - the "expected shortfall."
 The difference (CTE − E[X]) = 7.411 − 0.666 = 6.745 represents the tail risk exposure.
 This is what reinsurance must cover. The reinsurance loading % = 6.745 / 0.666 = 1013% of E[X].</span>
  
 <span class="comment">Note: This extreme ratio reflects Phase A's bimodal distribution: either payout = 0 (82% of time)
 or payout = ₹8.54 (full cap, in catastrophic scenarios). The reinsurance cost reflects
-the binary nature of this product — when it pays, it pays heavily relative to E[X].</span>
+the binary nature of this product - when it pays, it pays heavily relative to E[X].</span>
  
 In practice, reinsurer quotes a blended rate-on-line (ROL) for cat excess-of-loss:
   ROL standard for India solar parametric ≈ 15–25% of exposure limit
@@ -2317,7 +2317,7 @@ For 100 kWp plant (Phase A policy):
   Gross Premium = 3.598 × 100 = <span class="highlight">₹359.80 per year</span>
  
 Loss Ratio Check: E[X] / Net Premium = 0.666 / 3.049 = <span class="highlight">21.8%</span>
-<span class="comment">(Low loss ratio is expected for binary triggers — 78% covers distribution costs and capital.
+<span class="comment">(Low loss ratio is expected for binary triggers - 78% covers distribution costs and capital.
 Typical parametric insurance loss ratios: 20–40%)</span></div>
  
   <h3>Policy Details Summary</h3>
@@ -2339,18 +2339,18 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
   </table>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 23 — CUSTOMER PROPOSAL -->
+<!-- ═══════════════════════════════════════════ SECTION 23 - CUSTOMER PROPOSAL -->
 <div class="section" id="sec-proposal">
   <div class="section-header">
-    <div class="section-num">Section 23 — Customer Proposal</div>
+    <div class="section-num">Section 23 - Customer Proposal</div>
     <div class="section-title">Your Solar Protection, Explained Simply</div>
-    <div class="section-subtitle">A plain-language, fully transparent proposal — click each section to learn more</div>
+    <div class="section-subtitle">A plain-language, fully transparent proposal - click each section to learn more</div>
     <div class="section-rule"></div>
   </div>
  
   <div class="callout" style="background:linear-gradient(135deg,#1a3a5c 0%,#1e6b6b 100%);border-left:4px solid #c9963a;">
     <div class="callout-label" style="color:#c9963a;">Your Insurance at a Glance</div>
-    <p style="color:#fff;font-size:17px;line-height:1.8;">You own a solar plant in Surat. This policy pays you automatically — without paperwork, without waiting — the moment satellite data confirms that sunlight in your area dropped below an agreed threshold. No one visits your plant. No loss assessor. The number triggers the payment. Period.</p>
+    <p style="color:#fff;font-size:17px;line-height:1.8;">You own a solar plant in Surat. This policy pays you automatically - without paperwork, without waiting - the moment satellite data confirms that sunlight in your area dropped below an agreed threshold. No one visits your plant. No loss assessor. The number triggers the payment. Period.</p>
   </div>
  
   <style>
@@ -2388,7 +2388,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
       <span class="acc-icon">+</span>
     </div>
     <div class="accordion-body">
-      <p>This policy covers <strong>loss of solar energy generation revenue</strong> caused by below-normal sunlight in Surat's region. Specifically, it monitors the <em>Global Horizontal Irradiance (GHI)</em> — the total solar energy falling per square metre — using the ERA5-Land satellite reanalysis dataset published by the European Centre for Medium-Range Weather Forecasts.</p>
+      <p>This policy covers <strong>loss of solar energy generation revenue</strong> caused by below-normal sunlight in Surat's region. Specifically, it monitors the <em>Global Horizontal Irradiance (GHI)</em> - the total solar energy falling per square metre - using the ERA5-Land satellite reanalysis dataset published by the European Centre for Medium-Range Weather Forecasts.</p>
       <p>There are <strong>four seasonal phases</strong>, each with its own trigger threshold based on 31 years of data:</p>
       <div class="acc-highlight">
         Phase A (Jan–Feb):  Trigger at 276.60 kWh/m²  | Rev. share: 18.6%<br>
@@ -2396,7 +2396,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
         Phase C (Jun–Sep):  Trigger at 296.60 kWh/m²  | Rev. share: 22.9%<br>
         Phase D (Oct–Dec):  Trigger at 344.88 kWh/m²  | Rev. share: 23.9%
       </div>
-      <p>If measured GHI in any phase falls below its trigger, you receive a payout proportional to the shortfall, up to the maximum cap for that phase. The payout is calculated using satellite data — not a physical inspection of your plant.</p>
+      <p>If measured GHI in any phase falls below its trigger, you receive a payout proportional to the shortfall, up to the maximum cap for that phase. The payout is calculated using satellite data - not a physical inspection of your plant.</p>
     </div>
   </div>
  
@@ -2408,7 +2408,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
     <div class="accordion-body">
       <p>Payment is triggered the moment ERA5-Land confirms phase GHI is below your entry trigger. Here is how the amount is calculated:</p>
       <div class="acc-highlight">
-        Example — Phase A (Jan–Feb):
+        Example - Phase A (Jan–Feb):
         If observed GHI = 275.00 kWh/m² (below trigger of 276.60):
           Shortfall = 276.60 − 275.00 = 1.60 kWh/m²
           Payout = 1.60 × ₹2.00 = ₹3.20 per kWp installed
@@ -2418,20 +2418,20 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
           Shortfall = 276.60 − 270.00 = 6.60 kWh/m² (but capped at 4.27)
           Payout = 4.27 × ₹2.00 = ₹8.54 per kWp = ₹854 for 100 kWp
  
-        If observed GHI = 280.00 kWh/m² (above trigger — sunny year!):
+        If observed GHI = 280.00 kWh/m² (above trigger - sunny year!):
           Payout = ₹0 (no trigger, your plant earned well)
       </div>
-      <p>The payout is wired within <strong>14 days</strong> of the phase end date and ERA5 data publication — no claim form, no engineer visit, no paperwork. The satellite data decides.</p>
+      <p>The payout is wired within <strong>14 days</strong> of the phase end date and ERA5 data publication - no claim form, no engineer visit, no paperwork. The satellite data decides.</p>
     </div>
   </div>
  
   <div class="accordion">
     <div class="accordion-header" onclick="toggleAcc(this)">
-      <span>📊 Why does the trigger exist — why not pay every bad month?</span>
+      <span>📊 Why does the trigger exist - why not pay every bad month?</span>
       <span class="acc-icon">+</span>
     </div>
     <div class="accordion-body">
-      <p>The trigger exists because insurance is designed to cover <em>unusual, statistically significant losses</em> — not normal fluctuations. Solar output varies by ±5% every year due to normal weather variation. If every below-average month triggered a payout, the premium would be so high that insurance would not be worth buying.</p>
+      <p>The trigger exists because insurance is designed to cover <em>unusual, statistically significant losses</em> - not normal fluctuations. Solar output varies by ±5% every year due to normal weather variation. If every below-average month triggered a payout, the premium would be so high that insurance would not be worth buying.</p>
       <p>The entry trigger (P20 = 1-in-5 year bad event) is calibrated so that in any given year:</p>
       <div class="acc-highlight">
         Annual trigger probability: ~18–20%
@@ -2449,7 +2449,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
       <span class="acc-icon">+</span>
     </div>
     <div class="accordion-body">
-      <p>The exit trigger (Phase A: 272.33 kWh/m²) is the "floor" — if GHI falls below this level, the policy pays its maximum amount, regardless of how much lower GHI goes. Think of it like a car insurance policy: even if your car is completely destroyed, the insurer pays up to the agreed sum insured — not an infinite amount.</p>
+      <p>The exit trigger (Phase A: 272.33 kWh/m²) is the "floor" - if GHI falls below this level, the policy pays its maximum amount, regardless of how much lower GHI goes. Think of it like a car insurance policy: even if your car is completely destroyed, the insurer pays up to the agreed sum insured - not an infinite amount.</p>
       <div class="acc-highlight">
         Phase A Safety Zone:
         Entry: 276.60 kWh/m²  ← "danger zone begins"
@@ -2459,7 +2459,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
         Below 272.33: always full payout = ₹8.54/kWp (Phase A)
         This protects both you (guaranteed maximum) and us (bounded liability)
       </div>
-      <p>The exit trigger is derived from the <strong>Conditional Tail Expectation (CTE)</strong> — the average GHI in the worst 5% of all simulated years. This is a globally recognised actuarial risk measure (used in Solvency II, IFRS 17, and IRDAI regulations) that ensures the exit trigger is set at a genuinely catastrophic but realistic level.</p>
+      <p>The exit trigger is derived from the <strong>Conditional Tail Expectation (CTE)</strong> - the average GHI in the worst 5% of all simulated years. This is a globally recognised actuarial risk measure (used in Solvency II, IFRS 17, and IRDAI regulations) that ensures the exit trigger is set at a genuinely catastrophic but realistic level.</p>
     </div>
   </div>
  
@@ -2481,7 +2481,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
         GST @ 18%:                     ₹0.549
         GROSS PREMIUM:                  ₹3.598 per kWp per year (Phase A)
       </div>
-      <p>Every number above is derived from the actual risk data — 31 years of ERA5-Land GHI records for Surat, run through 10,000-path Monte Carlo simulation. Nothing is a guess. You can verify every calculation in this document.</p>
+      <p>Every number above is derived from the actual risk data - 31 years of ERA5-Land GHI records for Surat, run through 10,000-path Monte Carlo simulation. Nothing is a guess. You can verify every calculation in this document.</p>
     </div>
   </div>
  
@@ -2496,12 +2496,12 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
   </script>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 24 — HOW IT'S CALCULATED -->
+<!-- ═══════════════════════════════════════════ SECTION 24 - HOW IT'S CALCULATED -->
 <div class="section" id="sec-guide">
   <div class="section-header">
-    <div class="section-num">Section 24 — Explanation Guide</div>
+    <div class="section-num">Section 24 - Explanation Guide</div>
     <div class="section-title">How This Is Calculated: A Complete Walkthrough</div>
-    <div class="section-subtitle">Every calculation, every decision, every road not taken — explained in plain language</div>
+    <div class="section-subtitle">Every calculation, every decision, every road not taken - explained in plain language</div>
     <div class="section-rule"></div>
   </div>
  
@@ -2511,9 +2511,9 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
   <p><strong>Alternatives not used:</strong> Local pyranometer data (only available for ~5 years, with calibration gaps); NSRDB (NASA) data (good but requires API access and has coarser India coverage); interpolated district averages (loses location specificity).</p>
  
   <h3>Step 2: Structural Break at 2013</h3>
-  <p><strong>What is done:</strong> A Welch t-test compares pre-2013 mean GHI (1711.24 kWh/m²/yr) to post-2013 mean (1671.25 kWh/m²/yr). Result: t=2.901, p=0.0078 — significant at 1% level. Post-2013 data only used for calibration.</p>
+  <p><strong>What is done:</strong> A Welch t-test compares pre-2013 mean GHI (1711.24 kWh/m²/yr) to post-2013 mean (1671.25 kWh/m²/yr). Result: t=2.901, p=0.0078 - significant at 1% level. Post-2013 data only used for calibration.</p>
   <p><strong>Why it is done:</strong> Using the full 1995–2025 dataset would mix two different solar climates (higher pre-2013, lower post-2013). The resulting mean and variance would misrepresent the current regime, causing the trigger to be set too high (under-protecting the insured) or too low (over-triggering).</p>
-  <p><strong>Alternatives not used:</strong> Chow test (structural break test — rejected because it assumes known breakpoint, while 2013 was identified by Mann-Kendall); Bayesian change-point detection (technically superior but requires more expert judgment to communicate to regulators).</p>
+  <p><strong>Alternatives not used:</strong> Chow test (structural break test - rejected because it assumes known breakpoint, while 2013 was identified by Mann-Kendall); Bayesian change-point detection (technically superior but requires more expert judgment to communicate to regulators).</p>
  
   <h3>Step 3: Trend Modelling (OLS per Phase)</h3>
   <p><strong>What is done:</strong> For each of the 4 phases, an Ordinary Least Squares (OLS) linear regression is fitted on post-2013 data: GHI_phase(t) = α + β(t−2013). Phase C has the steepest decline: β = −5.40 kWh/m²/yr, R² = 0.62.</p>
@@ -2522,11 +2522,11 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
  
   <h3>Step 4: AR(1) Residual Model</h3>
   <p><strong>What is done:</strong> OLS residuals are modelled as AR(1): ε(t) = φ₁ε(t−1) + η(t), where η ~ N(0, σ²). Phase-specific φ₁ values range from −0.269 (Phase D) to +0.231 (Phase B). This captures year-to-year memory in solar anomalies driven by ENSO and IOD.</p>
-  <p><strong>Why it is done:</strong> Without AR(1), the Monte Carlo simulation would treat each year as independent. But solar years are weakly correlated — an El Niño year (cloudier, lower GHI) tends to be followed by a year with some residual effect. Ignoring this underestimates multi-year tail risk.</p>
+  <p><strong>Why it is done:</strong> Without AR(1), the Monte Carlo simulation would treat each year as independent. But solar years are weakly correlated - an El Niño year (cloudier, lower GHI) tends to be followed by a year with some residual effect. Ignoring this underestimates multi-year tail risk.</p>
  
   <h3>Step 5: Monte Carlo Simulation</h3>
   <p><strong>What is done:</strong> 10,000 forward paths (2026–2055, 30 years per path, Seed=42) are generated per phase using the OLS+AR(1) model. Result: 300,000 observations per phase, giving a rich empirical distribution for percentile extraction.</p>
-  <p><strong>Why it is done:</strong> The OLS+AR(1) model doesn't have a closed-form percentile formula (because the AR(1) term couples years). Monte Carlo is the standard solution for path-dependent distributions. 10,000 paths × 30 years gives SE(P20) ≈ 0.073 percentage points — effectively zero uncertainty.</p>
+  <p><strong>Why it is done:</strong> The OLS+AR(1) model doesn't have a closed-form percentile formula (because the AR(1) term couples years). Monte Carlo is the standard solution for path-dependent distributions. 10,000 paths × 30 years gives SE(P20) ≈ 0.073 percentage points - effectively zero uncertainty.</p>
  
   <h3>Step 6: Threshold Derivation</h3>
   <p><strong>What is done:</strong> From 300,000 sorted MC observations, the P5, P10, P20, P25, P50, P80, P90 are extracted. P20 becomes the entry trigger, CTE(below P5) becomes the exit trigger.</p>
@@ -2545,10 +2545,10 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
   </div>
 </div>
  
-<!-- ═══════════════════════════════════════════ SECTION 25 — CUSTOMER EXPERIENCE -->
+<!-- ═══════════════════════════════════════════ SECTION 25 - CUSTOMER EXPERIENCE -->
 <div class="section" id="sec-cx">
   <div class="section-header">
-    <div class="section-num">Section 25 — Customer Experience & Utility Theory</div>
+    <div class="section-num">Section 25 - Customer Experience & Utility Theory</div>
     <div class="section-title">How Risk Feels: Satisfaction, Utility, and Why Insurance is Rational</div>
     <div class="section-subtitle">Using von Neumann–Morgenstern utility theory to show why a rational solar plant owner should buy this policy</div>
     <div class="section-rule"></div>
@@ -2560,7 +2560,7 @@ Typical parametric insurance loss ratios: 20–40%)</span></div>
   </div>
  
   <h3>The Utility Framework</h3>
-  <p>Von Neumann and Morgenstern (1944) proved that any rational decision-maker with consistent risk preferences can be represented by a utility function u(w) where w is wealth. A risk-averse person has concave u(w) — meaning u(w+x) − u(w) &lt; u(w) − u(w−x), i.e., gaining x gives less satisfaction than losing x causes pain.</p>
+  <p>Von Neumann and Morgenstern (1944) proved that any rational decision-maker with consistent risk preferences can be represented by a utility function u(w) where w is wealth. A risk-averse person has concave u(w) - meaning u(w+x) − u(w) &lt; u(w) − u(w−x), i.e., gaining x gives less satisfaction than losing x causes pain.</p>
   <div class="formula"><span class="highlight">Expected Utility Without Insurance:</span>
  
 E[u(w)] = p_trigger × u(w − Average_Loss) + (1 − p_trigger) × u(w)
@@ -2582,18 +2582,18 @@ Net certain cost = ₹359.80 / year
  
 E[u_insured] = ln(1,000,000 − 359.80) = ln(999,640.20) = <span class="highlight">13.8154</span>
  
-Wait — E[u_insured] < E[u_no_ins]? YES — for Phase A specifically.
+Wait - E[u_insured] < E[u_no_ins]? YES - for Phase A specifically.
 Reason: Phase A is a low-revenue phase (18.6% of revenue) with small coverage range.
 The insurance is not worth buying at Phase A alone for large plants.
  
 <span class="highlight">For Phase C (monsoon, 22.9% revenue, high vol, coverage = 38.71 kWh/m²):</span>
 Average_Loss_C = ₹15.48 per kWp × 100 = ₹1,548 per trigger
 E[u_no_ins_C] = 0.182 × ln(998,452) + 0.818 × ln(1,000,000) = 13.8343
-E[u_insured_C] ≈ ln(999,550) = 13.8157  <span class="comment">(still marginal — Phase C pricing covers tail well)</span>
+E[u_insured_C] ≈ ln(999,550) = 13.8157  <span class="comment">(still marginal - Phase C pricing covers tail well)</span>
  
 Key insight: Full 4-phase policy creates larger, more meaningful coverage and utility gains.</div>
  
-  <h3>Willingness to Pay — The Certainty Equivalent</h3>
+  <h3>Willingness to Pay - The Certainty Equivalent</h3>
   <div class="formula"><span class="highlight">Certainty Equivalent (CE) = u⁻¹(E[u(w)])</span>
  
 CE = what certain amount of money gives you the same utility as the risky outcome.
@@ -2611,7 +2611,7 @@ WTP          = ₹380 per year
 <span class="highlight">Insurance is rational: WTP > Gross Premium ✔</span></div>
  
   <h3>Risk Perception and Basis Risk</h3>
-  <p>Parametric insurance introduces a unique risk called <strong>basis risk</strong> — the possibility that the policy does <em>not</em> pay out even though you suffered a real economic loss (because the satellite index didn't trigger), or it pays out when your specific plant didn't actually underperform (because local conditions differed from the regional index).</p>
+  <p>Parametric insurance introduces a unique risk called <strong>basis risk</strong> - the possibility that the policy does <em>not</em> pay out even though you suffered a real economic loss (because the satellite index didn't trigger), or it pays out when your specific plant didn't actually underperform (because local conditions differed from the regional index).</p>
   <div class="formula"><span class="highlight">Basis Risk Assessment for Surat ERA5-Land product:</span>
  
 Spatial resolution of ERA5-Land: 0.1° × 0.1° ≈ 11km × 11km grid cells
@@ -2641,7 +2641,7 @@ better than their worst outcome WITHOUT insurance (full severe loss uncompensate
  
   <h3>Why This Insurance Product Makes Actuarial and Human Sense</h3>
   <p>The fundamental value proposition is not about replacing lost revenue entirely. It is about converting an <em>uncertain, potentially catastrophic</em> loss into a <em>certain, manageable</em> premium cost. Even if the trigger pays out only 18% of the time, the <em>peace of mind</em> and <em>credit worthiness</em> benefits (banks give better loan terms to insured solar plants) often exceed the premium cost in pure expected value terms.</p>
-  <p>A solar plant developer who borrowed ₹50 lakhs at 9.5% interest to build a 100 kWp plant cannot afford a ₹3 lakh revenue shortfall in a bad monsoon year. This insurance — at under ₹4,000/year for Phase A — effectively de-risks their bank loan, potentially saving them thousands in interest rate premium or default risk. <strong>That is the real value, and no amount of actuarial math can fully capture it in a formula.</strong></p>
+  <p>A solar plant developer who borrowed ₹50 lakhs at 9.5% interest to build a 100 kWp plant cannot afford a ₹3 lakh revenue shortfall in a bad monsoon year. This insurance - at under ₹4,000/year for Phase A - effectively de-risks their bank loan, potentially saving them thousands in interest rate premium or default risk. <strong>That is the real value, and no amount of actuarial math can fully capture it in a formula.</strong></p>
 </div>
  
  
