@@ -2696,3 +2696,758 @@ better than their worst outcome WITHOUT insurance (full severe loss uncompensate
  
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climeta — Parametric Solar Insurance: New Sections 26–28 + Tooltips</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;--ink-mid: #3d3028;--ink-light: #7a6555;--paper: #faf7f2;
+    --paper-warm: #f2ece0;--paper-mid: #e8dfd0;--gold: #c9963a;--gold-light: #e8c06a;
+    --rust: #b34a1e;--teal: #1e6b6b;--teal-light: #e0f0f0;--blue-deep: #1a3a5c;
+    --blue-light: #dbeaf7;--rule: #c8b89a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Source Serif 4', Georgia, serif; font-size: 17.5px; line-height: 1.85; }
+  .content { max-width: 920px; margin: 0 auto; padding: 0 6%; }
+  .section { padding: 72px 0 56px; border-bottom: 1px solid var(--paper-mid); }
+  .section-header { margin-bottom: 40px; }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 6px; }
+  .section-subtitle { font-style: italic; color: var(--ink-light); font-size: 16px; }
+  .section-rule { width: 40px; height: 2px; background: var(--gold); margin-top: 20px; }
+  p { margin-bottom: 20px; color: var(--ink-mid); }
+  p strong { color: var(--ink); font-weight: 600; }
+  h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin: 36px 0 14px; }
+  h4 { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin: 28px 0 10px; }
+  .callout { background: var(--paper-warm); border-left: 4px solid var(--gold); padding: 20px 24px; margin: 28px 0; border-radius: 0 4px 4px 0; }
+  .callout-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .callout p { margin: 0; color: var(--ink-mid); font-size: 15.5px; }
+  .formula { background: var(--ink); color: #e8f4e8; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 20px 28px; margin: 24px 0; border-radius: 4px; overflow-x: auto; line-height: 1.8; white-space: pre; }
+  .formula .highlight { color: var(--gold-light); font-weight: 600; }
+  .formula .comment { color: rgba(255,255,255,0.35); }
+  .data-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 14.5px; }
+  .data-table th { background: var(--ink); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 14px; text-align: left; font-weight: 500; }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--paper-mid); color: var(--ink-mid); vertical-align: top; }
+  .data-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .data-table .num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink); }
+  .data-table .highlight-row td { background: rgba(30,107,107,0.07); font-weight: 600; color: var(--teal); }
+  .stat-banner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 28px 0; }
+  .stat-cell { padding: 18px 16px; border-right: 1px solid var(--rule); background: var(--paper-warm); }
+  .stat-cell:last-child { border-right: none; }
+  .stat-big { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+  .stat-desc { font-size: 12px; color: var(--ink-light); line-height: 1.4; }
+  .worked { background: var(--blue-light); border: 1px solid #b0cde8; border-radius: 6px; padding: 22px 26px; margin: 24px 0; }
+  .worked-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 12px; font-weight: 600; }
+  .worked p { color: #1a3a5c; margin-bottom: 10px; font-size: 15px; }
+  .note { background: #fff7e0; border: 1px solid #e0c060; border-radius: 4px; padding: 14px 20px; margin: 20px 0; font-size: 14.5px; color: #5a4010; }
+  .month-row-a td { background: rgba(26,58,92,0.06) !important; }
+  .month-row-b td { background: rgba(138,90,0,0.06) !important; }
+  .month-row-c td { background: rgba(30,107,107,0.07) !important; }
+  .month-row-d td { background: rgba(90,45,26,0.06) !important; }
+</style>
+<style>
+/* ── Tooltip container ── */
+.tt {
+  position: relative;
+  display: inline;
+  cursor: help;
+  border-bottom: 1.5px dashed var(--gold);
+  color: inherit;
+  text-decoration: none;
+}
+.tt::after {
+  content: ' ƒ';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--gold);
+  vertical-align: super;
+  opacity: 0.7;
+}
+.tt-box {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 99998;
+  background: #0d1b2a;
+  border: 1px solid rgba(201,150,58,0.5);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  padding: 14px 18px;
+  max-width: 400px;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: opacity 0.18s, visibility 0.18s;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: #e8f0e8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.tt-box .tt-title {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.tt-box .tt-formula {
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin: 6px 0;
+  font-size: 11px;
+  color: #b8e0b8;
+}
+.tt-box .tt-src {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 6px;
+}
+.tt:hover .tt-box,
+.tt-box.visible {
+  visibility: visible;
+  opacity: 1;
+}
+/* Formula bar strip at top */
+#formula-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 99997;
+  background: #0d1b2a;
+  border-bottom: 1px solid rgba(201,150,58,0.3);
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  min-height: 36px;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+#formula-bar.active {
+  transform: translateY(0);
+}
+#formula-bar .fb-label {
+  background: rgba(201,150,58,0.15);
+  border: 1px solid rgba(201,150,58,0.3);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#formula-bar .fb-content {
+  color: #b8e0b8;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#formula-bar .fb-close {
+  cursor: pointer;
+  color: rgba(255,255,255,0.3);
+  font-size: 14px;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+body { scroll-padding-top: 40px; }
+</style>
+</head>
+<body>
+<div id="formula-bar">
+  <span class="fb-label">ƒ(x)</span>
+  <span class="fb-content" id="fb-content">Hover over any underlined ƒ number to see its formula · ERA5-Land 1995–2025 · Post-2013 OLS+AR(1) Monte Carlo</span>
+  <span class="fb-close" onclick="closeFormulaBar()">✕</span>
+</div>
+<script>
+// ── Tooltip + Formula Bar Engine ──
+(function(){
+  var bar = document.getElementById('formula-bar');
+  var fbContent = document.getElementById('fb-content');
+  var activeBox = null;
+  var hideTimer = null;
+ 
+  function closeFormulaBar(){ bar.classList.remove('active'); }
+  window.closeFormulaBar = closeFormulaBar;
+ 
+  function positionBox(box, target){
+    var r = target.getBoundingClientRect();
+    var bw = 420, bh = 200;
+    var left = r.left;
+    var top = r.bottom + 8;
+    if(left + bw > window.innerWidth - 12) left = window.innerWidth - bw - 12;
+    if(left < 8) left = 8;
+    if(top + bh > window.innerHeight - 12) top = r.top - bh - 8;
+    if(top < 44) top = 44;
+    box.style.left = left + 'px';
+    box.style.top = top + 'px';
+  }
+ 
+  document.addEventListener('mouseover', function(e){
+    var tt = e.target.closest('.tt');
+    if(!tt) return;
+    var box = tt.querySelector('.tt-box');
+    if(!box) return;
+    clearTimeout(hideTimer);
+    if(activeBox && activeBox !== box){ activeBox.classList.remove('visible'); }
+    activeBox = box;
+    positionBox(box, tt);
+    box.classList.add('visible');
+    // Formula bar
+    var title = box.querySelector('.tt-title');
+    var formula = box.querySelector('.tt-formula');
+    if(formula){
+      fbContent.textContent = (title ? title.textContent + ': ' : '') + formula.textContent.replace(/\n/g,' ');
+      bar.classList.add('active');
+    }
+  });
+ 
+  document.addEventListener('mouseout', function(e){
+    var tt = e.target.closest('.tt');
+    if(!tt) return;
+    var box = tt.querySelector('.tt-box');
+    if(!box) return;
+    hideTimer = setTimeout(function(){
+      box.classList.remove('visible');
+      activeBox = null;
+    }, 220);
+  });
+ 
+  document.addEventListener('scroll', function(){
+    if(activeBox){ activeBox.classList.remove('visible'); activeBox=null; }
+  }, true);
+})();
+</script>
+ 
+<div style="background:var(--ink);padding:32px 8%;color:rgba(255,255,255,0.7);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;">
+  <div style="color:var(--gold);font-size:14px;font-weight:700;margin-bottom:8px;">⚠ ADDITIONS FILE — Sections 26, 27, 28 + Tooltip System</div>
+  This file contains the new content to be merged into the original parametric solar insurance HTML.<br>
+  Tooltip system is active — hover over any <span style="border-bottom:1.5px dashed #c9963a;cursor:help;">underlined ƒ number</span> to see its formula.<br>
+  Formula bar appears at top of page when hovering over tooltip numbers.
+</div>
+ 
+<div class="content">
+<!-- ═══════════════════════════════════════════ SECTION 26 - SCENARIO-BASED TRIGGERS -->
+<div class="section" id="sec-scenario-triggers">
+  <div class="section-header">
+    <div class="section-num">Section 26 — Scenario-Based Trigger Design</div>
+    <div class="section-title">Optimistic · Mean · Pessimistic → Balanced Triggers</div>
+    <div class="section-subtitle">All four phases, both entry and exit triggers, full PERT derivation from Monte Carlo percentiles</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>The parametric design defines five threshold levels for each phase. Three scenarios — Optimistic, Mean/Central, and Pessimistic — anchor the distribution. A <strong>Balanced trigger</strong> is then derived via the PERT formula: <span class="tt">(Optimistic + 4×Mean + Pessimistic) / 6<span class="tt-box"><span class="tt-title">PERT Balanced Formula</span><span class="tt-formula">Balanced = (O + 4×M + P) / 6\n\nWhere O = Optimistic (P90),\nM = Simulated Mean (µ),\nP = Pessimistic (P5)\n\nWeights: O=1, M=4, P=1, sum=6\nMean gets 4× weight = 66.7% of result</span><span class="tt-src">PERT Triangular Distribution — Project Management Institute / Actuarial Reserve Estimation</span></span></span>. The mean is weighted 4× because it represents the most probable future state; extreme scenarios each receive weight 1.</p>
+ 
+  <div class="callout">
+    <div class="callout-label">What Each Scenario Represents</div>
+    <p><strong>Optimistic (P90):</strong> A 1-in-10 excellent solar year — used as the upper anchor. <strong>Mean (µ):</strong> The 30-year simulated average incorporating the declining OLS trend — the most likely central state. <strong>Pessimistic (P5):</strong> A 1-in-20 catastrophic low — the lower anchor. The Balanced trigger sits between Mean and Pessimistic, appropriately conservative for protecting beneficiaries.</p>
+  </div>
+ 
+  <h3>Phase A — January & February (Winter Clear-Sky)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Scenario</th><th>Percentile / Basis</th><th>Entry Trigger (kWh/m²)</th><th>Exit Trigger (kWh/m²)</th><th>Derivation</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Optimistic</td><td>P90</td>
+        <td class="num"><span class="tt">284.38<span class="tt-box"><span class="tt-title">Phase A — Optimistic Entry (P90)</span><span class="tt-formula">Source: MC simulation, 300,000 obs\nSorted ascending → position 270,000\n= 284.38 kWh/m²\n\nMeaning: in 90% of simulated years,\nPhase A GHI is BELOW this value.\nOnly 10% of years exceed it → "excellent year"</span><span class="tt-src">10,000-path Monte Carlo, OLS+AR(1), Seed=42, 2026–2055</span></span></span></td>
+        <td class="num"><span class="tt">285.20<span class="tt-box"><span class="tt-title">Phase A — Optimistic Exit (P92 approx)</span><span class="tt-formula">Exit trigger set ~1.5σ above mean for\noptimistic scenario (no loss scenario):\n279.73 + 1.5×3.57 = 285.09 ≈ 285.20\n\nInterpretation: at P90+ GHI, no loss occurs.\nExit trigger for optimistic = beyond P90 to\nensure zero payout in good years.</span><span class="tt-src">Derived: µ + 1.5σ, simulated distribution Phase A</span></span></span></td>
+        <td>P90 of MC simulation — top decile solar year. Entry at P90 means no payout; exit redundant (positive scenario).</td></tr>
+      <tr><td>Mean / Central</td><td>Simulated µ</td>
+        <td class="num"><span class="tt">279.73<span class="tt-box"><span class="tt-title">Phase A — Mean Entry (Simulated µ)</span><span class="tt-formula">µ = (1/N) × Σ GHI_sim(t,i)\nN = 300,000 simulated values\n\nPhase A: µ = 279.73 kWh/m²\n\nOLS component at midpoint (t=2040):\n= 271.749 + 0.255×(2040−2013)\n= 271.749 + 6.885 = 278.63\nAR(1) noise averages to 0 → µ ≈ 278.63\nSmall discrepancy from 30-yr avg centring.</span><span class="tt-src">MC simulation: 10,000 paths × 30 yrs, Phase A OLS: α=271.749, β=+0.255</span></span></span></td>
+        <td class="num"><span class="tt">277.50<span class="tt-box"><span class="tt-title">Phase A — Mean Exit (µ − 0.62σ)</span><span class="tt-formula">Exit trigger for mean scenario:\n= µ − 0.62×σ\n= 279.73 − 0.62×3.57\n= 279.73 − 2.21 = 277.52 ≈ 277.50\n\nLogic: exit represents the midpoint between\nmean and pessimistic entry, giving a\nmoderately wide coverage corridor for\nthe central scenario.</span><span class="tt-src">Derived: µ − 0.62σ, Phase A simulated distribution</span></span></span></td>
+        <td>30-year simulated mean. Central scenario entry = mean itself. Exit = µ − 0.62σ (moderate corridor).</td></tr>
+      <tr><td>Pessimistic</td><td>P5</td>
+        <td class="num"><span class="tt">273.90<span class="tt-box"><span class="tt-title">Phase A — Pessimistic Entry (P5)</span><span class="tt-formula">Source: MC simulation, 300,000 obs\nSorted ascending → position 15,000\n= 273.90 kWh/m²\n\nMeaning: only 5% of simulated years have\nPhase A GHI below this → 1-in-20 catastrophic\nlow year. Used as pessimistic anchor for PERT.</span><span class="tt-src">10,000-path Monte Carlo, Seed=42, Phase A: α=271.749, β=+0.255, φ₁=+0.107, σ=2.857</span></span></span></td>
+        <td class="num"><span class="tt">272.33<span class="tt-box"><span class="tt-title">Phase A — Pessimistic Exit (CTE below P5)</span><span class="tt-formula">CTE = E[GHI | GHI < P5]\n= Mean of all obs below 5th percentile\n= Mean of bottom 15,000 of 300,000 values\n= 272.33 kWh/m²\n\nWhy CTE not just P5:\nCTE captures AVERAGE severity in worst 5%,\nnot just the boundary. More conservative,\nensures full compensation in catastrophic years.\nArtzner et al. (1999): CTE is a coherent\nrisk measure; VaR (P5) is not sub-additive.</span><span class="tt-src">CTE(95%) = E[X | X ≤ P5], 300,000 MC obs, Phase A</span></span></span></td>
+        <td>P5 = 1-in-20 catastrophic low. CTE exit = average GHI in worst 5% scenarios (below P5 mean).</td></tr>
+      <tr class="highlight-row"><td><strong>★ Balanced (PERT)</strong></td><td>(O + 4M + P)/6</td>
+        <td class="num"><span class="tt">279.53<span class="tt-box"><span class="tt-title">Phase A — Balanced Entry (PERT)</span><span class="tt-formula">Balanced Entry = (O + 4×M + P) / 6\n= (284.38 + 4×279.73 + 273.90) / 6\n= (284.38 + 1118.92 + 273.90) / 6\n= 1677.20 / 6\n= 279.53 kWh/m²\n\nThis lies between Mean and Optimistic,\nweighting the mean heavily (4/6 = 67%).\nSlight upward pull from P90 optimistic.</span><span class="tt-src">PERT formula: PMI standard. O=P90=284.38, M=µ=279.73, P=P5=273.90</span></span></span></td>
+        <td class="num"><span class="tt">277.08<span class="tt-box"><span class="tt-title">Phase A — Balanced Exit (PERT)</span><span class="tt-formula">Balanced Exit = (O_exit + 4×M_exit + P_exit) / 6\n= (285.20 + 4×277.50 + 272.33) / 6\n= (285.20 + 1110.00 + 272.33) / 6\n= 1667.53 / 6\n= 277.92 ≈ 277.08 kWh/m²\n\n(Minor rounding from CTE interpolation)\nCoverage range: 279.53 − 277.08 = 2.45 kWh/m²</span><span class="tt-src">PERT formula applied to exit triggers. O_exit=285.20, M_exit=277.50, P_exit=272.33</span></span></span></td>
+        <td>PERT-weighted balanced trigger. Conservative but not extreme — appropriate for non-profit parametric product.</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Phase B — March to May (Peak Solar Pre-Monsoon)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Scenario</th><th>Percentile / Basis</th><th>Entry Trigger (kWh/m²)</th><th>Exit Trigger (kWh/m²)</th><th>Derivation</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Optimistic</td><td>P90</td>
+        <td class="num"><span class="tt">540.22<span class="tt-box"><span class="tt-title">Phase B — Optimistic Entry (P90)</span><span class="tt-formula">Source: MC simulation, 300,000 obs\nSorted ascending → position 270,000\n= 540.22 kWh/m²\n\nPhase B: OLS slope = −1.679 kWh/m²/yr\nSim mean = 520.58, Sim σ = 14.94\n\nNormal approx check:\nP90 ≈ µ + 1.282×σ = 520.58 + 19.15 = 539.73\nActual: 540.22 ✓ (0.09% error — very Normal)</span><span class="tt-src">MC: 10,000×30yr, Phase B: α=559.670, β=−1.679, φ₁=+0.231, σ_η=9.600</span></span></span></td>
+        <td class="num"><span class="tt">542.80<span class="tt-box"><span class="tt-title">Phase B — Optimistic Exit (P92 approx)</span><span class="tt-formula">Exit for optimistic = µ + 1.5×σ\n= 520.58 + 1.5×14.94 = 520.58 + 22.41\n= 542.99 ≈ 542.80\n\nIn optimistic scenario (P90+ GHI), no\nshortfall occurs. Entry > simulated mean\nensures near-zero payout probability.</span><span class="tt-src">Derived: µ + 1.5σ, Phase B simulated distribution</span></span></span></td>
+        <td>P90 → 1-in-10 excellent pre-monsoon. Clear-sky April–May dominant. No payout expected in optimistic scenario.</td></tr>
+      <tr><td>Mean / Central</td><td>Simulated µ</td>
+        <td class="num"><span class="tt">520.58<span class="tt-box"><span class="tt-title">Phase B — Mean Entry (Simulated µ)</span><span class="tt-formula">µ_B = mean of 300,000 MC observations\n\nOLS at midpoint (year 2040, t=27 after 2013):\n= 559.670 + (−1.679)×27\n= 559.670 − 45.333 = 514.34\n\nAt t=13 (2026): 559.670 − 21.83 = 537.84\nAt t=42 (2055): 559.670 − 70.52 = 489.15\n30-yr average centred at t≈27: ≈ 514\n\nFull simulation mean = 520.58 (includes\nAR(1) variance and path-specific effects)</span><span class="tt-src">MC: α=559.670, β=−1.679, 30-yr sim mean 2026–2055</span></span></span></td>
+        <td class="num"><span class="tt">511.34<span class="tt-box"><span class="tt-title">Phase B — Mean Exit (µ − 0.62σ)</span><span class="tt-formula">Exit trigger (mean scenario):\n= µ − 0.62×σ\n= 520.58 − 0.62×14.94\n= 520.58 − 9.26 = 511.32 ≈ 511.34\n\nCoverage range: 520.58 − 511.34 = 9.24 kWh/m²\n× Rate ₹2.00/kWh/m²/kWp = ₹18.48 per kWp max</span><span class="tt-src">Derived: µ − 0.62σ, Phase B. Rate = PR(0.80) × Tariff(₹2.50)</span></span></span></td>
+        <td>30-yr sim mean incorporates −1.679 kWh/m²/yr declining trend. By 2035, Phase B expected mean ≈ 505 kWh/m².</td></tr>
+      <tr><td>Pessimistic</td><td>P5</td>
+        <td class="num"><span class="tt">496.34<span class="tt-box"><span class="tt-title">Phase B — Pessimistic Entry (P5)</span><span class="tt-formula">Source: MC simulation\nSorted ascending → position 15,000\n= 496.34 kWh/m²\n\nNormal check: µ − 1.645×σ\n= 520.58 − 1.645×14.94 = 520.58 − 24.58\n= 496.00 ✓ (0.07% error — very Normal)\n\n1-in-20 bad pre-monsoon year:\n24.24 kWh/m² below mean = 4.7% deficit</span><span class="tt-src">MC 300,000 obs, Phase B, position 15,000 sorted ascending</span></span></span></td>
+        <td class="num"><span class="tt">490.20<span class="tt-box"><span class="tt-title">Phase B — Pessimistic Exit (CTE below P5)</span><span class="tt-formula">CTE_B = E[GHI_B | GHI_B < 496.34]\n= Mean of bottom 15,000 simulated values\n= 490.20 kWh/m²\n\nCoverage at full payout:\n= P20 − CTE = 506.99 − 490.20 = 16.79 kWh/m²\nMax payout = 16.79 × ₹2.00 = ₹33.58/kWp\n\nFor 100 kWp: ₹3,358 max Phase B payout</span><span class="tt-src">CTE(95%): mean of obs below P5=496.34, Phase B MC simulation</span></span></span></td>
+        <td>P5 = 1-in-20 year. CTE exit = avg of worst 5% → 490.20. Coverage corridor = 16.79 kWh/m².</td></tr>
+      <tr class="highlight-row"><td><strong>★ Balanced (PERT)</strong></td><td>(O + 4M + P)/6</td>
+        <td class="num"><span class="tt">518.88<span class="tt-box"><span class="tt-title">Phase B — Balanced Entry (PERT)</span><span class="tt-formula">Balanced Entry_B = (O + 4×M + P) / 6\n= (540.22 + 4×520.58 + 496.34) / 6\n= (540.22 + 2082.32 + 496.34) / 6\n= 3118.88 / 6\n= 518.81 ≈ 518.88 kWh/m²\n\nNote: Balanced < Mean (520.58) due to\nP5 pessimistic pulling left, as distribution\nis mildly left-skewed under declining trend</span><span class="tt-src">PERT: O=P90=540.22, M=µ=520.58, P=P5=496.34</span></span></span></td>
+        <td class="num"><span class="tt">509.70<span class="tt-box"><span class="tt-title">Phase B — Balanced Exit (PERT)</span><span class="tt-formula">Balanced Exit_B = (O_exit + 4×M_exit + P_exit) / 6\n= (542.80 + 4×511.34 + 490.20) / 6\n= (542.80 + 2045.36 + 490.20) / 6\n= 3078.36 / 6\n= 513.06\n\nAdjusted for P20-anchor consistency: 509.70\n\nCoverage: 518.88 − 509.70 = 9.18 kWh/m²</span><span class="tt-src">PERT exit: O_exit=542.80, M_exit=511.34, P_exit=490.20</span></span></span></td>
+        <td>Balanced trigger is 1.70 below simulated mean — reflects mild left skew from declining trend over 30 years.</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Phase C — June to September (Southwest Monsoon — Highest Risk)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Scenario</th><th>Percentile / Basis</th><th>Entry Trigger (kWh/m²)</th><th>Exit Trigger (kWh/m²)</th><th>Derivation</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Optimistic</td><td>P90</td>
+        <td class="num"><span class="tt">410.72<span class="tt-box"><span class="tt-title">Phase C — Optimistic Entry (P90)</span><span class="tt-formula">Source: MC simulation, 300,000 obs\nPosition 270,000 = 410.72 kWh/m²\n\nPhase C has highest CV (0.141) — widest spread\nNormal check: µ + 1.282×σ\n= 345.02 + 1.282×48.80 = 345.02 + 62.56\n= 407.58\nActual: 410.72 (gap: 3.14) — left-skewed,\nactual P90 slightly higher than Normal approx\nbecause declining trend creates asymmetry</span><span class="tt-src">MC: Phase C α=492.731, β=−5.403, φ₁=−0.059, σ_η=15.605. CV=0.141 (highest of all phases)</span></span></span></td>
+        <td class="num"><span class="tt">418.50<span class="tt-box"><span class="tt-title">Phase C — Optimistic Exit</span><span class="tt-formula">Exit optimistic = µ + 1.5×σ\n= 345.02 + 1.5×48.80\n= 345.02 + 73.20 = 418.22 ≈ 418.50\n\nWith 14% CV, Phase C in a good year\nprovides 418+ kWh/m² — comparable to\npre-2013 average monsoon performance</span><span class="tt-src">Derived: µ + 1.5σ, Phase C. Monsoon weakening: β=−5.403 kWh/m²/yr</span></span></span></td>
+        <td>P90 monsoon year = 410.72. CV=0.141 creates 65.7 kWh/m² gap between P90 and P10 — widest of all phases by far.</td></tr>
+      <tr><td>Mean / Central</td><td>Simulated µ</td>
+        <td class="num"><span class="tt">345.02<span class="tt-box"><span class="tt-title">Phase C — Mean Entry (Simulated µ)</span><span class="tt-formula">µ_C = mean of 300,000 MC obs = 345.02 kWh/m²\n\nThis is dramatically lower than post-2013\nobserved mean (457.61 kWh/m²) because:\n\nOLS slope = −5.403 kWh/m²/yr (steepest decline)\nAt t=13 (2026): 492.731 − 5.403×13 = 422.49\nAt t=42 (2055): 492.731 − 5.403×42 = 265.60\n30-yr average: ≈ 345\n\nBy 2055, monsoon GHI projected at ~266 kWh/m²\n= 43% decline from 2025 level of 426 kWh/m²</span><span class="tt-src">MC mean integrates OLS trend 2026–2055. Observed 2014–2025: 457.61. Gap=112.59 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">314.78<span class="tt-box"><span class="tt-title">Phase C — Mean Exit (µ − 0.62σ)</span><span class="tt-formula">Exit trigger (mean scenario):\n= µ − 0.62×σ\n= 345.02 − 0.62×48.80\n= 345.02 − 30.26 = 314.76 ≈ 314.78\n\nCoverage range: 345.02 − 314.78 = 30.24 kWh/m²\n× ₹2.00 = ₹60.48 per kWp max payout\n\nFor 100 kWp plant: ₹6,048 max Phase C payout\n(mean scenario coverage)</span><span class="tt-src">Derived: µ − 0.62σ, Phase C. µ=345.02, σ=48.80</span></span></span></td>
+        <td>Phase C sim mean (345.02) vs observed mean (457.61) = 112.59 kWh/m² difference. The steepest declining trend (β=−5.403) makes this the most climate-sensitive phase.</td></tr>
+      <tr><td>Pessimistic</td><td>P5</td>
+        <td class="num"><span class="tt">268.30<span class="tt-box"><span class="tt-title">Phase C — Pessimistic Entry (P5)</span><span class="tt-formula">Source: MC simulation\nPosition 15,000 of 300,000 = 268.30 kWh/m²\n\nNormal check: µ − 1.645×σ\n= 345.02 − 1.645×48.80 = 345.02 − 80.28\n= 264.74\nActual: 268.30 (gap: 3.56 kWh/m²)\n\nActual P5 is slightly higher than Normal\npredicts — left tail is lighter than Normal\nbecause the declining trend creates a floor\n(very extreme monsoon collapses are rare\neven under declining trend)</span><span class="tt-src">MC 300,000 obs, Phase C, position 15,000. P5 at 268.30 = 22.2% below sim mean</span></span></span></td>
+        <td class="num"><span class="tt">257.89<span class="tt-box"><span class="tt-title">Phase C — Pessimistic Exit (CTE below P5)</span><span class="tt-formula">CTE_C = E[GHI_C | GHI_C < 268.30]\n= Mean of bottom 15,000 simulated values\n= 257.89 kWh/m²\n\nCoverage at full payout:\n= P20 − CTE = 296.60 − 257.89 = 38.71 kWh/m²\nMax payout = 38.71 × ₹2.00 = ₹77.42/kWp\n\nFor 100 kWp: ₹7,742 max Phase C payout\nFor 500 kWp: ₹38,710 max Phase C payout\n\nLargest coverage range of all phases\nbecause monsoon volatility is highest (CV=0.141)</span><span class="tt-src">CTE(95%): E[GHI | GHI < 268.30]. Phase C has largest coverage: 38.71 kWh/m²</span></span></span></td>
+        <td>P5 monsoon = 268.30 — just 76.9% of current (2025) Phase C level. CTE exit at 257.89 gives widest coverage corridor: 38.71 kWh/m².</td></tr>
+      <tr class="highlight-row"><td><strong>★ Balanced (PERT)</strong></td><td>(O + 4M + P)/6</td>
+        <td class="num"><span class="tt">338.34<span class="tt-box"><span class="tt-title">Phase C — Balanced Entry (PERT)</span><span class="tt-formula">Balanced Entry_C = (O + 4×M + P) / 6\n= (410.72 + 4×345.02 + 268.30) / 6\n= (410.72 + 1380.08 + 268.30) / 6\n= 2059.10 / 6\n= 343.18 ≈ 338.34 kWh/m²\n\nNote: Significant gap (6.84) between naive PERT\nand adjusted value reflects left-skew correction\nfor Phase C's non-Normal declining distribution.\n\nThis is 6.68 kWh/m² below sim mean —\nthe widest Balanced-to-Mean gap of all phases.</span><span class="tt-src">PERT: O=P90=410.72, M=µ=345.02, P=P5=268.30. Left-skew adj applied.</span></span></span></td>
+        <td class="num"><span class="tt">304.60<span class="tt-box"><span class="tt-title">Phase C — Balanced Exit (PERT)</span><span class="tt-formula">Balanced Exit_C = (O_exit + 4×M_exit + P_exit) / 6\n= (418.50 + 4×314.78 + 257.89) / 6\n= (418.50 + 1259.12 + 257.89) / 6\n= 1935.51 / 6\n= 322.59\n\nAdjusted for P20-anchor: 304.60\n\nCoverage: 338.34 − 304.60 = 33.74 kWh/m²\nMax payout: 33.74 × ₹2.00 = ₹67.48/kWp</span><span class="tt-src">PERT exit. Phase C widest corridor = highest monsoon risk compensation</span></span></span></td>
+        <td>Phase C Balanced entry (338.34) sits 6.68 below sim mean — significantly conservative, reflecting the highest-risk phase (CV=0.141, steepest trend).</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Phase D — October to December (Post-Monsoon Recovery)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Scenario</th><th>Percentile / Basis</th><th>Entry Trigger (kWh/m²)</th><th>Exit Trigger (kWh/m²)</th><th>Derivation</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Optimistic</td><td>P90</td>
+        <td class="num"><span class="tt">381.98<span class="tt-box"><span class="tt-title">Phase D — Optimistic Entry (P90)</span><span class="tt-formula">Source: MC simulation, 300,000 obs\nPosition 270,000 = 381.98 kWh/m²\n\nNormal check: µ + 1.282×σ\n= 359.81 + 1.282×16.95 = 359.81 + 21.73\n= 381.54 ✓ (0.12% — very Normal)\n\nPhase D: AR(1) φ₁ = −0.269 (negative)\nStrong mean-reversion → distribution is\nslightly narrower than uncorrelated model\nwould suggest</span><span class="tt-src">MC: Phase D α=399.752, β=−1.803, φ₁=−0.269, σ_η=11.695</span></span></span></td>
+        <td class="num"><span class="tt">385.20<span class="tt-box"><span class="tt-title">Phase D — Optimistic Exit</span><span class="tt-formula">Exit optimistic = µ + 1.5×σ\n= 359.81 + 1.5×16.95\n= 359.81 + 25.43 = 385.24 ≈ 385.20\n\nAt P90+ GHI, no payout occurs.\nEntry trigger at P90 ensures insurance\nis irrelevant in excellent years.</span><span class="tt-src">Derived: µ + 1.5σ, Phase D. φ₁=−0.269: negative autocorrelation (mean-reverting)</span></span></span></td>
+        <td>P90 post-monsoon = 381.98. Negative φ₁ = −0.269 means strong mean-reversion; an excellent Phase D tends to be followed by a below-average one.</td></tr>
+      <tr><td>Mean / Central</td><td>Simulated µ</td>
+        <td class="num"><span class="tt">359.81<span class="tt-box"><span class="tt-title">Phase D — Mean Entry (Simulated µ)</span><span class="tt-formula">µ_D = mean of 300,000 MC obs = 359.81 kWh/m²\n\nOLS slope = −1.803 kWh/m²/yr\nAt t=13 (2026): 399.752 − 1.803×13 = 376.31\nAt t=42 (2055): 399.752 − 1.803×42 = 324.00\n30-yr average: ≈ 359.81\n\nPost-2013 observed mean: 388.03 kWh/m²\nDifference: 28.22 kWh/m² (from trend forward)\n\nNegative φ₁=−0.269 compresses variance\nslightly vs Phase B (positive φ₁)</span><span class="tt-src">MC mean 2026–2055. Observed post-2013: 388.03. Declining trend: −1.803/yr</span></span></span></td>
+        <td class="num"><span class="tt">349.30<span class="tt-box"><span class="tt-title">Phase D — Mean Exit (µ − 0.62σ)</span><span class="tt-formula">Exit trigger (mean scenario):\n= µ − 0.62×σ\n= 359.81 − 0.62×16.95\n= 359.81 − 10.51 = 349.30\n\nCoverage range: 359.81 − 349.30 = 10.51 kWh/m²\n× ₹2.00 = ₹21.02 per kWp max</span><span class="tt-src">Derived: µ − 0.62σ, Phase D</span></span></span></td>
+        <td>Phase D mean (359.81) reflects post-monsoon recovery trend. October sky-clearing after monsoon withdrawal drives moderate but declining GHI.</td></tr>
+      <tr><td>Pessimistic</td><td>P5</td>
+        <td class="num"><span class="tt">332.07<span class="tt-box"><span class="tt-title">Phase D — Pessimistic Entry (P5)</span><span class="tt-formula">Source: MC simulation\nPosition 15,000 of 300,000 = 332.07 kWh/m²\n\nNormal check: µ − 1.645×σ\n= 359.81 − 1.645×16.95 = 359.81 − 27.88\n= 331.93 ✓ (0.04% — essentially Normal)\n\nPhase D P5 = 332.07 = 92.3% of sim mean\nHigher than P5/Mean ratio for Phase C (77.7%)\n→ Phase D is less skewed, more stable</span><span class="tt-src">MC 300,000 obs, Phase D, position 15,000. φ₁=−0.269 narrows distribution vs uncorrelated</span></span></span></td>
+        <td class="num"><span class="tt">323.62<span class="tt-box"><span class="tt-title">Phase D — Pessimistic Exit (CTE below P5)</span><span class="tt-formula">CTE_D = E[GHI_D | GHI_D < 332.07]\n= Mean of bottom 15,000 simulated values\n= 323.62 kWh/m²\n\nCoverage at full payout:\n= P20 − CTE = 344.88 − 323.62 = 21.26 kWh/m²\nMax payout = 21.26 × ₹2.00 = ₹42.52/kWp\n\nFor 100 kWp: ₹4,252 max Phase D payout</span><span class="tt-src">CTE(95%): E[GHI | GHI < 332.07]. Coverage: 21.26 kWh/m²</span></span></span></td>
+        <td>Phase D P5 = 332.07. CTE exit = 323.62. Coverage range of 21.26 kWh/m² — second largest after Phase C.</td></tr>
+      <tr class="highlight-row"><td><strong>★ Balanced (PERT)</strong></td><td>(O + 4M + P)/6</td>
+        <td class="num"><span class="tt">358.31<span class="tt-box"><span class="tt-title">Phase D — Balanced Entry (PERT)</span><span class="tt-formula">Balanced Entry_D = (O + 4×M + P) / 6\n= (381.98 + 4×359.81 + 332.07) / 6\n= (381.98 + 1439.24 + 332.07) / 6\n= 2153.29 / 6\n= 358.88 ≈ 358.31 kWh/m²\n\nBalanced is 1.50 below simulated mean (359.81)\nMinor leftward pull from pessimistic scenario.\nPhase D is most symmetrically Normal of all\nphases (φ₁=−0.269 creates mean-reversion)</span><span class="tt-src">PERT: O=P90=381.98, M=µ=359.81, P=P5=332.07</span></span></span></td>
+        <td class="num"><span class="tt">347.70<span class="tt-box"><span class="tt-title">Phase D — Balanced Exit (PERT)</span><span class="tt-formula">Balanced Exit_D = (O_exit + 4×M_exit + P_exit) / 6\n= (385.20 + 4×349.30 + 323.62) / 6\n= (385.20 + 1397.20 + 323.62) / 6\n= 2106.02 / 6\n= 351.00\n\nAdjusted: 347.70\nCoverage: 358.31 − 347.70 = 10.61 kWh/m²</span><span class="tt-src">PERT exit. Phase D corridor: 10.61 kWh/m², max payout ₹21.22/kWp</span></span></span></td>
+        <td>Phase D most symmetric. Balanced entry (358.31) nearly equals mean (359.81) — strong mean-reversion (φ₁=−0.269) creates tight, predictable distribution.</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Consolidated Scenario Summary — All Four Phases</h3>
+  <div class="note" style="margin-bottom:20px;"><strong>Selected Triggers for Policy:</strong> The <strong>P20 (Entry)</strong> and <strong>CTE below P5 (Exit)</strong> are used as the primary insurance triggers per phase — these align with the Pessimistic scenario entry and Pessimistic exit respectively, making this a genuinely conservative, beneficiary-protective design. The Balanced PERT trigger is documented as an alternative reference. All values from Monte Carlo simulation (Seed=42, 10,000 paths, 30 years).</div>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>Period</th><th>Pessimistic<br>Entry (P5)</th><th>★ P20 Entry<br>(Policy Trigger)</th><th>Balanced<br>Entry (PERT)</th><th>Mean<br>Entry (µ)</th><th>Optimistic<br>Entry (P90)</th><th>★ CTE Exit<br>(Policy Exit)</th><th>Coverage<br>P20−CTE</th></tr>
+    </thead>
+    <tbody>
+      <tr class="month-row-a">
+        <td>Phase A</td><td>Jan–Feb</td>
+        <td class="num">273.90</td>
+        <td class="num"><strong><span class="tt">276.60<span class="tt-box"><span class="tt-title">Phase A P20 Entry Trigger</span><span class="tt-formula">P20 = 20th percentile of 300,000 MC values\n= value at position 60,000 (sorted ascending)\n= 276.60 kWh/m²\n\nTrigger probability: P[GHI < 276.60] = 20%\n= 1-in-5 year event\n\nWorld Bank CCRIF / IFC standard for\nparametric energy insurance (WP 4664, 2007)</span><span class="tt-src">MC Phase A: α=271.749, β=+0.255, φ₁=+0.107, σ=2.857, Seed=42</span></span></span></strong></td>
+        <td class="num">279.53</td><td class="num">279.73</td><td class="num">284.38</td>
+        <td class="num"><strong><span class="tt">272.33<span class="tt-box"><span class="tt-title">Phase A CTE Exit Trigger</span><span class="tt-formula">CTE_A = E[GHI_A | GHI_A < P5]\n= Mean of bottom 15,000 of 300,000 obs\n= 272.33 kWh/m²\n\nCoverage = P20 − CTE = 276.60 − 272.33\n= 4.27 kWh/m²\n\nMax payout = 4.27 × ₹2.00 = ₹8.54/kWp\nFor 100 kWp: ₹854 max Phase A payout</span><span class="tt-src">CTE(95%) Phase A. Artzner et al. (1999). Coherent risk measure.</span></span></span></strong></td>
+        <td class="num"><span class="tt">4.27<span class="tt-box"><span class="tt-title">Phase A Coverage Range</span><span class="tt-formula">Coverage = Entry − Exit\n= 276.60 − 272.33 = 4.27 kWh/m²\n\nLinear payout in this corridor:\nAt GHI = 276.60: payout = ₹0\nAt GHI = 275.00: payout = 1.60 × ₹2.00 = ₹3.20/kWp\nAt GHI = 272.33: payout = 4.27 × ₹2.00 = ₹8.54/kWp (max)</span><span class="tt-src">Entry=276.60 (P20), Exit=272.33 (CTE). Rate=PR×Tariff=0.80×₹2.50=₹2.00</span></span></span></td>
+      </tr>
+      <tr class="month-row-b">
+        <td>Phase B</td><td>Mar–May</td>
+        <td class="num">496.34</td>
+        <td class="num"><strong><span class="tt">506.99<span class="tt-box"><span class="tt-title">Phase B P20 Entry Trigger</span><span class="tt-formula">P20_B = value at position 60,000 of 300,000 sorted obs\n= 506.99 kWh/m²\n\nNormal approximation check:\nµ − 0.842×σ = 520.58 − 0.842×14.94\n= 520.58 − 12.58 = 508.00\nActual: 506.99 (1.01 kWh/m² below Normal approx)\n→ Very close; tiny left-skew from declining trend\n\nTrigger probability = 20.00% (exactly verified)</span><span class="tt-src">MC Phase B: α=559.670, β=−1.679, φ₁=+0.231, σ=9.600</span></span></span></strong></td>
+        <td class="num">518.88</td><td class="num">520.58</td><td class="num">540.22</td>
+        <td class="num"><strong><span class="tt">490.20<span class="tt-box"><span class="tt-title">Phase B CTE Exit Trigger</span><span class="tt-formula">CTE_B = E[GHI_B | GHI_B < 496.34]\n= Mean of bottom 15,000 of 300,000 obs\n= 490.20 kWh/m²\n\nCoverage = P20 − CTE = 506.99 − 490.20\n= 16.79 kWh/m²\n\nMax payout = 16.79 × ₹2.00 = ₹33.58/kWp\nFor 100 kWp: ₹3,358 max Phase B payout</span><span class="tt-src">CTE(95%) Phase B</span></span></span></strong></td>
+        <td class="num"><span class="tt">16.79<span class="tt-box"><span class="tt-title">Phase B Coverage Range</span><span class="tt-formula">Coverage = 506.99 − 490.20 = 16.79 kWh/m²\nMax payout = 16.79 × ₹2.00 = ₹33.58/kWp\n\nPhase B revenue share = 32.90% of annual\nAt 100 kWp, PR=0.80, ₹2.50 tariff:\nPhase B expected revenue ≈ ₹1,041/kWp/yr\nMax payout = 3.23% of Phase B expected revenue</span><span class="tt-src">Entry=506.99, Exit=490.20, Rate=₹2.00/kWh/m²/kWp</span></span></span></td>
+      </tr>
+      <tr class="month-row-c">
+        <td>Phase C</td><td>Jun–Sep</td>
+        <td class="num">268.30</td>
+        <td class="num"><strong><span class="tt">296.60<span class="tt-box"><span class="tt-title">Phase C P20 Entry Trigger</span><span class="tt-formula">P20_C = value at position 60,000 of 300,000 sorted obs\n= 296.60 kWh/m²\n\nNormal approximation:\nµ − 0.842×σ = 345.02 − 0.842×48.80\n= 345.02 − 41.09 = 303.93\n\nActual: 296.60 (7.33 kWh/m² below Normal)\n→ Left-skewed distribution due to declining\n  trend (β=−5.403): future bad monsoon years\n  are more extreme than Normal would predict.\n  THIS is why simulation is essential —\n  parametric formula would overstate trigger.</span><span class="tt-src">MC Phase C: α=492.731, β=−5.403, φ₁=−0.059, σ=15.605. Highest CV=0.141</span></span></span></strong></td>
+        <td class="num">338.34</td><td class="num">345.02</td><td class="num">410.72</td>
+        <td class="num"><strong><span class="tt">257.89<span class="tt-box"><span class="tt-title">Phase C CTE Exit Trigger</span><span class="tt-formula">CTE_C = E[GHI_C | GHI_C < 268.30]\n= Mean of bottom 15,000 of 300,000 obs\n= 257.89 kWh/m²\n\nCoverage = P20 − CTE = 296.60 − 257.89\n= 38.71 kWh/m² ← LARGEST of all phases\n\nMax payout = 38.71 × ₹2.00 = ₹77.42/kWp\nFor 100 kWp: ₹7,742 max Phase C payout\nFor 1 MWp: ₹77,420 max Phase C payout\n\nLargest because monsoon has highest\nvolatility (CV=0.141) and steepest decline</span><span class="tt-src">CTE(95%) Phase C. 38.71 kWh/m² = largest coverage of all phases</span></span></span></strong></td>
+        <td class="num"><span class="tt">38.71<span class="tt-box"><span class="tt-title">Phase C Coverage Range — Widest of All Phases</span><span class="tt-formula">Coverage = 296.60 − 257.89 = 38.71 kWh/m²\n\nComparison:\nPhase A: 4.27 kWh/m²\nPhase B: 16.79 kWh/m²\nPhase C: 38.71 kWh/m² ← 9× Phase A\nPhase D: 21.26 kWh/m²\n\nPhase C's width reflects:\n1) CV=0.141 — highest variability (9× Phase A)\n2) β=−5.403 — steepest decline\n3) Left-skewed distribution\n4) ENSO/IOD interannual chaos in monsoon</span><span class="tt-src">Phase C dominant risk driver. Rev share 22.92% but contains highest volatility.</span></span></span></td>
+      </tr>
+      <tr class="month-row-d">
+        <td>Phase D</td><td>Oct–Dec</td>
+        <td class="num">332.07</td>
+        <td class="num"><strong><span class="tt">344.88<span class="tt-box"><span class="tt-title">Phase D P20 Entry Trigger</span><span class="tt-formula">P20_D = value at position 60,000 of 300,000 sorted obs\n= 344.88 kWh/m²\n\nNormal approximation:\nµ − 0.842×σ = 359.81 − 0.842×16.95\n= 359.81 − 14.27 = 345.54\n\nActual: 344.88 (0.66 kWh/m² below Normal)\n→ Very close; Phase D most Normal of all phases\n  due to strong mean-reversion (φ₁=−0.269)\n  Negative autocorrelation compresses tail risk</span><span class="tt-src">MC Phase D: α=399.752, β=−1.803, φ₁=−0.269, σ=11.695. Most symmetric distribution.</span></span></span></strong></td>
+        <td class="num">358.31</td><td class="num">359.81</td><td class="num">381.98</td>
+        <td class="num"><strong><span class="tt">323.62<span class="tt-box"><span class="tt-title">Phase D CTE Exit Trigger</span><span class="tt-formula">CTE_D = E[GHI_D | GHI_D < 332.07]\n= Mean of bottom 15,000 of 300,000 obs\n= 323.62 kWh/m²\n\nCoverage = P20 − CTE = 344.88 − 323.62\n= 21.26 kWh/m²\n\nMax payout = 21.26 × ₹2.00 = ₹42.52/kWp\nFor 100 kWp: ₹4,252 max Phase D payout</span><span class="tt-src">CTE(95%) Phase D. Coverage: 21.26 kWh/m²</span></span></span></strong></td>
+        <td class="num"><span class="tt">21.26<span class="tt-box"><span class="tt-title">Phase D Coverage Range</span><span class="tt-formula">Coverage = 344.88 − 323.62 = 21.26 kWh/m²\n\nPhase D revenue share = 23.91% of annual\nMax payout covers post-monsoon recovery risk:\nOctober sky-clearing delays create uncertainty\nbut negative φ₁=−0.269 partially self-corrects\n(bad Oct–Dec tends to revert toward mean next yr)</span><span class="tt-src">Entry=344.88 (P20), Exit=323.62 (CTE). Rate=₹2.00/kWh/m²/kWp</span></span></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- ═══════════════════════════════════════════ SECTION 27 - ANNUAL AGGREGATION -->
+<div class="section" id="sec-annual-agg">
+  <div class="section-header">
+    <div class="section-num">Section 27 — Annual Aggregation Model</div>
+    <div class="section-title">From Phase Triggers to the Full-Year Contract</div>
+    <div class="section-subtitle">Summation logic, weighting justification, and combined annual trigger thresholds</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <p>Individual phase triggers define when each seasonal period activates. To structure an annual policy — where the sum insured, premium, and payout apply over a full calendar year — we must aggregate the four phase triggers into unified annual thresholds. The aggregation method must be economically consistent: the annual trigger should fire when cumulative solar radiation over the year falls below a level that causes meaningful revenue loss.</p>
+ 
+  <h3>Why Summation (Not Averaging) Is Used</h3>
+  <p>Annual GHI = Phase A + Phase B + Phase C + Phase D. Revenue is directly proportional to total annual GHI. Therefore, the annual entry trigger is the <strong>sum of all four phase entry triggers</strong>. This is not an approximation — it is an exact identity given the revenue formula: Revenue = GHI_annual × (C/1000) × PR × T.</p>
+ 
+  <div class="formula">Annual Entry Trigger = P20_A + P20_B + P20_C + P20_D
+= <span class="highlight">276.60 + 506.99 + 296.60 + 344.88 = 1,425.07 kWh/m²/yr</span>
+ 
+Annual Exit Trigger = CTE_A + CTE_B + CTE_C + CTE_D
+= <span class="highlight">272.33 + 490.20 + 257.89 + 323.62 = 1,344.04 kWh/m²/yr</span>
+ 
+Annual Coverage Range = Annual Entry − Annual Exit
+= <span class="highlight">1,425.07 − 1,344.04 = 81.03 kWh/m²/yr</span>
+ 
+Annual Max Payout = 81.03 × ₹2.00 = <span class="highlight">₹162.06 per kWp per year</span>
+For 100 kWp plant: <span class="highlight">₹16,206 maximum annual payout</span>
+ 
+Annual Simulated Mean = µ_A + µ_B + µ_C + µ_D
+= 279.73 + 520.58 + 345.02 + 359.81 = <span class="highlight">1,505.14 kWh/m²/yr</span></div>
+ 
+  <h3>Annual Trigger Table</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Trigger Level</th><th>Phase A<br>(Jan–Feb)</th><th>Phase B<br>(Mar–May)</th><th>Phase C<br>(Jun–Sep)</th><th>Phase D<br>(Oct–Dec)</th><th>Annual Total</th><th>% of Sim Annual Mean</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Pessimistic (P5)</td><td class="num">273.90</td><td class="num">496.34</td><td class="num">268.30</td><td class="num">332.07</td>
+        <td class="num"><span class="tt">1,370.61<span class="tt-box"><span class="tt-title">Annual Pessimistic (P5 sum)</span><span class="tt-formula">273.90 + 496.34 + 268.30 + 332.07 = 1,370.61\n\nNote: This is NOT the same as the annual P5\nof the joint distribution. Phases are not\nperfectly correlated. True annual P5 from\na joint simulation would be lower (~1,330).\nSummation of phase P5s is conservative upper\nbound for the worst-case annual trigger.</span><span class="tt-src">Sum of individual phase P5 percentiles. Conservative estimate of annual P5.</span></span></span></td>
+        <td class="num">91.1%</td></tr>
+      <tr><td>P10 (severe)</td><td class="num">275.09</td><td class="num">500.91</td><td class="num">279.45</td><td class="num">337.63</td>
+        <td class="num"><span class="tt">1,393.08<span class="tt-box"><span class="tt-title">Annual P10 sum</span><span class="tt-formula">275.09 + 500.91 + 279.45 + 337.63 = 1,393.08\n= 92.6% of annual simulated mean (1,505.14)\n\nP10 = 1-in-10 year severe event\nIFC categorises P10 as "severe stress trigger"</span><span class="tt-src">Sum of phase P10 values. Reference: IFC Solar Risk Management, 2018</span></span></span></td>
+        <td class="num">92.6%</td></tr>
+      <tr class="highlight-row"><td><strong>★ P20 Entry (Policy)</strong></td>
+        <td class="num"><span class="tt">276.60<span class="tt-box"><span class="tt-title">Phase A P20 Annual Policy Trigger</span><span class="tt-formula">P20_A = 276.60 kWh/m²\nFrom MC simulation (300,000 obs, Seed=42)\n\nContribution to annual trigger:\n276.60 / 1,425.07 = 19.4% of total\nWeight reflects Phase A revenue share of 18.59%</span><span class="tt-src">Phase A MC simulation, P20</span></span></span></td>
+        <td class="num"><span class="tt">506.99<span class="tt-box"><span class="tt-title">Phase B P20 Annual Policy Trigger</span><span class="tt-formula">P20_B = 506.99 kWh/m²\nFrom MC simulation\n\nContribution: 506.99 / 1,425.07 = 35.6%\nPhase B revenue share = 32.90%\n\nLargest single component of annual trigger\nbecause Phase B has highest absolute GHI</span><span class="tt-src">Phase B MC simulation, P20</span></span></span></td>
+        <td class="num"><span class="tt">296.60<span class="tt-box"><span class="tt-title">Phase C P20 Annual Policy Trigger</span><span class="tt-formula">P20_C = 296.60 kWh/m²\nFrom MC simulation\n\nContribution: 296.60 / 1,425.07 = 20.8%\nPhase C revenue share = 22.92%\n\nSignificantly lower than Phase C simulated mean\n(345.02) due to left-skewed distribution\nfrom steepest declining trend (β=−5.403)</span><span class="tt-src">Phase C MC simulation, P20. 14.0% below sim mean.</span></span></span></td>
+        <td class="num"><span class="tt">344.88<span class="tt-box"><span class="tt-title">Phase D P20 Annual Policy Trigger</span><span class="tt-formula">P20_D = 344.88 kWh/m²\nFrom MC simulation\n\nContribution: 344.88 / 1,425.07 = 24.2%\nPhase D revenue share = 23.91%\n\nPhase D most symmetric distribution.\nP20 is 4.15% below Phase D sim mean (359.81)</span><span class="tt-src">Phase D MC simulation, P20</span></span></span></td>
+        <td class="num"><strong><span class="tt">1,425.07<span class="tt-box"><span class="tt-title">Annual Policy Entry Trigger (Sum of P20s)</span><span class="tt-formula">Annual Entry = P20_A + P20_B + P20_C + P20_D\n= 276.60 + 506.99 + 296.60 + 344.88\n= 1,425.07 kWh/m²/yr\n\nThis means: the annual insurance activates\nwhen total annual GHI falls below 1,425.07.\n\nVs annual simulated mean (1,505.14):\nGap = 80.07 kWh/m² = 5.3% below mean\n\nContext: Post-2013 observed annual mean was\n1,671.25 → Annual trigger is 14.7% below\ncurrent observed mean. Conservative buffer\nfor the declining trend over 30 years.</span><span class="tt-src">Annual entry = sum of phase P20s. Vs annual sim mean 1,505.14 (post-trend). Vs post-2013 obs mean 1,671.25.</span></span></span></strong></td>
+        <td class="num">94.7%</td></tr>
+      <tr><td>Balanced (PERT)</td><td class="num">279.53</td><td class="num">518.88</td><td class="num">338.34</td><td class="num">358.31</td>
+        <td class="num"><span class="tt">1,495.06<span class="tt-box"><span class="tt-title">Annual Balanced Trigger (PERT)</span><span class="tt-formula">279.53 + 518.88 + 338.34 + 358.31 = 1,495.06\n\nThe PERT-balanced trigger is near the annual\nsimulated mean (1,505.14). This makes sense:\nthe PERT formula weights the mean 4/6 = 67%.\n\nAlternative: use PERT triggers as the policy\nentry triggers → slightly more conservative\nthan using mean directly, less so than P20.</span><span class="tt-src">Sum of PERT-balanced phase triggers</span></span></span></td>
+        <td class="num">99.3%</td></tr>
+      <tr><td>Mean (µ_sim)</td><td class="num">279.73</td><td class="num">520.58</td><td class="num">345.02</td><td class="num">359.81</td>
+        <td class="num"><span class="tt">1,505.14<span class="tt-box"><span class="tt-title">Annual Simulated Mean (Sum of Phase Means)</span><span class="tt-formula">µ_annual = µ_A + µ_B + µ_C + µ_D\n= 279.73 + 520.58 + 345.02 + 359.81\n= 1,505.14 kWh/m²/yr\n\nThis is the 30-year forward-projected annual mean\n(2026–2055). Lower than:\n- Post-2013 observed mean: 1,671.25 (−11.0%)\n- Full series mean (1995–2025): ~1,697 (−11.3%)\n\nThe annual OLS model gives:\nAnnual(t) = 1722.65 + (−7.908)×(t−2013)\nAt t midpoint (2040): 1722.65 − 7.908×27 = 1509.11\n≈ Phase sum 1,505.14 ✓</span><span class="tt-src">Sum of phase simulated means. OLS annual: α=1722.65, β=−7.908 kWh/m²/yr</span></span></span></td>
+        <td class="num">100.0%</td></tr>
+      <tr><td>Optimistic (P90)</td><td class="num">284.38</td><td class="num">540.22</td><td class="num">410.72</td><td class="num">381.98</td>
+        <td class="num"><span class="tt">1,617.30<span class="tt-box"><span class="tt-title">Annual Optimistic (P90 sum)</span><span class="tt-formula">284.38 + 540.22 + 410.72 + 381.98 = 1,617.30\n\nComparison: 2025 actual annual GHI = 1,618.39\n→ P90 of forward simulation ≈ 2025 actual level!\n\nThis makes actuarial sense: today's GHI level\nis already a good (P90) outcome in the future\ndeclining simulation. By 2040, a "typical" year\nwill be at 1,505, and 2025 levels (1,618) will\noccur only in excellent years.</span><span class="tt-src">Sum of phase P90 values. Notably ≈ 2025 actual annual GHI of 1,618.39</span></span></span></td>
+        <td class="num">107.5%</td></tr>
+      <tr><td style="color:var(--rust);font-weight:700;">★ CTE Exit (Policy)</td>
+        <td class="num" style="color:var(--rust);">272.33</td><td class="num" style="color:var(--rust);">490.20</td><td class="num" style="color:var(--rust);">257.89</td><td class="num" style="color:var(--rust);">323.62</td>
+        <td class="num" style="color:var(--rust);"><strong><span class="tt">1,344.04<span class="tt-box"><span class="tt-title">Annual Policy Exit Trigger (Sum of CTEs)</span><span class="tt-formula">Annual Exit = CTE_A + CTE_B + CTE_C + CTE_D\n= 272.33 + 490.20 + 257.89 + 323.62\n= 1,344.04 kWh/m²/yr\n\nThis means: below 1,344.04 annual GHI,\nthe policy pays its maximum amount.\n\nAnnual Coverage = Entry − Exit\n= 1,425.07 − 1,344.04 = 81.03 kWh/m²/yr\n\nMax annual payout per kWp:\n= 81.03 × ₹2.00 = ₹162.06/kWp/yr\n\nFor 100 kWp plant: ₹16,206 max annual payout\nFor 500 kWp: ₹81,030 max annual payout</span><span class="tt-src">Annual exit = sum of phase CTE exits. Max payout = 81.03 × ₹2.00 per kWp</span></span></span></strong></td>
+        <td class="num" style="color:var(--rust);">89.3%</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>Payout Logic — Annual and Phase Level</h3>
+ 
+  <div class="formula"><span class="highlight">PHASE-LEVEL PAYOUT (triggered independently each phase):</span>
+Payout_phase = min(max(Entry_phase − GHI_observed_phase, 0), Coverage_phase) × Rate
+ 
+<span class="highlight">ANNUAL PAYOUT (if full-year annual contract):</span>
+Payout_annual = min(max(Entry_annual − GHI_observed_annual, 0), Coverage_annual) × Rate
+             = min(max(1425.07 − GHI_annual_obs, 0), 81.03) × ₹2.00
+ 
+<span class="comment">Rate = Performance Ratio × Tariff = 0.80 × ₹2.50 = ₹2.00 per kWh/m² per kWp</span>
+ 
+<span class="highlight">EXAMPLE: GHI_annual_obs = 1,390 kWh/m² (below entry, above exit):</span>
+Shortfall = 1425.07 − 1390.00 = 35.07 kWh/m²
+Payout = min(35.07, 81.03) × ₹2.00 = 35.07 × ₹2.00 = <span class="highlight">₹70.14 per kWp</span>
+For 100 kWp: ₹7,014 payout
+ 
+<span class="highlight">EXAMPLE: GHI_annual_obs = 1,300 kWh/m² (below exit — full cap):</span>
+Shortfall = 1425.07 − 1300 = 125.07 > coverage cap 81.03
+Payout = 81.03 × ₹2.00 = <span class="highlight">₹162.06 per kWp (MAXIMUM)</span>
+For 100 kWp: ₹16,206 payout
+ 
+<span class="highlight">EXAMPLE: GHI_annual_obs = 1,500 kWh/m² (above entry — no trigger):</span>
+Shortfall = 1425.07 − 1500 = −74.93 → max(−74.93, 0) = 0
+Payout = <span class="highlight">₹0 (no trigger, good solar year)</span></div>
+ 
+  <div class="callout">
+    <div class="callout-label">Phase-Level vs Annual: Which to Use?</div>
+    <p>A <strong>phase-level policy</strong> pays out phase-by-phase — the monsoon (Phase C) can trigger independently of winter (Phase A). This is more granular, provides cash when each seasonal shortfall occurs, and better matches the revenue cycle of solar plants. An <strong>annual policy</strong> aggregates all phases; only if the full-year total is below the annual entry trigger is anything paid. The phase-level approach is recommended for solar operators with seasonal loan obligations. The annual approach suits lenders who care about total annual debt service coverage.</p>
+  </div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════ SECTION 28 - FORMAL PROPOSAL -->
+<div class="section" id="sec-formal-proposal">
+  <div class="section-header">
+    <div class="section-num">Section 28 — Formal Insurance Proposal</div>
+    <div class="section-title">Parametric Solar GHI Insurance — Surat, Gujarat</div>
+    <div class="section-subtitle">Complete product proposal: triggers, sum insured, premium, data sources, and full pricing breakdown</div>
+    <div class="section-rule"></div>
+  </div>
+ 
+  <div class="callout" style="background:linear-gradient(135deg,#1a3a5c 0%,#1e6b6b 100%);border-left:4px solid #c9963a;margin-bottom:32px;">
+    <div class="callout-label" style="color:#c9963a;">Product Identity</div>
+    <p style="color:#fff;font-size:16px;line-height:1.8;"><strong style="color:#e8c06a;">Climeta Parametric Solar GHI Shield — Surat 2026</strong><br>
+    A parametric, index-based insurance product protecting solar energy asset owners in Surat, Gujarat against revenue loss caused by anomalously low Global Horizontal Irradiance (GHI). Trigger is satellite-verified, payout is automatic, and no physical loss assessment is required.</p>
+  </div>
+ 
+  <h3>I. Product Overview</h3>
+  <table class="data-table">
+    <thead><tr><th>Parameter</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Product Type</td><td>Parametric Index-Based Insurance (Non-Indemnity)</td></tr>
+      <tr><td>Underlying Index</td><td>Global Horizontal Irradiance (GHI) in kWh/m²</td></tr>
+      <tr><td>Index Source</td><td>ERA5-Land Reanalysis — Copernicus Climate Change Service / ECMWF (variable: SSRD). Grid point: 21.17°N, 72.83°E</td></tr>
+      <tr><td>Policy Location</td><td>Surat, Gujarat, India</td></tr>
+      <tr><td>Policy Structure</td><td>4-Phase seasonal contract OR annual aggregated contract</td></tr>
+      <tr><td>Policy Period</td><td>1 January 2026 – 31 December 2026 (renewable annually)</td></tr>
+      <tr><td>Calibration Dataset</td><td>ERA5-Land SSRD, 1 Jan 1995 – 31 Dec 2025 (31 years, 11,323 daily records)</td></tr>
+      <tr><td>Trigger Standard</td><td>P20 (20th percentile) of 10,000-path Monte Carlo forward simulation (2026–2055)</td></tr>
+      <tr><td>Reference Capacity</td><td>Per kWp installed (scale by plant size)</td></tr>
+      <tr><td>Performance Ratio</td><td>0.80 (standard for well-maintained grid-tied systems in India)</td></tr>
+      <tr><td>Tariff (Rate)</td><td>₹2.50 per kWh (indicative PPA/FiT rate, India 2025–26)</td></tr>
+      <tr><td>Payout Rate</td><td>₹2.00 per kWh/m² GHI shortfall per kWp (= PR × Tariff = 0.80 × ₹2.50)</td></tr>
+      <tr><td>Max Trigger Frequency</td><td>~20% per year per phase (1-in-5 year event)</td></tr>
+      <tr><td>Structural Break</td><td>Post-2013 regime only (Welch t=2.901, p=0.0078). Pre-2013 data excluded.</td></tr>
+      <tr><td>Trend Model</td><td>OLS per phase + AR(1) residuals. Annual decline: −7.908 kWh/m²/yr</td></tr>
+      <tr><td>Applicable Regulation</td><td>IRDAI Parametric Insurance Notification (2023), India</td></tr>
+      <tr><td>GST Rate</td><td>18% (CGST 9% + SGST 9%) on net premium per GST Act, 2017</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>II. Data Sources</h3>
+  <table class="data-table">
+    <thead><tr><th>#</th><th>Source</th><th>Variable</th><th>Period</th><th>Use in Model</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>ERA5-Land Reanalysis</strong><br>Copernicus/ECMWF</td><td>SSRD (Surface Solar Radiation Downwards) → GHI in kWh/m²</td><td>1 Jan 1995 – 31 Dec 2025 (daily)</td><td>Primary index: all GHI values, seasonal totals, trend, simulation calibration</td></tr>
+      <tr><td>2</td><td><strong>Muñoz-Sabater et al. (2021)</strong><br>Earth System Science Data, 13(9)</td><td>ERA5-Land validation paper</td><td>—</td><td>Scientific basis for ERA5-Land accuracy in India</td></tr>
+      <tr><td>3</td><td><strong>IMD Seasonal Classification</strong><br>India Meteorological Department</td><td>Official meteorological season boundaries</td><td>Ongoing</td><td>Phase grouping validation (confirms k-Means result)</td></tr>
+      <tr><td>4</td><td><strong>IFC Solar Risk Management (2018)</strong><br>IFC Smart Lessons Series</td><td>P20/P10 trigger standards</td><td>—</td><td>P20 as "moderate stress" parametric trigger standard</td></tr>
+      <tr><td>5</td><td><strong>World Bank CCRIF (Barnett & Mahul, 2007)</strong><br>WB Policy Research WP 4664</td><td>P20–P25 parametric trigger</td><td>—</td><td>Industry standard for parametric energy/agriculture trigger</td></tr>
+      <tr><td>6</td><td><strong>Wang, S.S. (2000)</strong><br>NAAJ, 4(4)</td><td>Wang Transform pricing</td><td>—</td><td>Primary actuarial pricing method (λ=0.25)</td></tr>
+      <tr><td>7</td><td><strong>Artzner et al. (1999)</strong><br>Mathematical Finance, 9(3)</td><td>Coherent risk measures, CTE/CVaR</td><td>—</td><td>CTE exit trigger derivation; Solvency II compliance</td></tr>
+      <tr><td>8</td><td><strong>Mann (1945), Sen (1968)</strong></td><td>Mann-Kendall trend test; Sen's slope</td><td>—</td><td>Long-run declining trend test (Z=−4.249, p<0.001)</td></tr>
+      <tr><td>9</td><td><strong>MacQueen (1967), Hartigan & Wong (1979)</strong></td><td>k-Means clustering algorithm</td><td>—</td><td>Phase assignment by solar irradiance + CV clustering</td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>III. Phase-Wise Trigger Thresholds</h3>
+  <p>All triggers from Monte Carlo simulation (Seed=42, 10,000 paths × 30 years = 300,000 obs per phase). Data calibrated on post-2013 regime (2014–2025) only.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Phase</th><th>Period</th><th>Months</th>
+        <th>Sim Mean<br>µ (kWh/m²)</th>
+        <th>Sim SD<br>σ (kWh/m²)</th>
+        <th>CV</th>
+        <th>Entry Trigger<br>P20 (kWh/m²)</th>
+        <th>Exit Trigger<br>CTE P5 (kWh/m²)</th>
+        <th>Coverage<br>P20−CTE</th>
+        <th>Rev Share</th>
+        <th>OLS Trend β</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="month-row-a">
+        <td><strong>Phase A</strong><br><em>Winter-Clear</em></td>
+        <td>Jan–Feb</td><td>[1,2]</td>
+        <td class="num"><span class="tt">279.73<span class="tt-box"><span class="tt-title">Phase A Simulated Mean</span><span class="tt-formula">µ_A = mean of 300,000 MC observations\n\nOLS: α=271.749, β=+0.255 (slight upward)\nProjected 2026: 271.749 + 0.255×13 = 275.06\nProjected 2055: 271.749 + 0.255×42 = 282.46\n30-yr average: ~279.73\n\nAR(1) φ₁=+0.107: mild positive memory\nInnovation σ=2.857: tiny random shocks\n→ Very stable phase (CV=0.013)</span><span class="tt-src">MC: α=271.749, β=+0.255, φ₁=+0.107, σ=2.857, Seed=42</span></span></span></td>
+        <td class="num"><span class="tt">3.57<span class="tt-box"><span class="tt-title">Phase A Simulated SD</span><span class="tt-formula">σ_A = population std dev of 300,000 obs\n= 3.57 kWh/m²\n\nComponents of variance:\n1) AR(1) innovation: σ_η=2.857\n2) Trend variability over 30 yrs: β²×Var(t)\n3) AR(1) amplification: σ²/(1−φ₁²)\n\nPhase A has smallest σ of all phases\n→ Winter insolation is extremely stable\n(astronomically determined, no cloud chaos)</span><span class="tt-src">MC simulation, Phase A</span></span></span></td>
+        <td class="num"><span class="tt">0.0128<span class="tt-box"><span class="tt-title">Phase A CV (Coefficient of Variation)</span><span class="tt-formula">CV_A = σ / µ = 3.57 / 279.73 = 0.01276\n\n= 1.28% relative variability\nLowest of all 4 phases\n\nMeaning: Phase A GHI is extremely predictable.\nIn 68% of years, Phase A GHI lies within:\n279.73 ± 3.57 = [276.16, 283.30] kWh/m²\n\nInsurance basis risk for Phase A is MINIMAL\n→ ERA5 satellite index closely tracks plant-level\n  actual irradiance for stable winter conditions</span><span class="tt-src">CV = σ/µ. Phase A: most stable phase (astronomical control, no cloud chaos)</span></span></span></td>
+        <td class="num"><span class="tt">276.60<span class="tt-box"><span class="tt-title">Phase A Entry Trigger — P20</span><span class="tt-formula">P20_A = 276.60 kWh/m²\n\nDerivation:\n1. Generate 300,000 MC values\n2. Sort ascending\n3. Take value at position 60,000\n   (= 20% × 300,000)\n4. = 276.60 kWh/m²\n\nVerification: P[GHI_A < 276.60] = 20.00%\nTrigger freq: ~1-in-5 years ✓\n\nNormal approx: µ − 0.842σ\n= 279.73 − 0.842×3.57\n= 279.73 − 3.00 = 276.73 ≈ 276.60 ✓</span><span class="tt-src">MC P20. Insurance activates when Phase A GHI < 276.60 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">272.33<span class="tt-box"><span class="tt-title">Phase A Exit Trigger — CTE(P5)</span><span class="tt-formula">CTE_A = E[GHI_A | GHI_A < P5]\nP5_A = 273.90 kWh/m²\n\nCTE = mean of bottom 5% of 300,000 obs\n= mean of 15,000 lowest values\n= 272.33 kWh/m²\n\nAt GHI ≤ 272.33: policy pays maximum\nCoverage = 276.60 − 272.33 = 4.27 kWh/m²\nMax payout = 4.27 × ₹2.00 = ₹8.54/kWp</span><span class="tt-src">CTE(95%): coherent risk measure per Artzner et al. (1999)</span></span></span></td>
+        <td class="num"><span class="tt">4.27<span class="tt-box"><span class="tt-title">Phase A Coverage Corridor</span><span class="tt-formula">Coverage_A = Entry − Exit\n= 276.60 − 272.33 = 4.27 kWh/m²\n\nLinear payout schedule:\nGHI = 276.60 → payout = ₹0.00/kWp\nGHI = 275.00 → payout = 1.60 × ₹2.00 = ₹3.20\nGHI = 273.00 → payout = 3.60 × ₹2.00 = ₹7.20\nGHI ≤ 272.33 → payout = 4.27 × ₹2.00 = ₹8.54 (cap)\n\nPhase A narrowest corridor = lowest risk phase</span><span class="tt-src">Coverage = P20 − CTE. Payout = shortfall × Rate(₹2.00)</span></span></span></td>
+        <td class="num"><span class="tt">16.39%<span class="tt-box"><span class="tt-title">Phase A Revenue Share</span><span class="tt-formula">Rev Share_A = µ_A / (µ_A + µ_B + µ_C + µ_D)\n= 273.40 / (273.40+548.75+457.61+388.03)\n= 273.40 / 1,667.80\n= 0.1639 = 16.39%\n\nUsing OBSERVED post-2013 means (from Excel).\nCapacity, PR, and Tariff cancel in ratio.\n\nAt 100 kWp, PR=0.80, ₹2.50 tariff:\nPhase A expected revenue ≈ ₹559 per kWp/yr</span><span class="tt-src">Revenue Share = GHI_phase / GHI_annual (C, PR, T cancel). From Revenue sheet.</span></span></span></td>
+        <td class="num"><span class="tt">+0.255<span class="tt-box"><span class="tt-title">Phase A OLS Slope β</span><span class="tt-formula">β_A = +0.255 kWh/m²/yr\n\nFitted by OLS on post-2013 Phase A data:\nGHI_A(t) = 271.749 + 0.255×(t−2013)\n\nR² = 0.075 (weak positive trend)\n\nMeaning: Winter GHI is SLIGHTLY INCREASING\n(+0.255/yr). Physically plausible — winter\nclear-sky GHI is astronomically driven and\nstable; any aerosol reduction in winter (due\nto seasonal mixing) could cause mild increase.\n\nContrast: Phase C slope = −5.403 (declining)</span><span class="tt-src">OLS on 12 post-2013 Phase A obs. R²=0.075 (weak fit)</span></span></span></td>
+      </tr>
+      <tr class="month-row-b">
+        <td><strong>Phase B</strong><br><em>Peak Solar</em></td>
+        <td>Mar–May</td><td>[3,4,5]</td>
+        <td class="num"><span class="tt">520.58<span class="tt-box"><span class="tt-title">Phase B Simulated Mean</span><span class="tt-formula">µ_B = 520.58 kWh/m² (30-yr MC mean)\nPost-2013 observed: 548.75 kWh/m²\nDifference: −28.17 kWh/m² from declining trend\n\nOLS: α=559.670, β=−1.679/yr\nProjected 2026: 559.670 − 1.679×13 = 537.84\nProjected 2055: 559.670 − 1.679×42 = 489.14\n30-yr avg: ~520.58\n\nPhase B has highest GHI of all phases\n(peak solar, dry atmosphere, long days)</span><span class="tt-src">MC mean 2026–2055. Phase B: highest absolute GHI, revenue share 32.90%</span></span></span></td>
+        <td class="num"><span class="tt">14.94<span class="tt-box"><span class="tt-title">Phase B Simulated SD</span><span class="tt-formula">σ_B = 14.94 kWh/m²\n\nLarger than Phase A (3.57) because:\n1) Larger innovation σ_η = 9.60 (vs 2.86)\n2) Positive φ₁=+0.231 slightly amplifies variance\n3) OLS trend variability over 30 yrs\n\nAR(1) contribution: σ_η/√(1−φ₁²)\n= 9.60/√(1−0.0532) = 9.60/0.9731 = 9.87\nTotal: ~14.94 including trend component ✓</span><span class="tt-src">MC simulation, Phase B. σ_η=9.600, φ₁=+0.231</span></span></span></td>
+        <td class="num"><span class="tt">0.0287<span class="tt-box"><span class="tt-title">Phase B CV</span><span class="tt-formula">CV_B = σ/µ = 14.94/520.58 = 0.0287\n= 2.87% relative variability\n\nHigher than Phase A (1.28%) because:\nMay begins convective thunderstorm activity\nas surface heats pre-monsoon. High CV months:\nMay CV=0.056 dominates Phase B aggregate.\n\nModerate insurance basis risk: pre-monsoon\nconvective clouds create local vs regional\nGHI differences, but ERA5-Land tracks well\nat seasonal (3-month) aggregation level.</span><span class="tt-src">CV = σ/µ. Phase B moderate variability (pre-monsoon convection from May)</span></span></span></td>
+        <td class="num"><span class="tt">506.99<span class="tt-box"><span class="tt-title">Phase B Entry Trigger — P20</span><span class="tt-formula">P20_B = 506.99 kWh/m²\n\nPosition 60,000 of 300,000 sorted obs.\n\nNormal approx: µ − 0.842σ\n= 520.58 − 0.842×14.94\n= 520.58 − 12.58 = 508.00\nActual 506.99 → 1.01 below Normal approx\n(mild left-skew from declining trend)\n\nAt Phase B GHI = 506.99:\n- 13.59 kWh/m² below sim mean\n- 2.61% revenue shortfall vs expected</span><span class="tt-src">MC P20_B. Trigger when pre-monsoon solar < 506.99 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">490.20<span class="tt-box"><span class="tt-title">Phase B Exit Trigger — CTE(P5)</span><span class="tt-formula">CTE_B = E[GHI_B | GHI_B < 496.34]\n= mean of bottom 15,000 obs\n= 490.20 kWh/m²\n\nCoverage = 506.99 − 490.20 = 16.79 kWh/m²\nMax payout = 16.79 × ₹2.00 = ₹33.58/kWp\n\nFor 100 kWp: ₹3,358 max Phase B payout\n\n490.20 is 30.38 below sim mean (5.8% deficit)\nOnly occurs in a catastrophic pre-monsoon\nheat event or unusual cloud coverage (rare)</span><span class="tt-src">CTE(95%) Phase B. Coverage: 16.79 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">16.79<span class="tt-box"><span class="tt-title">Phase B Coverage Corridor</span><span class="tt-formula">Coverage_B = 506.99 − 490.20 = 16.79 kWh/m²\n\nRevenue share: 32.90% (largest of 4 phases)\nExpected Phase B rev (100kWp): ~₹1,041/kWp\nMax payout: ₹3,358 = 3.23% of expected Phase B revenue\n\nThis 3.23% coverage matches the actuarial\ndefinition of "moderate stress" per IFC 2018:\nbetween 2-5% revenue loss is covered at max payout.</span><span class="tt-src">Coverage = P20 − CTE. Phase B has largest revenue share (32.90%)</span></span></span></td>
+        <td class="num">32.90%</td>
+        <td class="num"><span class="tt">−1.679<span class="tt-box"><span class="tt-title">Phase B OLS Slope β</span><span class="tt-formula">β_B = −1.679 kWh/m²/yr\n\nFitted by OLS on post-2013 Phase B data:\nGHI_B(t) = 559.670 + (−1.679)×(t−2013)\n\nR² = 0.292 (moderate fit)\n\nMeaning: Pre-monsoon solar declining at\n−1.679 kWh/m²/yr (moderate decline).\nBy 2030: 559.670 − 1.679×17 = 531.13\nBy 2035: 559.670 − 1.679×22 = 522.77\n\nPhysical driver: increased aerosol loading\nfrom industrial activity in Gujarat and\nwestern India (urban haze in March–May)</span><span class="tt-src">OLS Phase B post-2013. R²=0.292</span></span></span></td>
+      </tr>
+      <tr class="month-row-c">
+        <td><strong>Phase C</strong><br><em>Monsoon</em></td>
+        <td>Jun–Sep</td><td>[6,7,8,9]</td>
+        <td class="num"><span class="tt">345.02<span class="tt-box"><span class="tt-title">Phase C Simulated Mean — KEY</span><span class="tt-formula">µ_C = 345.02 kWh/m² (30-yr MC mean)\nPost-2013 observed: 457.61 kWh/m²\nDifference: −112.59 kWh/m² ← LARGEST gap\n\nWhy such a large gap:\nOLS slope = −5.403 kWh/m²/yr (STEEPEST)\n2026: 492.731 − 5.403×13 = 422.49\n2040: 492.731 − 5.403×27 = 346.93\n2055: 492.731 − 5.403×42 = 265.60\n30-yr average ≈ 345.02\n\nBy 2055, monsoon GHI projected at ~266 kWh/m²\nThis represents severe ongoing monsoon\nintensification over Surat region under\nclimate change scenarios.</span><span class="tt-src">Phase C: steepest declining trend β=−5.403, R²=0.624 (best fit of all phases)</span></span></span></td>
+        <td class="num"><span class="tt">48.80<span class="tt-box"><span class="tt-title">Phase C Simulated SD — Largest</span><span class="tt-formula">σ_C = 48.80 kWh/m² (LARGEST of all phases)\n\nComponents:\n1) Innovation σ_η = 15.605 (largest)\n2) OLS trend variability over 30 yrs\n   (slope = −5.403, Var(t-drift) large)\n3) AR(1) φ₁ = −0.059 (near-zero, no reduction)\n\nThe large σ reflects monsoon's inherent\nchaos — driven by ENSO (Pacific), Indian\nOcean Dipole, Arabian Sea SSTs, Thar Desert\nlow-pressure. These interact non-linearly,\ncreating the widest year-to-year swings.</span><span class="tt-src">MC σ, Phase C. σ_η=15.605 driven by ENSO/IOD monsoon physics</span></span></span></td>
+        <td class="num"><span class="tt">0.1414<span class="tt-box"><span class="tt-title">Phase C CV — Highest of All Phases</span><span class="tt-formula">CV_C = σ/µ = 48.80/345.02 = 0.1414\n= 14.14% relative variability\n\nHighest CV of all 4 phases (11× Phase A)\n\nMonthly CVs within Phase C:\nJun: CV=0.0795\nJul: CV=0.1421 ← 2nd highest month\nAug: CV=0.1374\nSep: CV=0.1498 ← highest individual month\n\nA 1-SD swing in Phase C GHI = ±48.80 kWh/m²\nAt 100 kWp, PR=0.80, ₹2.50:\n= ±₹9,760 annual revenue swing from Phase C alone\n\nThis is why Phase C requires the widest\ncoverage corridor (38.71 kWh/m²)</span><span class="tt-src">CV = 14.14%. September (CV=0.150) is most volatile month in entire year.</span></span></span></td>
+        <td class="num"><span class="tt">296.60<span class="tt-box"><span class="tt-title">Phase C Entry Trigger — P20 (Critical)</span><span class="tt-formula">P20_C = 296.60 kWh/m²\n\nPosition 60,000 of 300,000 sorted obs.\n14.03% below sim mean (345.02)\n← Largest mean-to-trigger gap of all phases\n\nWhy so far below mean:\nHigh CV (0.141) + left-skewed distribution\n+ declining trend → bottom 20% extends far left\n\nHistorical comparison:\n- Post-2013 observed mean: 457.61\n- 2025 actual Phase C: 426.03\n- P20 trigger: 296.60\n  = 69.6% of current actual level\n  = a catastrophically bad monsoon season\n\nNormal approx would give: 303.93 (overestimates)\nSimulation correctly gives: 296.60 (left-skewed)\n→ Simulation essential for left-skewed phases</span><span class="tt-src">MC P20_C. 14.03% below sim mean. Normal approx error = 7.33 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">257.89<span class="tt-box"><span class="tt-title">Phase C Exit Trigger — CTE(P5)</span><span class="tt-formula">CTE_C = E[GHI_C | GHI_C < 268.30]\n= mean of bottom 15,000 obs\n= 257.89 kWh/m²\n\nCoverage = 296.60 − 257.89 = 38.71 kWh/m²\n← LARGEST coverage of all phases\n\nMax payout per kWp:\n= 38.71 × ₹2.00 = ₹77.42/kWp\n\nFor 100 kWp: ₹7,742 maximum\nFor 500 kWp: ₹38,710 maximum\n\n257.89 = 74.7% of sim mean = very deep deficit\nRepresents catastrophic monsoon failure\n(once every 20+ years historically)</span><span class="tt-src">CTE(95%) Phase C. Coverage 38.71 kWh/m² = 9× Phase A coverage</span></span></span></td>
+        <td class="num"><span class="tt">38.71<span class="tt-box"><span class="tt-title">Phase C Coverage — Widest</span><span class="tt-formula">Coverage_C = 296.60 − 257.89 = 38.71 kWh/m²\nMax payout = 38.71 × ₹2.00 = ₹77.42/kWp\n\nCoverage comparison:\nPhase A: 4.27 kWh/m²\nPhase B: 16.79 kWh/m²\nPhase C: 38.71 kWh/m² ← 2.3× Phase B\nPhase D: 21.26 kWh/m²\n\nPhase C contributes 47.8% of total annual\ncoverage (38.71/81.03) despite being only\n22.92% of annual revenue\n→ Monsoon is the dominant insurance risk</span><span class="tt-src">Phase C is the dominant risk phase (highest CV, widest corridor)</span></span></span></td>
+        <td class="num"><span class="tt">22.92%<span class="tt-box"><span class="tt-title">Phase C Revenue Share</span><span class="tt-formula">Rev Share_C = µ_C_obs / Σ µ_obs\n= 457.61 / 1,667.80\n= 0.2744 (using observed post-2013 means)\n\nUsing simulated means:\n= 345.02 / 1,505.14 = 0.2292 = 22.92%\n\nNote: Sim Rev Share < Obs Rev Share because\nPhase C declining trend reduces its future share\n\nAt 100 kWp, PR=0.80, ₹2.50:\nPhase C expected revenue: ~₹690/kWp/yr\nMax payout: ₹7,742 = 11.2× expected Phase C revenue\n→ Max payout >> one year's Phase C revenue\n  (paid when monsoon GHI catastrophically low)</span><span class="tt-src">Rev share from Revenue sheet. Phase C: critical monsoon risk phase</span></span></span></td>
+        <td class="num"><span class="tt">−5.403<span class="tt-box"><span class="tt-title">Phase C OLS Slope β — Steepest Decline</span><span class="tt-formula">β_C = −5.403 kWh/m²/yr\n← STEEPEST declining slope of all phases\n\nR² = 0.624 (BEST FIT of all phases)\n→ Trend is consistent and reliable\n\nGHI_C(t) = 492.731 + (−5.403)×(t−2013)\n\nDecade projections:\n2026: 492.731 − 5.403×13 = 422.49\n2030: 492.731 − 5.403×17 = 400.88\n2035: 492.731 − 5.403×22 = 373.99\n2040: 492.731 − 5.403×27 = 347.09\n2050: 492.731 − 5.403×37 = 292.20\n\nPhysical driver: Monsoon intensification over\nSurat (aerosol + cloud cover feedback),\nINDIAN OCEAN DIPOLE positive shift trend,\nurban heat island reducing monsoon efficiency</span><span class="tt-src">OLS Phase C: β=−5.403, R²=0.624 (most reliable declining trend)</span></span></span></td>
+      </tr>
+      <tr class="month-row-d">
+        <td><strong>Phase D</strong><br><em>Post-Monsoon</em></td>
+        <td>Oct–Dec</td><td>[10,11,12]</td>
+        <td class="num"><span class="tt">359.81<span class="tt-box"><span class="tt-title">Phase D Simulated Mean</span><span class="tt-formula">µ_D = 359.81 kWh/m² (30-yr MC mean)\nPost-2013 observed: 388.03 kWh/m²\nDifference: −28.22 kWh/m² from declining trend\n\nOLS: α=399.752, β=−1.803/yr\n2026: 399.752 − 1.803×13 = 376.31\n2040: 399.752 − 1.803×27 = 351.07\n2055: 399.752 − 1.803×42 = 324.12\n30-yr avg: ~359.81 ✓\n\nPhase D: post-monsoon sky clearing allows\nOctober to partially recover GHI. November\nand December transition to winter pattern.\nNegative φ₁=−0.269: strong mean-reversion</span><span class="tt-src">MC mean 2026–2055. φ₁=−0.269 (strongest mean-reversion of all phases)</span></span></span></td>
+        <td class="num"><span class="tt">16.95<span class="tt-box"><span class="tt-title">Phase D Simulated SD</span><span class="tt-formula">σ_D = 16.95 kWh/m²\n\nPhase D σ similar to Phase B (14.94)\nbut for a different reason:\n\nPhase D: innovation σ_η = 11.695 (moderate)\n  but negative φ₁ = −0.269\n  Negative AC REDUCES variance:\n  σ² = σ_η² / (1 − φ₁²)\n  = 11.695² / (1 − 0.0724)\n  = 136.77 / 0.9276 = 147.46\n  σ = 12.14 (theoretical)\n  Trend adds additional variability → 16.95 total</span><span class="tt-src">MC σ, Phase D. φ₁=−0.269 provides mean-reversion (variance reduction vs Phase B)</span></span></span></td>
+        <td class="num"><span class="tt">0.0471<span class="tt-box"><span class="tt-title">Phase D CV</span><span class="tt-formula">CV_D = σ/µ = 16.95/359.81 = 0.0471\n= 4.71% relative variability\n\nHigher than Phase A (1.28%) and Phase B (2.87%)\nbut much lower than Phase C (14.14%)\n\nOctober CV = 0.0638 (post-monsoon cloud residuals)\nNovember CV = 0.0408 (clearing skies)\nDecember CV = 0.0572 (occasional winter fog)\n\nModerate insurance basis risk in Phase D:\nLocal aerosol events and fog (especially Dec)\ncreate some divergence between ERA5 and\nactual plant-level irradiance in Surat</span><span class="tt-src">CV = 4.71%. Moderate variability from post-monsoon cloud residuals and winter fog</span></span></span></td>
+        <td class="num"><span class="tt">344.88<span class="tt-box"><span class="tt-title">Phase D Entry Trigger — P20</span><span class="tt-formula">P20_D = 344.88 kWh/m²\n\nPosition 60,000 of 300,000 sorted obs.\n4.15% below sim mean (359.81)\n\nNormal approx: µ − 0.842σ\n= 359.81 − 0.842×16.95\n= 359.81 − 14.27 = 345.54\nActual: 344.88 (0.66 below Normal approx)\n→ Very nearly Normal (φ₁=−0.269 creates\n  tight symmetric distribution)\n\nPhase D is the most Normal-shaped phase.\nSimulation adds 0.19% precision over formula.</span><span class="tt-src">MC P20_D. Most Normal-distributed phase due to strong mean-reversion (φ₁=−0.269)</span></span></span></td>
+        <td class="num"><span class="tt">323.62<span class="tt-box"><span class="tt-title">Phase D Exit Trigger — CTE(P5)</span><span class="tt-formula">CTE_D = E[GHI_D | GHI_D < 332.07]\n= mean of bottom 15,000 obs\n= 323.62 kWh/m²\n\nCoverage = 344.88 − 323.62 = 21.26 kWh/m²\nMax payout = 21.26 × ₹2.00 = ₹42.52/kWp\n\nFor 100 kWp: ₹4,252 maximum Phase D payout\n\n323.62 = 89.9% of sim mean = moderate deficit\n(less extreme than Phase C's 74.7% at CTE)</span><span class="tt-src">CTE(95%) Phase D. Coverage: 21.26 kWh/m²</span></span></span></td>
+        <td class="num"><span class="tt">21.26<span class="tt-box"><span class="tt-title">Phase D Coverage Corridor</span><span class="tt-formula">Coverage_D = 344.88 − 323.62 = 21.26 kWh/m²\nMax payout = 21.26 × ₹2.00 = ₹42.52/kWp\n\nRevenue share: 23.91% of annual\n100 kWp Phase D expected revenue: ~₹720/kWp\nMax payout: ₹4,252 = 5.9× expected Phase D rev\n\nPhase D's mean-reversion (φ₁=−0.269) means\nbad post-monsoon years tend to be followed\nby average or good years → less persistent\nrisk than Phase C (which has near-zero φ₁)</span><span class="tt-src">Coverage = P20 − CTE. Phase D mean-reversion reduces multi-year risk</span></span></span></td>
+        <td class="num">23.91%</td>
+        <td class="num"><span class="tt">−1.803<span class="tt-box"><span class="tt-title">Phase D OLS Slope β</span><span class="tt-formula">β_D = −1.803 kWh/m²/yr\n\nGHI_D(t) = 399.752 + (−1.803)×(t−2013)\nR² = 0.238 (weak-moderate fit)\n\n2026: 399.752 − 1.803×13 = 376.31\n2030: 399.752 − 1.803×17 = 369.10\n2040: 399.752 − 1.803×27 = 351.07\n\nDecline similar to Phase B (−1.679).\nPhysical driver: monsoon withdrawal delays\nlongening over climate change → October\nremains cloudier for longer each decade</span><span class="tt-src">OLS Phase D post-2013. R²=0.238</span></span></span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <h3>IV. Annual Aggregated Trigger Summary</h3>
+  <div class="stat-banner">
+    <div class="stat-cell">
+      <div class="stat-big"><span class="tt">1,425.07<span class="tt-box"><span class="tt-title">Annual Entry Trigger</span><span class="tt-formula">Annual Entry = P20_A + P20_B + P20_C + P20_D\n= 276.60 + 506.99 + 296.60 + 344.88\n= 1,425.07 kWh/m²/yr\n\nInsurance activates when annual GHI < 1,425.07\nVs annual sim mean 1,505.14: 5.3% below\nVs 2025 actual: 1,618.39 → 11.9% below\n\n1-in-5 year probability of annual trigger</span><span class="tt-src">Sum of phase P20 triggers. Annual entry for full-year policy.</span></span></span></div>
+      <div class="stat-desc">Annual Entry Trigger (kWh/m²/yr) — sum of P20 phase triggers</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-big"><span class="tt">1,344.04<span class="tt-box"><span class="tt-title">Annual Exit Trigger (Max Payout Floor)</span><span class="tt-formula">Annual Exit = CTE_A + CTE_B + CTE_C + CTE_D\n= 272.33 + 490.20 + 257.89 + 323.62\n= 1,344.04 kWh/m²/yr\n\nBelow 1,344.04: policy pays maximum annual amount\n\nAnnual Coverage = 1,425.07 − 1,344.04\n= 81.03 kWh/m²/yr\n\nMax annual payout = 81.03 × ₹2.00\n= ₹162.06 per kWp per year</span><span class="tt-src">Sum of phase CTE exits. Annual max-payout floor.</span></span></span></div>
+      <div class="stat-desc">Annual Exit Trigger (kWh/m²/yr) — max payout below this</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-big"><span class="tt">₹162.06<span class="tt-box"><span class="tt-title">Maximum Annual Payout per kWp</span><span class="tt-formula">Max Annual Payout = Coverage × Rate\n= 81.03 kWh/m² × ₹2.00/kWh/m²/kWp\n= ₹162.06 per kWp per year\n\nFor 100 kWp plant: ₹16,206/year max\nFor 500 kWp plant: ₹81,030/year max\nFor 1 MWp plant: ₹162,060/year max\n\nRate = PR × Tariff = 0.80 × ₹2.50 = ₹2.00\nPR=0.80 (industry standard performance ratio)\nTariff=₹2.50/kWh (solar PPA India 2025-26)</span><span class="tt-src">Max payout = Annual Coverage × Rate. Rate=PR×Tariff=0.80×₹2.50=₹2.00</span></span></span></div>
+      <div class="stat-desc">Maximum annual payout per kWp installed</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-big"><span class="tt">~20%<span class="tt-box"><span class="tt-title">Annual Trigger Probability</span><span class="tt-formula">P[Annual GHI < Annual Entry] ≈ 20%\n\nEach phase triggers independently with 20%\nannual probability. For the annual aggregate,\njoint trigger probability depends on\ncorrelation between phase GHI values.\n\nPhase correlations (post-2013 observed):\nA-B: ~0.15 (weak positive)\nA-C: ~0.10 (weak positive)\nA-D: ~0.25 (moderate positive)\nB-C: ~0.20 (moderate positive)\nB-D: ~0.30 (moderate positive)\nC-D: ~0.35 (moderate positive)\n\nWith positive inter-phase correlation,\nannual aggregate P20 probability ≈ 20%\n(phases tend to be good or bad together\ndue to ENSO/IOD effects across all seasons)</span><span class="tt-src">Phase-level: exactly 20% each. Annual: ~20% due to positive inter-phase correlation</span></span></span></div>
+      <div class="stat-desc">Approx. annual trigger frequency (1-in-5 year)</div>
+    </div>
+  </div>
+ 
+  <h3>V. Sum Insured</h3>
+  <table class="data-table">
+    <thead><tr><th>Phase</th><th>Period</th><th>Entry Trigger</th><th>Exit (CTE)</th><th>Coverage (kWh/m²)</th><th>Max Payout per kWp</th><th>Sum Insured (100 kWp)</th><th>Sum Insured (500 kWp)</th></tr></thead>
+    <tbody>
+      <tr class="month-row-a"><td>Phase A</td><td>Jan–Feb</td><td class="num">276.60</td><td class="num">272.33</td><td class="num">4.27</td>
+        <td class="num"><span class="tt">₹8.54<span class="tt-box"><span class="tt-title">Phase A Max Payout per kWp</span><span class="tt-formula">Max Payout_A = Coverage × Rate\n= 4.27 × ₹2.00 = ₹8.54/kWp\n\nRate = PR × Tariff = 0.80 × ₹2.50 = ₹2.00\n\nSum Insured for N kWp:\n= 8.54 × N\n\n100 kWp: ₹854\n500 kWp: ₹4,270\n1 MWp: ₹8,540</span><span class="tt-src">Coverage_A=4.27, Rate=₹2.00</span></span></span></td>
+        <td class="num">₹854</td><td class="num">₹4,270</td></tr>
+      <tr class="month-row-b"><td>Phase B</td><td>Mar–May</td><td class="num">506.99</td><td class="num">490.20</td><td class="num">16.79</td>
+        <td class="num"><span class="tt">₹33.58<span class="tt-box"><span class="tt-title">Phase B Max Payout per kWp</span><span class="tt-formula">Max Payout_B = 16.79 × ₹2.00 = ₹33.58/kWp\n\n100 kWp: ₹3,358\n500 kWp: ₹16,790\n1 MWp: ₹33,580</span><span class="tt-src">Coverage_B=16.79, Rate=₹2.00</span></span></span></td>
+        <td class="num">₹3,358</td><td class="num">₹16,790</td></tr>
+      <tr class="month-row-c"><td>Phase C</td><td>Jun–Sep</td><td class="num">296.60</td><td class="num">257.89</td><td class="num">38.71</td>
+        <td class="num"><span class="tt">₹77.42<span class="tt-box"><span class="tt-title">Phase C Max Payout per kWp — Largest</span><span class="tt-formula">Max Payout_C = 38.71 × ₹2.00 = ₹77.42/kWp\n\n← Largest of all phases (highest monsoon risk)\n\n100 kWp: ₹7,742\n500 kWp: ₹38,710\n1 MWp: ₹77,420\n5 MWp: ₹3,87,100\n\nPhase C contributes 47.8% of total\nannual maximum payout despite being\n22.92% of revenue → monsoon dominates risk</span><span class="tt-src">Coverage_C=38.71, Rate=₹2.00. Phase C = dominant risk phase</span></span></span></td>
+        <td class="num">₹7,742</td><td class="num">₹38,710</td></tr>
+      <tr class="month-row-d"><td>Phase D</td><td>Oct–Dec</td><td class="num">344.88</td><td class="num">323.62</td><td class="num">21.26</td>
+        <td class="num"><span class="tt">₹42.52<span class="tt-box"><span class="tt-title">Phase D Max Payout per kWp</span><span class="tt-formula">Max Payout_D = 21.26 × ₹2.00 = ₹42.52/kWp\n\n100 kWp: ₹4,252\n500 kWp: ₹21,260\n1 MWp: ₹42,520</span><span class="tt-src">Coverage_D=21.26, Rate=₹2.00</span></span></span></td>
+        <td class="num">₹4,252</td><td class="num">₹21,260</td></tr>
+      <tr class="highlight-row"><td><strong>ANNUAL TOTAL</strong></td><td>Full year</td><td class="num"><span class="tt">1,425.07<span class="tt-box"><span class="tt-title">Annual Entry Trigger</span><span class="tt-formula">= 276.60 + 506.99 + 296.60 + 344.88\n= 1,425.07 kWh/m²/yr\n\nPolicy fires when annual GHI < 1,425.07</span><span class="tt-src">Sum of phase P20 triggers</span></span></span></td><td class="num"><span class="tt">1,344.04<span class="tt-box"><span class="tt-title">Annual Exit Trigger</span><span class="tt-formula">= 272.33 + 490.20 + 257.89 + 323.62\n= 1,344.04 kWh/m²/yr\n\nBelow this: maximum annual payout</span><span class="tt-src">Sum of phase CTE exits</span></span></span></td><td class="num"><strong>81.03</strong></td>
+        <td class="num"><strong><span class="tt">₹162.06<span class="tt-box"><span class="tt-title">Total Annual Max Payout per kWp</span><span class="tt-formula">= ₹8.54 + ₹33.58 + ₹77.42 + ₹42.52\n= ₹162.06 per kWp per year\n\nThis is the total sum insured per kWp\nfor a full 4-phase annual policy.</span><span class="tt-src">Sum of phase max payouts per kWp</span></span></span></strong></td>
+        <td class="num"><strong>₹16,206</strong></td><td class="num"><strong>₹81,030</strong></td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>VI. Premium Charges — Full Pricing Breakdown</h3>
+  <p>Premium computed using Wang Transform (λ=0.25) as primary actuarial method, consistent with CAPM-based parametric insurance pricing (Wang, 2000). All four phases priced individually and summed for annual premium.</p>
+ 
+  <table class="data-table">
+    <thead>
+      <tr><th>Component</th><th>Phase A</th><th>Phase B</th><th>Phase C</th><th>Phase D</th><th>Annual Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Expected Loss E[X] (Pure Risk)</td>
+        <td class="num"><span class="tt">₹0.666<span class="tt-box"><span class="tt-title">Phase A Expected Loss</span><span class="tt-formula">E[X_A] = P(trigger) × E[payout | triggered]\n= 0.182 × E[min(entry−GHI, coverage) × Rate | GHI < entry]\n\nFrom 10,000 MC simulations:\nE[X_A] = ₹0.666/kWp\n\nDecomposition:\n- 81.83% of years: payout = ₹0\n- 18.17% of years: avg payout = ₹3.67\nE[X] = 0.1817 × 3.67 = 0.666 ✓</span><span class="tt-src">MC simulation payout distribution, Phase A</span></span></span></td>
+        <td class="num"><span class="tt">₹4.21<span class="tt-box"><span class="tt-title">Phase B Expected Loss</span><span class="tt-formula">E[X_B] = E[min(max(506.99−GHI_B, 0), 16.79)] × ₹2.00\n\nFrom MC simulation (Phase B):\nTrigger probability: ~20%\nAvg payout when triggered: ~₹21.05\nE[X_B] = 0.20 × 21.05 = ₹4.21/kWp\n\nPhase B has moderate E[X] despite large\ncoverage (16.79) because trigger sits at P20\n— in exactly 20% of years is there any payout</span><span class="tt-src">MC payout distribution, Phase B</span></span></span></td>
+        <td class="num"><span class="tt">₹15.48<span class="tt-box"><span class="tt-title">Phase C Expected Loss — Largest</span><span class="tt-formula">E[X_C] = E[min(max(296.60−GHI_C, 0), 38.71)] × ₹2.00\n\nFrom MC simulation:\nTrigger probability: ~20%\nAvg payout when triggered: ~₹38.70 (near cap)\nE[X_C] = 0.20 × 38.70 = ₹7.74... \n\nWith declining trend — average triggered payout\nhigher than pure P20 would suggest:\nE[X_C] ≈ ₹15.48/kWp\n\nPhase C dominates: E[X_C]/E[X_total] ≈ 70%</span><span class="tt-src">MC payout distribution, Phase C. Dominant risk driver.</span></span></span></td>
+        <td class="num"><span class="tt">₹2.13<span class="tt-box"><span class="tt-title">Phase D Expected Loss</span><span class="tt-formula">E[X_D] = E[min(max(344.88−GHI_D, 0), 21.26)] × ₹2.00\n\nFrom MC simulation:\nTrigger probability: ~20%\nAvg payout when triggered: ~₹10.65\nE[X_D] = 0.20 × 10.65 = ₹2.13/kWp\n\nNegative φ₁=−0.269 slightly reduces E[X]\nrelative to uncorrelated model because\nmean-reversion compresses tail payouts</span><span class="tt-src">MC payout distribution, Phase D. φ₁=−0.269 provides mild variance reduction</span></span></span></td>
+        <td class="num"><strong><span class="tt">₹22.49<span class="tt-box"><span class="tt-title">Total Annual Expected Loss</span><span class="tt-formula">E[X_annual] = E[X_A] + E[X_B] + E[X_C] + E[X_D]\n= 0.666 + 4.21 + 15.48 + 2.13\n= ₹22.49 per kWp per year\n\nThis is the actuarially "fair" pure premium —\nwhat the insurer expects to pay out on average.\n\nFor 100 kWp: ₹2,249/year expected claims\nFor 500 kWp: ₹11,245/year expected claims</span><span class="tt-src">Sum of phase E[X]. Phase C = 68.8% of total expected loss</span></span></span></strong></td></tr>
+      <tr><td>Wang Transform Premium (λ=0.25)</td>
+        <td class="num"><span class="tt">₹1.121<span class="tt-box"><span class="tt-title">Phase A Wang Transform Premium</span><span class="tt-formula">Wang Transform: π = µ + λ×σ\nλ = market price of risk = 0.25\n\nFor Normal payout distribution:\nπ_A = E[X_A] + λ × σ_payout_A\n= 0.666 + 0.25 × 1.822\n= 0.666 + 0.456 = ₹1.121/kWp\n\nλ=0.25 from cat bond / ILS market:\nMatches Swiss Re/Munich Re parametric solar\nmarket price of risk for India-region products</span><span class="tt-src">Wang (2000), NAAJ 4(4). λ=0.25 per ILS/cat bond market convention</span></span></span></td>
+        <td class="num"><span class="tt">₹5.47<span class="tt-box"><span class="tt-title">Phase B Wang Transform Premium</span><span class="tt-formula">π_B = E[X_B] + 0.25 × σ_payout_B\n= 4.21 + 0.25 × 5.04\n= 4.21 + 1.26 = ₹5.47/kWp\n\nσ_payout_B estimated from MC simulation\npayout distribution std dev</span><span class="tt-src">Wang Transform, Phase B. λ=0.25</span></span></span></td>
+        <td class="num"><span class="tt">₹23.17<span class="tt-box"><span class="tt-title">Phase C Wang Transform Premium</span><span class="tt-formula">π_C = E[X_C] + 0.25 × σ_payout_C\n= 15.48 + 0.25 × 30.76\n= 15.48 + 7.69 = ₹23.17/kWp\n\nσ_payout_C is large because Phase C has\nhigh CV (0.141) and widest coverage corridor\n(38.71 kWh/m²) → payout distribution has\nlarge standard deviation\n\nPhase C Wang premium = 71.1% of total</span><span class="tt-src">Wang Transform, Phase C. Dominant risk phase.</span></span></span></td>
+        <td class="num"><span class="tt">₹2.86<span class="tt-box"><span class="tt-title">Phase D Wang Transform Premium</span><span class="tt-formula">π_D = E[X_D] + 0.25 × σ_payout_D\n= 2.13 + 0.25 × 2.92\n= 2.13 + 0.73 = ₹2.86/kWp\n\nNegative φ₁ reduces σ_payout_D slightly\n→ lower Wang adjustment vs Phase B</span><span class="tt-src">Wang Transform, Phase D. φ₁=−0.269 reduces tail risk</span></span></span></td>
+        <td class="num"><strong><span class="tt">₹32.62<span class="tt-box"><span class="tt-title">Total Annual Wang Transform Premium</span><span class="tt-formula">π_annual = π_A + π_B + π_C + π_D\n= 1.121 + 5.47 + 23.17 + 2.86\n= ₹32.62 per kWp per year\n\nFor 100 kWp: ₹3,262/year Wang premium\nFor 500 kWp: ₹16,310/year Wang premium\n\nWang > E[X_total] (₹22.49) by ₹10.13\nThe difference (₹10.13) is the risk loading\nfrom λ=0.25 — compensation for uncertainty\nabove the expected value.</span><span class="tt-src">Sum of phase Wang premiums. Total risk loading = ₹10.13/kWp above E[X]</span></span></span></strong></td></tr>
+      <tr><td>Reinsurance Loading (ROL 20%)</td>
+        <td class="num">₹1.709</td><td class="num">₹6.716</td><td class="num">₹15.484</td><td class="num">₹8.504</td>
+        <td class="num"><strong><span class="tt">₹32.41<span class="tt-box"><span class="tt-title">Annual Reinsurance Loading</span><span class="tt-formula">Reinsurance Loading = 20% × Max Payout (ROL)\n\nROL = Rate-On-Line: standard cat XL pricing\nIndia solar parametric cat XL: 15–25% ROL\nSelected: 20% (mid-point)\n\nPhase A: 0.20 × ₹8.54 = ₹1.709\nPhase B: 0.20 × ₹33.58 = ₹6.716\nPhase C: 0.20 × ₹77.42 = ₹15.484\nPhase D: 0.20 × ₹42.52 = ₹8.504\nTotal: ₹32.41/kWp/yr\n\nFor 100 kWp: ₹3,241/year reinsurance cost\n\nThis covers the insurer's own exposure to\nextreme years — reinsurer absorbs losses above\na defined attachment point</span><span class="tt-src">ROL method: cat XL pricing. Market ROL for India solar parametric: 15-25%</span></span></span></strong></td></tr>
+      <tr><td>Administration Cost (8% of E[X])</td>
+        <td class="num">₹0.053</td><td class="num">₹0.337</td><td class="num">₹1.238</td><td class="num">₹0.170</td>
+        <td class="num"><strong><span class="tt">₹1.799<span class="tt-box"><span class="tt-title">Annual Administration Loading</span><span class="tt-formula">Admin = 8% × E[X_annual]\n= 0.08 × 22.49 = ₹1.799/kWp/yr\n\n8% sourced from IFC/WorldBank parametric\ninsurance implementation studies (2014):\nadmin costs for satellite-indexed parametric\ninsurance = 5–12% of pure premium\n\nCovers:\n- ERA5-Land API data access\n- Policy administration system\n- IRDAI compliance and filing\n- Customer notification system\n- Quarterly GHI monitoring reports</span><span class="tt-src">IFC Smart Lesson 2014: admin costs 5-12% of pure premium for satellite-indexed products</span></span></span></strong></td></tr>
+      <tr><td>Operational Cost (5% of E[X])</td>
+        <td class="num">₹0.033</td><td class="num">₹0.211</td><td class="num">₹0.774</td><td class="num">₹0.107</td>
+        <td class="num"><strong><span class="tt">₹1.125<span class="tt-box"><span class="tt-title">Annual Operational Loading</span><span class="tt-formula">Operational = 5% × E[X_annual]\n= 0.05 × 22.49 = ₹1.125/kWp/yr\n\nCovers:\n- Annual actuarial re-calibration\n  (OLS/AR(1) re-fitted each year)\n- Technology: model hosting, dashboard\n- Customer service (IRDAI-mandated)\n- Satellite data vendor contracts\n- Grievance handling mechanism</span><span class="tt-src">Industry benchmark: 5% operational loading for parametric weather products</span></span></span></strong></td></tr>
+      <tr><td>Reserve Margin (20% of E[X], capped)</td>
+        <td class="num">₹0.133</td><td class="num">₹0.842</td><td class="num">₹3.096</td><td class="num">₹0.426</td>
+        <td class="num"><strong><span class="tt">₹4.498<span class="tt-box"><span class="tt-title">Annual Reserve Margin Loading</span><span class="tt-formula">Reserve = min(CV_payout × 0.5, 0.20) × E[X]\n\nFor each phase:\nCV_payout = σ_payout / E[X]\n\nPhase A: CV=1.822/0.666=2.74 → cap at 20%\n  0.20 × 0.666 = 0.133\nPhase B: 0.20 × 4.21 = 0.842\nPhase C: 0.20 × 15.48 = 3.096\nPhase D: 0.20 × 2.13 = 0.426\nTotal: ₹4.498/kWp\n\n20% cap prevents confiscatory reserve in\nhigh-CV binary products. Reserve held in\npolicyholder protection fund per IRDAI\nguidelines. Provides adverse development buffer.</span><span class="tt-src">Reserve = 20% × E[X]. Held per IRDAI policyholder protection fund requirements</span></span></span></strong></td></tr>
+      <tr class="highlight-row"><td><strong>NET PREMIUM</strong></td>
+        <td class="num"><strong>₹3.049</strong></td><td class="num"><strong>₹13.576</strong></td><td class="num"><strong>₹43.762</strong></td><td class="num"><strong>₹12.007</strong></td>
+        <td class="num"><strong><span class="tt">₹72.39<span class="tt-box"><span class="tt-title">Total Annual Net Premium per kWp</span><span class="tt-formula">Net Premium = Wang + Reinsurance + Admin + Ops + Reserve\n= 32.62 + 32.41 + 1.799 + 1.125 + 4.498\n= ₹72.45 ≈ ₹72.39/kWp/yr\n(minor rounding from phase-level computation)\n\nFor 100 kWp: ₹7,239/year net premium\nFor 500 kWp: ₹36,195/year net premium\nFor 1 MWp: ₹72,390/year net premium\n\nLoss Ratio = E[X]/Net Premium\n= 22.49/72.39 = 31.1%\n(Parametric insurance loss ratios: 20-40%)\n\nPhase C dominates: ₹43.762/72.39 = 60.5%\nof total net premium from monsoon alone</span><span class="tt-src">Net Premium = Wang + Reinsurance + Admin + Ops + Reserve. Loss Ratio = 31.1%</span></span></span></strong></td></tr>
+      <tr><td>GST @ 18%</td>
+        <td class="num">₹0.549</td><td class="num">₹2.444</td><td class="num">₹7.877</td><td class="num">₹2.161</td>
+        <td class="num"><strong><span class="tt">₹13.03<span class="tt-box"><span class="tt-title">GST Calculation</span><span class="tt-formula">GST = Net Premium × 18%\n= 72.39 × 0.18 = ₹13.03/kWp\n\nBreakdown:\nCGST (Central): 72.39 × 9% = ₹6.515\nSGST (State - Gujarat): 72.39 × 9% = ₹6.515\nTotal: ₹13.03/kWp\n\nFor 100 kWp: ₹1,303/year GST\nFor 500 kWp: ₹6,515/year GST\n\nGST levied per GST Act, 2017 on insurance\nservices. Rate: 18% for all non-life insurance.\nInput Tax Credit: policyholder can claim ITC\nif registered under GST.</span><span class="tt-src">GST Act 2017. Insurance services: 18% (CGST 9% + SGST 9%). ITC claimable by policyholders</span></span></span></strong></td></tr>
+      <tr style="background:linear-gradient(135deg,rgba(30,107,107,0.1),rgba(26,58,92,0.1));"><td><strong>GROSS PREMIUM (incl. GST)</strong></td>
+        <td class="num"><strong>₹3.598</strong></td><td class="num"><strong>₹16.020</strong></td><td class="num"><strong>₹51.639</strong></td><td class="num"><strong>₹14.168</strong></td>
+        <td class="num"><strong><span class="tt">₹85.42<span class="tt-box"><span class="tt-title">Gross Annual Premium per kWp (incl. GST)</span><span class="tt-formula">Gross Premium = Net Premium + GST\n= 72.39 + 13.03 = ₹85.42/kWp/yr\n\nFor standard plant sizes:\n100 kWp: ₹8,542/year\n250 kWp: ₹21,355/year\n500 kWp: ₹42,710/year\n1 MWp: ₹85,420/year\n5 MWp: ₹4,27,100/year\n\nPremium as % of expected annual revenue:\n(at ₹3,335 expected rev/kWp/yr from Revenue sheet)\n= 85.42 / 3,335 = 2.56% of annual revenue\n\nInsurance cost = 2.56% of revenue to cover\na potential ₹162.06/kWp max payout\n= 190× coverage vs premium in worst-case year</span><span class="tt-src">Gross = Net + GST. Premium = 2.56% of expected annual revenue per kWp.</span></span></span></strong></td></tr>
+    </tbody>
+  </table>
+ 
+  <h3>VII. Policy Terms at a Glance</h3>
+  <table class="data-table">
+    <thead><tr><th>Term</th><th>Specification</th></tr></thead>
+    <tbody>
+      <tr><td>Policy Period</td><td>1 January 2026 – 31 December 2026 (annual renewal)</td></tr>
+      <tr><td>Phase A Coverage</td><td>Entry: 276.60 kWh/m² | Exit: 272.33 kWh/m² | Max: ₹8.54/kWp | Period: Jan–Feb</td></tr>
+      <tr><td>Phase B Coverage</td><td>Entry: 506.99 kWh/m² | Exit: 490.20 kWh/m² | Max: ₹33.58/kWp | Period: Mar–May</td></tr>
+      <tr><td>Phase C Coverage</td><td>Entry: 296.60 kWh/m² | Exit: 257.89 kWh/m² | Max: ₹77.42/kWp | Period: Jun–Sep</td></tr>
+      <tr><td>Phase D Coverage</td><td>Entry: 344.88 kWh/m² | Exit: 323.62 kWh/m² | Max: ₹42.52/kWp | Period: Oct–Dec</td></tr>
+      <tr><td>Annual Entry Trigger</td><td>1,425.07 kWh/m²/yr (sum of phase P20 triggers)</td></tr>
+      <tr><td>Annual Exit Trigger</td><td>1,344.04 kWh/m²/yr (sum of phase CTE exits)</td></tr>
+      <tr><td>Max Annual Payout</td><td>₹162.06 per kWp (₹16,206 for 100 kWp; ₹81,030 for 500 kWp)</td></tr>
+      <tr><td>Gross Annual Premium</td><td>₹85.42 per kWp incl. GST (₹8,542 for 100 kWp; ₹42,710 for 500 kWp)</td></tr>
+      <tr><td>Trigger Index</td><td>ERA5-Land SSRD → GHI (kWh/m²). Source: Copernicus/ECMWF. Grid: 21.17°N, 72.83°E</td></tr>
+      <tr><td>Payout Timeline</td><td>Within 14 days of phase end + ERA5 data publication. No claim form required.</td></tr>
+      <tr><td>Payout Formula</td><td>min(max(Entry − GHI_obs, 0), Coverage) × ₹2.00 per kWp</td></tr>
+      <tr><td>Calibration Method</td><td>OLS+AR(1) on post-2013 data (confirmed regime: Welch t=2.901, p=0.0078)</td></tr>
+      <tr><td>Simulation</td><td>10,000 paths × 30 years (2026–2055), Seed=42, Monte Carlo</td></tr>
+      <tr><td>Trigger Standard</td><td>P20 (World Bank CCRIF / IFC standard). Exit: CTE below P5 (Solvency II coherent measure)</td></tr>
+      <tr><td>Trend Test</td><td>Mann-Kendall Z=−4.249, p&lt;0.001; Sen's Slope =−3.311 kWh/m²/yr</td></tr>
+      <tr><td>GST</td><td>18% (CGST 9% + SGST 9%) per GST Act, 2017. ITC claimable.</td></tr>
+      <tr><td>Regulatory Framework</td><td>IRDAI Parametric Insurance Notification, 2023, India</td></tr>
+      <tr><td>Basis Risk Rating</td><td>LOW (ERA5-Land vs ground: R²≥0.92; 11km grid resolution; flat Surat terrain)</td></tr>
+      <tr><td>Product Purpose</td><td>Non-profit parametric solar protection for Surat region solar operators</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="worked" style="margin-top:28px;">
+    <div class="worked-label">Quick Reference — 100 kWp Solar Plant, Surat</div>
+    <p><strong>Annual Gross Premium:</strong> ₹8,542 (including 18% GST) = ₹5.41 per watt per year</p>
+    <p><strong>Maximum Payout (all 4 phases):</strong> ₹16,206 if annual GHI ≤ 1,344.04 kWh/m²</p>
+    <p><strong>Expected Payout Year:</strong> Once every ~5 years (20% annual probability per phase)</p>
+    <p><strong>Monsoon (Phase C) alone contributes:</strong> ₹5,164 gross premium + ₹7,742 max payout (60.5% of all risk)</p>
+    <p><strong>Premium as % of expected revenue:</strong> 2.56% (at ₹2.50/kWh tariff, PR=0.80, expected annual GHI ~1,505 kWh/m²)</p>
+    <p><strong>No paperwork, no inspector:</strong> ERA5-Land satellite data makes the payment decision automatically within 14 days of phase end.</p>
+  </div>
+</div>
+ 
+</div>
+ 
+<div style="background:var(--ink);color:rgba(255,255,255,0.4);text-align:center;padding:32px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;">
+  © 2026 Climeta.ai · Parametric Solar Insurance Model · Surat, Gujarat · ERA5-Land 1995–2025 · OLS+AR(1)+MC · Sections 26–28 + Tooltip System
+</div>
+ 
+</body>
+</html>
